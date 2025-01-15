@@ -121,7 +121,7 @@ const Navbar = () => {
         </div>
         <Link to="/" className="flex gap-2 items-center">
           <img className="w-auto h-7" src="/public/postpad-logo.png" alt="logo" />
-          <p className="font-bold">PostPad</p>
+          {/* <p className="font-bold">PostPad</p> */}
         </Link>
       </div>
 
@@ -141,11 +141,11 @@ const Navbar = () => {
                 }
                 to="/login"
               >
-                Login
+                Join Us
               </NavLink>
             </li>
           )}
-          {!user && (
+          {/* {!user && (
             <li>
               <NavLink
                 className={({ isActive }) =>
@@ -158,7 +158,7 @@ const Navbar = () => {
                 Register
               </NavLink>
             </li>
-          )}
+          )} */}
         </ul>
 
         {user && (
