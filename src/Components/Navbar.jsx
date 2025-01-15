@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import { AuthContext } from "../providers/AuthProvider";
+
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
@@ -152,7 +153,7 @@ const Navbar = () => {
                     ? " active px-3 py-3 rounded-md bg-[#ebb475] font-semibold text-white hover:text-black hover:bg-[#ebb475] "
                     : " px-3 py-3 bg-white font-semibold hover:px-3 hover:py-3 hover:rounded-md hover:bg-[#ebb475] "
                 }
-                to="/registration"
+                to="/register"
               >
                 Register
               </NavLink>
