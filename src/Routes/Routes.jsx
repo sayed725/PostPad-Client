@@ -4,6 +4,8 @@ import Error from "../Pages/Error";
 import Home from "../Pages/Home";
 import Login from "../Pages/Authentication/Login";
 import Register from "../Pages/Authentication/Register";
+import Member from "../Pages/Member";
+import Notification from "../Pages/Notification";
 
 
 
@@ -25,6 +27,15 @@ import Register from "../Pages/Authentication/Register";
         {
             path:'register',
             element: <Register></Register>
+        }
+        ,
+        {
+            path:'member',
+            element:<Member></Member>
+        },
+        {
+            path:'notification',
+            element:<Notification></Notification>
         }
        
       ]

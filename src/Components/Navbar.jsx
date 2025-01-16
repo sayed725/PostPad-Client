@@ -1,4 +1,6 @@
 import { useContext } from "react";
+import { IoHome, IoNotifications } from "react-icons/io5";
+import { MdCardMembership } from "react-icons/md";
 
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
@@ -11,91 +13,47 @@ const Navbar = () => {
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? " active px-3 py-3 rounded-md bg-[#ebb475] font-semibold text-white hover:text-black hover:bg-[#ebb475] "
-              : " px-3 py-3 bg-white font-semibold hover:px-3 hover:py-3 hover:rounded-md hover:bg-[#ebb475] "
+              ? " active btn text-3xl bg-[#005694] text-white  hover:bg-[#005694]"
+              : "  btn text-3xl  hover:bg-[#005694] hover:text-white"
           }
           to="/"
         >
-          Home
+          <IoHome></IoHome>
         </NavLink>
       </li>
       <li>
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? " active px-3 py-3 rounded-md bg-[#ebb475] font-semibold text-white hover:text-black hover:bg-[#ebb475] "
-              : " px-3 py-3 bg-white font-semibold hover:px-3 hover:py-3 hover:rounded-md hover:bg-[#ebb475] "
+              ? " active btn text-3xl bg-[#005694] text-white  hover:bg-[#005694]"
+              : "  btn text-3xl  hover:bg-[#005694] hover:text-white"
           }
-          to="/foods"
+          to="/member"
         >
-          AvailableFoods
+          <MdCardMembership></MdCardMembership>
         </NavLink>
       </li>
       <li>
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? " active px-3 py-3 rounded-md bg-[#ebb475] font-semibold text-white hover:text-black hover:bg-[#ebb475] "
-              : " px-3 py-3 bg-white font-semibold hover:px-3 hover:py-3 hover:rounded-md hover:bg-[#ebb475] "
-          }
-          to="/contact"
+          ? " active btn text-3xl bg-[#005694] text-white  hover:bg-[#005694]"
+          : "  btn text-3xl  hover:bg-[#005694] hover:text-white"
+      }
+          to="/notification"
         >
-          Contact Us
+          <IoNotifications></IoNotifications>
         </NavLink>
       </li>
 
-      {user && (
-        <li>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? " active px-3 py-3 rounded-md bg-[#ebb475] font-semibold text-white hover:text-black hover:bg-[#ebb475] "
-                : " px-3 py-3 bg-white font-semibold hover:px-3 hover:py-3 hover:rounded-md hover:bg-[#ebb475] "
-            }
-            to="/add-food"
-          >
-            Add Food
-          </NavLink>
-        </li>
-      )}
-
-      {user && (
-        <li>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? " active px-3 py-3 rounded-md bg-[#ebb475] font-semibold text-white hover:text-black hover:bg-[#ebb475] "
-                : " px-3 py-3 bg-white font-semibold hover:px-3 hover:py-3 hover:rounded-md hover:bg-[#ebb475] "
-            }
-            to="/my-posted-food"
-          >
-            ManageMyFood
-          </NavLink>
-        </li>
-      )}
-
-      {user && (
-        <li>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? " active px-3 py-3 rounded-md bg-[#ebb475] font-semibold text-white hover:text-black hover:bg-[#ebb475] "
-                : " px-3 py-3 bg-white font-semibold hover:px-3 hover:py-3 hover:rounded-md hover:bg-[#ebb475] "
-            }
-            to="/my-food-requests"
-          >
-            My Food Request
-          </NavLink>
-        </li>
-      )}
     </>
   );
 
   return (
    <div className="bg-white sticky top-0 z-10">
-     <div className="navbar  bg-white container  mx-auto">
+     <div className="navbar  bg-white  mx-auto">
       <div className="navbar-start">
-        <div className="dropdown">
+        {/* <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden border-2 border-[#ebb475] mr-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -118,26 +76,29 @@ const Navbar = () => {
           >
             {links}
           </ul>
-        </div>
+        </div> */}
         <Link to="/" className="flex gap-2 items-center">
           <img className="w-auto h-7" src="/postpad-logo.png" alt="logo" />
           {/* <p className="font-bold">PostPad</p> */}
         </Link>
       </div>
 
-      <div className="navbar-center hidden lg:flex">
-        <ul className="flex justify-between gap-3 text-sm">{links}</ul>
+      
+
+      <div className="navbar-end gap-10">
+        <ul className="flex justify-between gap-2 sm:gap-10 text-sm ">
+
+        <div className="flex">
+        <ul className="flex justify-between gap-2">{links}</ul>
       </div>
 
-      <div className="navbar-end">
-        <ul className="flex justify-between gap-2  text-sm ">
           {!user && (
             <li>
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? " active px-3 py-3 rounded-md bg-[#ebb475] font-semibold text-white hover:text-black hover:bg-[#ebb475] "
-                    : " px-3 py-3 bg-white font-semibold hover:px-3 hover:py-3 hover:rounded-md hover:bg-[#ebb475] "
+                    ? " active btn bg-[#005694] text-white  hover:bg-[#005694]"
+                    : " btn hover:bg-[#005694] hover:text-white"
                 }
                 to="/login"
               >
@@ -145,20 +106,7 @@ const Navbar = () => {
               </NavLink>
             </li>
           )}
-          {/* {!user && (
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? " active px-3 py-3 rounded-md bg-[#ebb475] font-semibold text-white hover:text-black hover:bg-[#ebb475] "
-                    : " px-3 py-3 bg-white font-semibold hover:px-3 hover:py-3 hover:rounded-md hover:bg-[#ebb475] "
-                }
-                to="/register"
-              >
-                Register
-              </NavLink>
-            </li>
-          )} */}
+         
         </ul>
 
         {user && (
