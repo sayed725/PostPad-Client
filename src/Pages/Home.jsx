@@ -4,6 +4,7 @@ import useAdmin from '../Hooks/useAdmin';
 import useMember from '../Hooks/useMember';
 import Tags from '../Components/Tags';
 import Add from '../Components/Add';
+import SearchBar from '../Components/SearchBar';
 
 const Home = () => {
     const [ isAdmin ] = useAdmin()
@@ -26,7 +27,7 @@ const Home = () => {
             </div>
 
             <div className='col-span-3'>
-            <h2 className='text-4xl font-bold text-center py-10 border-2'>Hello from post</h2>
+            <SearchBar></SearchBar>
             </div>
 
             <div>

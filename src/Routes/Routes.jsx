@@ -6,6 +6,10 @@ import Login from "../Pages/Authentication/Login";
 import Register from "../Pages/Authentication/Register";
 import Member from "../Pages/Member";
 import Notification from "../Pages/Notification";
+import Dashboard from "../Layout/DashBoard";
+import UserHome from "../Pages/Dashboard/UserHome";
+import AddPost from "../Pages/Dashboard/AddPost";
+import UserPost from "../Pages/Dashboard/UserPost";
 
 
 
@@ -40,4 +44,29 @@ import Notification from "../Pages/Notification";
        
       ]
     },
+    {
+        path:'dashboard',
+        element:<Dashboard></Dashboard>,
+        children:[
+            // user routes 
+            {
+             path: 'userHome',
+             element: <UserHome></UserHome>
+            },
+            {
+             path: 'addPost',
+             element: <AddPost></AddPost>
+            },
+            {
+             path: 'userPost',
+             element: <UserPost></UserPost>
+            },
+            // admin routes 
+            {
+
+            }
+        ]
+    }
+
+
   ]);

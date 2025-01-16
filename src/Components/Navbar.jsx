@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { IoHome, IoNotifications } from "react-icons/io5";
-import { MdCardMembership } from "react-icons/md";
+import { MdCardMembership , MdSpaceDashboard  } from "react-icons/md";
 import { FaUser, FaEnvelope, FaFileAlt, FaCog, FaLock } from "react-icons/fa";
 
 import { Link, NavLink } from "react-router-dom";
@@ -52,8 +52,8 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-white sticky top-0 z-10 pb-8">
-      <div className="navbar bg-white  mx-auto">
+    <div className="bg-white sticky top-0 z-10 mb-8 py-1 shadow-lg">
+      <div className="navbar bg-white   mx-auto">
         <div className="navbar-start">
           {/* <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden border-2 border-[#ebb475] mr-2">
@@ -140,11 +140,11 @@ const Navbar = () => {
                       <span>Profile</span>
                     </Link>
                     <Link
-                    //   to="/inbox"
+                      to="/dashboard"
                       className="flex items-center space-x-2 text-gray-700 hover:text-blue-500"
                     >
-                      <FaEnvelope />
-                      <span>Inbox</span>
+                      <MdSpaceDashboard />
+                      <span>DashBoard</span>
                     </Link>
                     <Link
                     //   to="/activity"
