@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import useAdmin from '../Hooks/useAdmin';
 import useMember from '../Hooks/useMember';
+import Tags from '../Components/Tags';
+import Add from '../Components/Add';
 
 const Home = () => {
     const [ isAdmin ] = useAdmin()
@@ -18,9 +20,18 @@ const Home = () => {
 
     return (
         <div>
-            <h2 className='text-4xl font-bold text-center py-10'>Hello from Home</h2>
-           <div className='grid grid-cols-5'>
-            
+           <div className='grid grid-cols-5 gap-7'>
+            <div>
+            <Tags></Tags>
+            </div>
+
+            <div className='col-span-3'>
+            <h2 className='text-4xl font-bold text-center py-10 border-2'>Hello from post</h2>
+            </div>
+
+            <div>
+            <Add></Add>
+            </div>
 
            </div>
         </div>

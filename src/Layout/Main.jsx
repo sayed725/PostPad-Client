@@ -6,7 +6,9 @@ import Footer from '../Components/Footer';
 const Main = () => {
     return (
         <div className='bg-[#f5f5f5] sm:w-11/12  lg:w-9/12 mx-auto'>
-            <Navbar></Navbar>
+           <div className=''>
+           <Navbar></Navbar>
+           </div>
            <Outlet></Outlet>
            <Footer></Footer>
         </div>
