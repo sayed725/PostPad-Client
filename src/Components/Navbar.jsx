@@ -120,7 +120,7 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/" className="flex gap-2 items-center">
-          <img className="w-auto h-7" src="/public/postpad-logo.png" alt="logo" />
+          <img className="w-auto h-7" src="/postpad-logo.png" alt="logo" />
           {/* <p className="font-bold">PostPad</p> */}
         </Link>
       </div>

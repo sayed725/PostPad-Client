@@ -57,7 +57,7 @@ const Login = () => {
 
         <div className='w-full px-6 py-8 md:px-8 lg:w-1/2'>
           <div className='flex justify-center mx-auto'>
-            <img className='w-auto h-7 sm:h-8' src='/public/postpad-logo.png' alt='' />
+            <img className='w-auto h-7 sm:h-8' src='/postpad-logo.png' alt='' />
           </div>
 
           <p className='mt-3 text-xl text-center text-gray-600 animate__animated animate__fadeInLeft'>
