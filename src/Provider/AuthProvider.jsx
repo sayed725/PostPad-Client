@@ -48,8 +48,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser)
-      setLoading(false)
-      
       // console.log('CurrentUser-->', currentUser)
 
       if (currentUser) {
@@ -75,7 +73,7 @@ const AuthProvider = ({ children }) => {
       return unsubscribe()
       
     }
-  }, [])
+  }, [axiosPublic])
 
 
 

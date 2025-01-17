@@ -135,7 +135,7 @@ const Navbar = () => {
                   </div>
                   <div className="flex flex-col space-y-4">
                     <Link
-                      to="/profile"
+                      to={ isAdmin? 'dashboard/adminHome' : 'dashboard/userHome'}
                       className="flex items-center space-x-2 text-gray-700 hover:text-blue-500"
                     >
                       <FaUser />

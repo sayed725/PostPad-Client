@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import loginLottieJSON from '../../assets/Animation - 1736922921301.json'
 
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast'
@@ -17,7 +17,7 @@ const Login = () => {
   const location = useLocation()
   const from = location.state?.from?.pathname || "/";
   // console.log(from)
-  const { signIn,  setUser } = useContext(AuthContext)
+  const { signIn,  user } = useContext(AuthContext)
 
    // Use React Hook Form
    const {
@@ -31,9 +31,9 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user)
-        setUser(user);
-        toast.success(`Congratulations! ${user.displayName} , Login Successful`);
-        navigate(from, { replace: true });
+        toast.success(`Congratulations! ${user.displayName} Login Successful`);
+          // Conditional navigation logic if necessary
+          navigate(from, { replace: true });
       })
       .catch((err) => {
         setError({ ...error, Login: err.code });

@@ -13,6 +13,10 @@ import UserPost from "../Pages/Dashboard/UserPost";
 import AdminHome from "../Pages/Dashboard/AdminHome";
 import AdminAnnouncements from "../Pages/Dashboard/AdminAnnouncements";
 import AddTags from "../Pages/Dashboard/AddTags";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import ManageUsers from "../Pages/Dashboard/ManageUsers";
+import Activities from "../Pages/Dashboard/Activities";
 
 
 
@@ -49,7 +53,7 @@ import AddTags from "../Pages/Dashboard/AddTags";
     },
     {
         path:'dashboard',
-        element:<Dashboard></Dashboard>,
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children:[
             // user routes 
             {
@@ -68,15 +72,19 @@ import AddTags from "../Pages/Dashboard/AddTags";
             // admin routes 
             {
              path:'adminHome',
-             element:<AdminHome></AdminHome>
+             element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+            },
+            {
+             path:'manageUsers',
+             element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
             },
             {
              path:'announcement',
-             element: <AdminAnnouncements></AdminAnnouncements>
+             element: <AdminRoute><AdminAnnouncements></AdminAnnouncements></AdminRoute>
             },
             {
-             path:'addTag',
-             element: <AddTags></AddTags>
+             path:'activities',
+             element: <AdminRoute> <Activities></Activities></AdminRoute>
             }
         ]
     }

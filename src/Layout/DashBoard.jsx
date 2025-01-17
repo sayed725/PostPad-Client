@@ -1,4 +1,5 @@
-import { FaHome, FaUsers } from "react-icons/fa";
+import { FaHome, FaUsersCog } from "react-icons/fa";
+import { RxActivityLog } from "react-icons/rx";
 import { LiaHashtagSolid } from "react-icons/lia";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { MdOutlinePostAdd, MdCardMembership } from "react-icons/md";
@@ -42,10 +43,10 @@ const Dashboard = () => {
                           ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
                           : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                       }
-                    to="/dashboard/addPost"
+                    to="/dashboard/manageUsers"
                   >
-                    <MdOutlinePostAdd></MdOutlinePostAdd>
-                   <p className="hidden lg:block"> Add Post</p>
+                    <FaUsersCog></FaUsersCog>
+                   <p className="hidden lg:block"> Manage Users</p>
                   </NavLink>
                 </li>
                 <li className="mt-2">
@@ -55,10 +56,10 @@ const Dashboard = () => {
                           ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
                           : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                       }
-                    to="/dashboard/userPost"
+                    to="/dashboard/activities"
                   >
-                    <GrMultiple></GrMultiple>
-                  <p className="hidden lg:block">  User Post</p>
+                    <RxActivityLog></RxActivityLog>
+                  <p className="hidden lg:block"> Activities</p>
                   </NavLink>
                 </li>
                 <li className="mt-2">
@@ -72,17 +73,7 @@ const Dashboard = () => {
                     <p className="hidden lg:block">Announcements</p>
                   </NavLink>
                 </li>
-                <li className="mt-2">
-                  <NavLink className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                   to="/dashboard/addTag">
-                    <LiaHashtagSolid></LiaHashtagSolid>
-                   <p className="hidden lg:block"> Add Tags</p>
-                  </NavLink>
-                </li>
+               
               </>
             ) : (
                 // normal users 
