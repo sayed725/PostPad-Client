@@ -10,6 +10,9 @@ import Dashboard from "../Layout/DashBoard";
 import UserHome from "../Pages/Dashboard/UserHome";
 import AddPost from "../Pages/Dashboard/AddPost";
 import UserPost from "../Pages/Dashboard/UserPost";
+import AdminHome from "../Pages/Dashboard/AdminHome";
+import AdminAnnouncements from "../Pages/Dashboard/AdminAnnouncements";
+import AddTags from "../Pages/Dashboard/AddTags";
 
 
 
@@ -61,9 +64,19 @@ import UserPost from "../Pages/Dashboard/UserPost";
              path: 'userPost',
              element: <UserPost></UserPost>
             },
+
             // admin routes 
             {
-
+             path:'adminHome',
+             element:<AdminHome></AdminHome>
+            },
+            {
+             path:'announcement',
+             element: <AdminAnnouncements></AdminAnnouncements>
+            },
+            {
+             path:'addTag',
+             element: <AddTags></AddTags>
             }
         ]
     }

@@ -5,8 +5,10 @@ import { FaUser, FaEnvelope, FaFileAlt, FaCog, FaLock } from "react-icons/fa";
 
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import useAdmin from "../Hooks/useAdmin";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin()
 
   const links = (
     <>
@@ -140,7 +142,7 @@ const Navbar = () => {
                       <span>Profile</span>
                     </Link>
                     <Link
-                      to="/dashboard"
+                      to={ isAdmin? 'dashboard/adminHome' : 'dashboard/userHome'}
                       className="flex items-center space-x-2 text-gray-700 hover:text-blue-500"
                     >
                       <MdSpaceDashboard />
