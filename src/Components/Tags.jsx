@@ -1,11 +1,30 @@
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+
 const Tags = () => {
 
-    const tags = [  '#love', '#instagood', '#fashion', '#photooftheday', '#photography', '#art', '#beautiful', '#nature', '#travel', '#fitness']
+    const axiosSecure = useAxiosSecure()
+
+
+    // const tags = [  '#love', '#instagood', '#fashion', '#photooftheday', '#photography', '#art', '#beautiful', '#nature', '#travel', '#fitness']
+
+    const { data: tags = [] } = useQuery({
+        queryKey: ['tags'],
+        queryFn: async() => {
+            const res = await axiosSecure.get('/tags');
+            return res.data;
+        }
+    })
+
+
+
+
+
+
 
 
 
     
-
 
 
     return (
@@ -17,7 +36,7 @@ const Tags = () => {
             <div className="mt-5 flex flex-col gap-3">
             
             {
-                tags.map((tag,index)=> <p className="hover:underline" key={index}>{tag}</p>)
+                tags.map((tag,index)=> <p className="hover:underline" key={index}>#{tag.tagname}</p>)
             }
             </div>
 

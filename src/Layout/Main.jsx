@@ -5,13 +5,15 @@ import Footer from '../Components/Footer';
 
 const Main = () => {
     return (
-        <div className='bg-[#f5f5f5] sm:w-11/12  lg:w-9/12 mx-auto'>
-           <div className=''>
+     <div className='bg-[#f5f5f5] '>
            <Navbar></Navbar>
+         <div className='bg-[#f5f5f5] sm:w-11/12  lg:w-9/12 mx-auto'>
+           <div className=''>
            </div>
            <Outlet></Outlet>
-           <Footer></Footer>
         </div>
+           <Footer></Footer>
+     </div>
     );
 };
 

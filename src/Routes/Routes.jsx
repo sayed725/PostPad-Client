@@ -8,15 +8,16 @@ import Member from "../Pages/Member";
 import Notification from "../Pages/Notification";
 import Dashboard from "../Layout/DashBoard";
 import UserHome from "../Pages/Dashboard/UserHome";
-import AddPost from "../Pages/Dashboard/AddPost";
+
 import UserPost from "../Pages/Dashboard/UserPost";
 import AdminHome from "../Pages/Dashboard/AdminHome";
 import AdminAnnouncements from "../Pages/Dashboard/AdminAnnouncements";
-import AddTags from "../Pages/Dashboard/AddTags";
+
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import Activities from "../Pages/Dashboard/Activities";
+import AddaPost from "../Pages/Dashboard/AddaPost";
 
 
 
@@ -62,7 +63,7 @@ import Activities from "../Pages/Dashboard/Activities";
             },
             {
              path: 'addPost',
-             element: <AddPost></AddPost>
+             element: <AddaPost></AddaPost>
             },
             {
              path: 'userPost',

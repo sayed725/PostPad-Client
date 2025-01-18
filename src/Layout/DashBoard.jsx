@@ -15,7 +15,8 @@ const Dashboard = () => {
   const [isAdmin] = useAdmin();
 
   return (
-    <div className="bg-[#f5f5f5] sm:w-11/12  lg:w-9/12 mx-auto">
+  <div className="bg-[#f5f5f5]">
+      <div className="bg-[#f5f5f5] sm:w-11/12  lg:w-9/12 mx-auto">
       <div className="flex">
         {/* dashboard side bar */}
         <div className="lg:w-64 w-[80px] min-h-screen bg-white shadow-lg ">
@@ -170,6 +171,7 @@ const Dashboard = () => {
       </div>
       <Footer></Footer>
     </div>
+  </div>
   );
 };
 
