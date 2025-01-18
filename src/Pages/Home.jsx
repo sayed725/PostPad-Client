@@ -5,6 +5,7 @@ import useMember from '../Hooks/useMember';
 import Tags from '../Components/Tags';
 import Add from '../Components/Add';
 import SearchBar from '../Components/SearchBar';
+import ShowPost from '../Components/ShowPost';
 
 const Home = () => {
     const [ isAdmin ] = useAdmin()
@@ -21,13 +22,14 @@ const Home = () => {
 
     return (
         <div>
-           <div className='grid grid-cols-5 gap-7'>
-            <div>
+           <div className='lg:grid p-1 sm:p-0 sm:grid-cols-5 gap-7'>
+            <div className='hidden lg:block'>
             <Tags></Tags>
             </div>
 
             <div className='col-span-3'>
             <SearchBar></SearchBar>
+            <ShowPost></ShowPost>
             </div>
 
             <div>

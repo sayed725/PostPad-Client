@@ -3,11 +3,13 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import useAuth from "../../Hooks/useAuth";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddaPost = () => {
+    const { user } = useAuth()
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
@@ -34,14 +36,20 @@ const AddaPost = () => {
     if (res.data.success) {
       // now send the menu item data to the server with the image url
       const postItem = {
+        authorName: user?.displayName,
+        authorImage: user?.photoURL,
+        authorEmail: user?.email,
         title: data.title,
         description: data.description,
-        usedtag: data.tag,
+        usedTag: data.tag,
         image: res.data.data.display_url,
+        upVote: 0,
+        dawnVote:0,
+        time: new Date(),
       };
       
       const postRes = await axiosSecure.post("/add-post", postItem);
-      // console.log(menuRes.data)
+    //   console.log(postRes.data)
       if (postRes.data.insertedId) {
         // show success popup
         toast.success('Post Successfully Added')
@@ -79,7 +87,7 @@ const AddaPost = () => {
             </label>
             <textarea
               {...register("description")}
-              className="textarea textarea-bordered h-24 focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+              className="textarea textarea-bordered h-32 focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
               placeholder="Post Description"
             ></textarea>
           </div>
