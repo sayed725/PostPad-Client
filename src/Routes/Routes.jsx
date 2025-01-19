@@ -19,6 +19,7 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import Activities from "../Pages/Dashboard/Activities";
 import AddaPost from "../Pages/Dashboard/AddaPost";
 import PostDetails from "../Pages/PostDetails";
+import NewDashboard from "../Layout/NewDashboard";
 
 
 
@@ -59,7 +60,7 @@ import PostDetails from "../Pages/PostDetails";
     },
     {
         path:'dashboard',
-        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        element: <PrivateRoute><NewDashboard></NewDashboard></PrivateRoute>,
         children:[
             // user routes 
             {

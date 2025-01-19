@@ -1,14 +1,38 @@
 import { FaRegCommentDots, FaShareAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
-const DetailsPostCard =({post})=> {
+const DetailsPostCard =({post, refetch})=> {
+    const axiosSecure = useAxiosSecure()
 
     const {_id,title,authorName, authorImage, authorEmail, description, usedTag, image, upVote, dawnVote, time} = post
 
-    console.log(post)
+
+   const setUpvote = (upPost)=>{
+     axiosSecure.put(`post/upvote`,upPost).then((res) => {
+          console.log(res.data)
+          if (res.data.modifiedCount > 0) {
+              toast.success('Post UpVoted')
+              refetch()
+            }
+        });
+   }
+   const setDawnVote = (dwPost)=>{
+     axiosSecure.put(`/post/dawnvote`,dwPost).then((res) => {
+          console.log(res.data)
+          if (res.data.modifiedCount > 0) {
+           toast.success('Post DawnVoted')
+           refetch()
+          }
+        });
+   }
+
+
+    // console.log(post)
     return (
-       <Link >
+       
         <div className="lg:w-7/12 mx-auto bg-white shadow-lg rounded-lg p-5">
             {/* Author Section */}
             <div className="flex items-center space-x-3">
@@ -43,13 +67,15 @@ const DetailsPostCard =({post})=> {
             {/* Likes, Comments, and Share */}
             <div className="flex items-center justify-between mt-4 text-gray-600 ">
                 <div className="flex items-center space-x-2 ">
-                    <div className="flex gap-2 btn btn-sm hover:text-blue-500">
+                    <div onClick={()=>setUpvote(post)} 
+                     className="flex gap-2 btn btn-sm hover:text-blue-500">
                     <BiSolidUpvote className="text-xl cursor-pointer h" />
-                    <p>{upVote}</p>
+                    <p>UpVote · {upVote}</p>
                     </div>
-                    <div className="flex gap-2 btn btn-sm hover:text-blue-500">
+                    <div onClick={()=>setDawnVote(post)}
+                     className="flex gap-2 btn btn-sm hover:text-blue-500">
                     <BiSolidDownvote className="text-xl cursor-pointer " />
-                    <p>{dawnVote}</p>
+                    <p>DawnVote · {dawnVote}</p>
                     </div>
                     
                 </div>
@@ -72,7 +98,7 @@ const DetailsPostCard =({post})=> {
                     </div>
                 </div>
             </div>
-        </div></Link>
+        </div>
     );
 }
 

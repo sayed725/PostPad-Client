@@ -10,7 +10,7 @@ const PostDetails = () => {
 
     const axiosPublic = useAxiosPublic()
 
-    const { data: post = {}, isLoading } = useQuery({
+    const { refetch, data: post = {}, isLoading } = useQuery({
         queryKey: ['specificPost'],
         queryFn: async() => {
             const res = await axiosPublic.get(`/posts/${id}`);
@@ -27,7 +27,7 @@ const PostDetails = () => {
         <div className='min-h-screen'>
             <h2 className='text-4xl font-bold text-center'>post details</h2>
             <div className='flex flex-col gap-5'>
-               <DetailsPostCard post={post}></DetailsPostCard>
+               <DetailsPostCard post={post} refetch={refetch}></DetailsPostCard>
             </div>
         </div>
     );

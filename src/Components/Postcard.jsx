@@ -53,12 +53,12 @@ const PostCard =({post})=> {
             <div className="flex items-center justify-between mt-4 text-gray-600 ">
                 <div className="flex items-center space-x-2 ">
                     <div className="flex gap-2 btn btn-sm hover:text-blue-500">
-                    <BiSolidUpvote className="text-xl cursor-pointer h" />
-                    <p>{upVote}</p>
+                    {/* <BiSolidUpvote className="text-xl cursor-pointer h" /> */}
+                    <p>  UpVote · {upVote}</p>
                     </div>
                     <div className="flex gap-2 btn btn-sm hover:text-blue-500">
-                    <BiSolidDownvote className="text-xl cursor-pointer " />
-                    <p>{dawnVote}</p>
+                    {/* <BiSolidDownvote className="text-xl cursor-pointer " /> */}
+                    <p> DawnVote · {dawnVote}</p>
                     </div>
                     
                 </div>

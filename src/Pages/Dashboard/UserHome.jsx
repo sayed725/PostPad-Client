@@ -28,7 +28,7 @@ const UserHome = () => {
 
           <RiMedalFill
             className={`${
-              isMember ? "text-6xl text-yellow-500" : "text-6xl bg-gray-500"
+              isMember ? "text-6xl text-yellow-500" : "text-6xl"
             }`}
           ></RiMedalFill>
         </div>
