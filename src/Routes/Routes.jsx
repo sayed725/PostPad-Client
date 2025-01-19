@@ -18,6 +18,7 @@ import AdminRoute from "./AdminRoute";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import Activities from "../Pages/Dashboard/Activities";
 import AddaPost from "../Pages/Dashboard/AddaPost";
+import PostDetails from "../Pages/PostDetails";
 
 
 
@@ -31,6 +32,10 @@ import AddaPost from "../Pages/Dashboard/AddaPost";
         {
             path:'/',
             element: <Home></Home>
+        },
+        {
+           path:'posts/:id',
+           element: <PrivateRoute><PostDetails></PostDetails></PrivateRoute>
         },
         {
             path:'login',

@@ -1,17 +1,15 @@
-import { useState } from "react";
 import { FaRegCommentDots, FaShareAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
 
-const PostCard =({post})=> {
-    const [expanded, setExpanded] = useState(false);
+const DetailsPostCard =({post})=> {
 
     const {_id,title,authorName, authorImage, authorEmail, description, usedTag, image, upVote, dawnVote, time} = post
 
     console.log(post)
     return (
-       <Link to={`/posts/${_id}`}>
-        <div className="mx-auto bg-white shadow-lg rounded-lg p-5">
+       <Link >
+        <div className="lg:w-7/12 mx-auto bg-white shadow-lg rounded-lg p-5">
             {/* Author Section */}
             <div className="flex items-center space-x-3">
                 <img 
@@ -27,16 +25,9 @@ const PostCard =({post})=> {
 
             {/* Post Content */}
             <p className="mt-3 text-gray-700">
-            {expanded ? description : `${description.slice(0, 200)}...`}
+            {description}
             <span className="ml-2 font-semibold">{usedTag}</span>
-                {!expanded && (
-                    <button 
-                        onClick={() => setExpanded(true)} 
-                        className="text-blue-500 ml-2"
-                    >
-                        Read More
-                    </button>
-                )}
+
                
             </p>
 
@@ -68,7 +59,7 @@ const PostCard =({post})=> {
                 <div className="flex items-center space-x-4">
 
                     {/* comment  */}
-                    <Link to={`/posts/${_id}`}
+                    <Link to={'/okok'}
                      className="flex items-center space-x-1">
                         <FaRegCommentDots className="text-xl cursor-pointer" />
                         <span>41</span>
@@ -85,4 +76,4 @@ const PostCard =({post})=> {
     );
 }
 
-export default PostCard;
+export default DetailsPostCard;
