@@ -2,12 +2,13 @@ import React from 'react';
 import PostCard from './Postcard';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
+import LoadingSpinner from './LoadingSpinner';
 
 const ShowPost = () => {
 
     const axiosPublic = useAxiosPublic()
 
-    const { data: posts = [] } = useQuery({
+    const { data: posts = [], isLoading } = useQuery({
         queryKey: ['posts'],
         queryFn: async() => {
             const res = await axiosPublic.get('/posts');
@@ -15,7 +16,11 @@ const ShowPost = () => {
         }
     })
 
-    console.log(posts)
+    // console.log(posts)
+
+    if(isLoading){
+        return <LoadingSpinner></LoadingSpinner>
+    }
 
 
 

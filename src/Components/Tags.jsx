@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Tags = () => {
 
@@ -8,7 +9,7 @@ const Tags = () => {
 
     // const tags = [  '#love', '#instagood', '#fashion', '#photooftheday', '#photography', '#art', '#beautiful', '#nature', '#travel', '#fitness']
 
-    const { data: tags = [] } = useQuery({
+    const { data: tags = [], isLoading } = useQuery({
         queryKey: ['tags'],
         queryFn: async() => {
             const res = await axiosSecure.get('/tags');
@@ -21,7 +22,9 @@ const Tags = () => {
 
 
 
-
+   if(isLoading){
+    return <LoadingSpinner></LoadingSpinner>
+   }
 
 
     

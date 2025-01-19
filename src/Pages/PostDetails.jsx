@@ -4,18 +4,21 @@ import useAxiosPublic from '../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import DetailsPostCard from '../Components/DetailsPostcard';
 
+
 const PostDetails = () => {
     const { id } = useParams();
 
     const axiosPublic = useAxiosPublic()
 
-    const { data: post = {} } = useQuery({
+    const { data: post = {}, isLoading } = useQuery({
         queryKey: ['specificPost'],
         queryFn: async() => {
             const res = await axiosPublic.get(`/posts/${id}`);
             return res.data;
         }
     })
+
+   
 
 
 
