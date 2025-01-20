@@ -8,7 +8,7 @@ const PostCard =({post})=> {
 
     const {_id,title,authorName, authorImage, authorEmail, description, usedTag, image, upVote, dawnVote, time} = post
 
-    console.log(post)
+    // console.log(post)
     return (
        <Link to={`/posts/${_id}`}>
         <div className="mx-auto bg-white shadow-lg rounded-lg p-5">
@@ -28,7 +28,7 @@ const PostCard =({post})=> {
             {/* Post Content */}
             <p className="mt-3 text-gray-700">
             {expanded ? description : `${description.slice(0, 200)}...`}
-            <span className="ml-2 font-semibold">{usedTag}</span>
+            <span className="ml-2 font-semibold">#{usedTag}</span>
                 {!expanded && (
                     <button 
                         onClick={() => setExpanded(true)} 

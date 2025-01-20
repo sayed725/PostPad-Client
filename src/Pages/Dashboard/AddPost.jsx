@@ -74,7 +74,7 @@ const AddPost = () => {
 
   const options = tags.map((tag) => ({
     value: tag.tagname,
-    label: `#${tag.tagname}`,
+    label: `${tag.tagname}`,
   }));
 
   return (

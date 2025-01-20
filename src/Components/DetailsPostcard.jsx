@@ -12,7 +12,7 @@ const DetailsPostCard =({post, refetch})=> {
 
    const setUpvote = (upPost)=>{
      axiosSecure.put(`post/upvote`,upPost).then((res) => {
-          console.log(res.data)
+        //   console.log(res.data)
           if (res.data.modifiedCount > 0) {
               toast.success('Post UpVoted')
               refetch()
@@ -21,7 +21,7 @@ const DetailsPostCard =({post, refetch})=> {
    }
    const setDawnVote = (dwPost)=>{
      axiosSecure.put(`/post/dawnvote`,dwPost).then((res) => {
-          console.log(res.data)
+        //   console.log(res.data)
           if (res.data.modifiedCount > 0) {
            toast.success('Post DawnVoted')
            refetch()
@@ -50,7 +50,7 @@ const DetailsPostCard =({post, refetch})=> {
             {/* Post Content */}
             <p className="mt-3 text-gray-700">
             {description}
-            <span className="ml-2 font-semibold">{usedTag}</span>
+            <span className="ml-2 font-semibold">#{usedTag}</span>
 
                
             </p>

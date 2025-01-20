@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import useAdmin from '../Hooks/useAdmin';
 import useMember from '../Hooks/useMember';
 import Tags from '../Components/Tags';
 import Add from '../Components/Add';
-import SearchBar from '../Components/SearchBar';
+
 import ShowPost from '../Components/ShowPost';
 
 const Home = () => {
@@ -28,7 +28,6 @@ const Home = () => {
             </div>
 
             <div className='col-span-3'>
-            <SearchBar></SearchBar>
             <ShowPost></ShowPost>
             </div>
 
