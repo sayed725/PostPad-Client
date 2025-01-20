@@ -26,9 +26,10 @@ const PostCard =({post})=> {
             </div>
 
             {/* Post Content */}
+            <p className="mt-3 text-xl font-semibold">{title}</p>
             <p className="mt-3 text-gray-700">
             {expanded ? description : `${description.slice(0, 200)}...`}
-            <span className="ml-2 font-semibold">#{usedTag}</span>
+            <span className="ml-2 font-semibold">{usedTag}</span>
                 {!expanded && (
                     <button 
                         onClick={() => setExpanded(true)} 
