@@ -10,6 +10,7 @@ const SocialLogin = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const axiosPublic = useAxiosPublic()
+    const from = location.state?.from?.pathname || "/";
 
 
 
@@ -27,7 +28,7 @@ const SocialLogin = () => {
             .then(res=>{
                 console.log(res.data)
                 toast.success(`Congratulations! Login Successful`);
-                navigate(location?.state ? location.state : "/");
+                navigate(from, { replace: true });
 
             })
             

@@ -36,6 +36,30 @@ const DetailsPostCard =({post, refetch})=> {
           avatarColor: "bg-red-500",
         },
       ]);
+
+
+      const handleCommentSubmit = (e)=>{
+        e.preventDefault();
+
+      const commentItem = {
+         comment: e.target.comment.value,
+         postId: _id,
+         commentUser: user?.displayName,
+         commentImg: user?.photoURL,
+         commentEmail: user?.email
+      }
+
+    //   console.log(commentItem) 
+
+      axiosSecure.post('/add-comment', commentItem)
+      .then(res=>{
+        console.log(res.data)
+        if(res.data.insertedId){
+            toast.success('Comment Added')
+        }
+      })
+
+      }
     
      
 
@@ -139,20 +163,24 @@ const DetailsPostCard =({post, refetch})=> {
 
 
 
-            <div className="my-5 mx-auto bg-white shadow-md p-4 rounded-md">
+            <div className="my-5 mx-auto bg-white  rounded-md">
       {/* Comment Input */}
-      <div className="flex items-center space-x-2 border-b pb-3 mb-3">
-        <div className="w-14 h-14 rounded-full flex items-center justify-center">
+      <div className="flex items-center space-x-2 border-b pb-3 mb-3 ">
+        <div className="w-11 h-11 rounded-full flex items-center justify-center">
          <img src={user.photoURL} alt=""  className="rounded-full "/>
         </div>
-        <input
+       <form onSubmit={handleCommentSubmit}
+       className="flex items-center justify-between w-full gap-2">
+       <input
           type="text"
-          placeholder="একটি মন্তব্য যোগ করুন..."
-          className="w-full border-none focus:ring-0 text-gray-600 bg-gray-100 p-2 rounded-md"
+          name="comment"
+          placeholder="Write a Comment..."
+          className="w-full input input-bordered text-gray-600 bg-gray-100 p-3 rounded-md focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
         />
-        <button className="bg-[#005694] hover:bg-[#005694] text-white px-4 py-2 rounded-md">
+        <button className="bg-[#005694] hover:bg-[#005694] text-white px-4 py-3 rounded-md">
           Comment
         </button>
+       </form>
       </div>
 
       {/* Comments List */}
