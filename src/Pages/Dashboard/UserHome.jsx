@@ -1,10 +1,34 @@
 import useAuth from "../../Hooks/useAuth";
 import { RiMedalFill } from "react-icons/ri";
 import useMember from "../../Hooks/useMember";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import PostCard from "../../Components/Postcard";
+import LoadingSpinner from "../../Components/LoadingSpinner";
 
 const UserHome = () => {
   const { user } = useAuth();
   const [isMember] = useMember();
+  const axiosSecure = useAxiosSecure()
+
+
+  const { data: posts = [], isLoading } = useQuery({
+    queryKey: ['userPosts', user],
+    queryFn: async() => {
+        const res = await axiosSecure.get(`/post/${user?.email}`);
+        return res.data;
+    }
+})
+
+ if(isLoading){
+    <LoadingSpinner></LoadingSpinner>
+ }
+
+
+
+
+
+
 
   return (
     <div>
@@ -35,9 +59,12 @@ const UserHome = () => {
       </div>
 
       {/* post section  */}
+      <h3 className="text-4xl text-center font-semibold mt-5">Your top 3 post</h3>
 
-      <div className="py-10">
-            <h2 className="text-4xl font-bold text-center">Your top 3 Posts</h2>
+      <div className="  mx-auto flex flex-col gap-5 py-5 lg:py-10">
+      {
+                    posts.map(post=><PostCard key={post._id} post={post}></PostCard>)
+                }
         </div>
     </div>
   );

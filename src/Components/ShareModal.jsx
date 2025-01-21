@@ -13,7 +13,7 @@ import {
   LinkedinIcon,
 } from 'react-share';
 
-Modal.setAppElement('#root'); // Replace '#root' with your app's root element if different
+Modal.setAppElement('#root'); 
 
 const ShareModal = ({ postId, postTitle }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);

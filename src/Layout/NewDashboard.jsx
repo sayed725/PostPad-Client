@@ -105,7 +105,7 @@ const NewDashboard = () => {
                     to="/dashboard/userHome"
                   >
                     <CgProfile></CgProfile>
-                   <p className=""> User Profile</p>
+                   <p className=""> My Profile</p>
                   </NavLink>
                 </li>
                 <li className="mt-2">
@@ -131,7 +131,7 @@ const NewDashboard = () => {
                     to="/dashboard/userPost"
                   >
                     <GrMultiple></GrMultiple>
-                  <p className="">  User Post</p>
+                  <p className="">  My Post</p>
                   </NavLink>
                 </li>
               </>

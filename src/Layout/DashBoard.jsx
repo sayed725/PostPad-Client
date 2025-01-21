@@ -115,7 +115,7 @@ const Dashboard = () => {
                     to="/dashboard/userPost"
                   >
                     <GrMultiple></GrMultiple>
-                  <p className="hidden lg:block">  User Post</p>
+                  <p className="hidden lg:block">  My Posts</p>
                   </NavLink>
                 </li>
               </>
