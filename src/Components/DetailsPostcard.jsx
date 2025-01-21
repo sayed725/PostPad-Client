@@ -4,71 +4,63 @@ import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { FaEllipsisH } from "react-icons/fa";
-import { useState } from "react";
-import useAuth from "../Hooks/useAuth";
 
-const DetailsPostCard =({post, refetch})=> {
+import useAuth from "../Hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import ShareModal from "./ShareModal";
+
+
+
+
+
+
+
+
+const DetailsPostCard =({post, refetch , cRefetch , comments})=> {
     const axiosSecure = useAxiosSecure()
+    const axiosPublic= useAxiosPublic()
     const { user } = useAuth()
 
     const {_id,title,authorName, authorImage, authorEmail, description, usedTag, image, upVote, dawnVote, time} = post
 
-    // const comments = ['i ama a good person', 'i want to  work daily']
-
-
-    const [comments, setComments] = useState([
-        {
-          id: 1,
-          user: "Rajesh Ali",
-          date: "29 জুলাই",
-          text: "বাহ দারুণ লাগলো",
-          upvotes: 10,
-          downvotes: 2,
-          avatarColor: "bg-gray-500",
-        },
-        {
-          id: 2,
-          user: "Shahidul Islam",
-          date: "19 অক্টোবর",
-          text: "এখানে দেওয়া ছবির দ্বারা কি বোঝানো হয়েছে",
-          upvotes: 5,
-          downvotes: 1,
-          avatarColor: "bg-red-500",
-        },
-      ]);
+    
 
 
       const handleCommentSubmit = (e)=>{
         e.preventDefault();
 
+        const comment =  e.target.comment.value
+
       const commentItem = {
-         comment: e.target.comment.value,
+         comment: comment,
          postId: _id,
          commentUser: user?.displayName,
          commentImg: user?.photoURL,
-         commentEmail: user?.email
+         commentEmail: user?.email,
+         commentTime: new Date(),
       }
 
     //   console.log(commentItem) 
+
+    if(comment.length===0){
+        return ""
+    }
+
+    
 
       axiosSecure.post('/add-comment', commentItem)
       .then(res=>{
         console.log(res.data)
         if(res.data.insertedId){
             toast.success('Comment Added')
+            e.target.reset()
+            cRefetch()
+            
         }
       })
 
       }
-    
-     
-
-
-
-
-
-
-
 
 
 
@@ -110,6 +102,7 @@ const DetailsPostCard =({post, refetch})=> {
             </div>
 
             {/* Post Content */}
+            <p className="mt-3 text-xl font-semibold">{title}</p>
             <p className="mt-3 text-gray-700">
             {description}
             <span className="ml-2 font-semibold">{usedTag}</span>
@@ -147,24 +140,24 @@ const DetailsPostCard =({post, refetch})=> {
                 <div className="flex items-center space-x-2 sm:space-x-4">
 
                     {/* comment  */}
-                    <Link to={'/okok'}
-                     className="flex items-center space-x-1">
+                    <Link 
+                     className="flex hover:text-blue-500 items-center space-x-1">
                         <FaRegCommentDots className="text-xl cursor-pointer" />
-                        <span>41</span>
+                        <span>{comments.length}</span>
                     </Link>
 
 
                     <div className="flex items-center space-x-1">
-                        <FaShareAlt className="text-xl cursor-pointer" />
-                        <span>07</span>
+                    <ShareModal postTitle={title} postId={_id}></ShareModal>
                     </div>
+
                 </div>
             </div>
 
-
+           
 
             <div className="my-5 mx-auto bg-white  rounded-md">
-      {/* Comment Input */}
+    
       <div className="flex items-center space-x-2 border-b pb-3 mb-3 ">
         <div className="w-11 h-11 rounded-full flex items-center justify-center">
          <img src={user.photoURL} alt=""  className="rounded-full "/>
@@ -183,28 +176,29 @@ const DetailsPostCard =({post, refetch})=> {
        </form>
       </div>
 
-      {/* Comments List */}
+      
       {comments.map((comment) => (
         <div
-          key={comment.id}
+          key={comment._id}
           className="border-b pb-3 mb-3 flex flex-col space-y-2"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className={`w-8 h-8 rounded-full ${comment.avatarColor} text-white flex items-center justify-center`}>
-                {/* {comment.user.charAt(0)} */}
+              <div className={'w-8 h-8 rounded-full text-white flex items-center justify-center'}>
+               
+                <img src={comment.commentImg} alt="" className="rounded-full" />
               </div>
               <div>
-                <p className="font-semibold">{comment.user}</p>
-                <p className="text-xs text-gray-500">{comment.date}</p>
+                <p className="font-semibold">{comment.commentUser}</p>
+                <p className="text-xs text-gray-500">{new Date(comment.commentTime).toLocaleDateString()}</p>
               </div>
             </div>
             <FaEllipsisH className="text-gray-500 cursor-pointer" />
           </div>
 
-          <p className="text-gray-700">{comment.text}</p>
+          <p className="text-gray-700">{comment.comment}</p>
 
-          {/* Upvote / Downvote Buttons */}
+        
          
         </div>
       ))}

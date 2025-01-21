@@ -9,7 +9,7 @@ const ShowPost = () => {
 
     const axiosPublic = useAxiosPublic()
     const [search, setSearch] = useState('')
-    console.log(search)
+    // console.log(search)
 
     const { data: posts = [], isLoading } = useQuery({
         queryKey: ['posts', search],
@@ -20,6 +20,8 @@ const ShowPost = () => {
     })
 
     // console.log(posts)
+
+    
 
    
 
@@ -58,7 +60,9 @@ const ShowPost = () => {
                 </div>
            
             <div className='flex flex-col gap-5 py-10'>
-                
+                {
+                    isLoading&& <LoadingSpinner></LoadingSpinner>
+                }
                 {
                     posts.map(post=><PostCard key={post._id} post={post}></PostCard>)
                 }

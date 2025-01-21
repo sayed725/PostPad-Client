@@ -2,11 +2,40 @@ import { useState } from "react";
 import { FaRegCommentDots, FaShareAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "./LoadingSpinner";
+
+
+
+
+
+
+
+
+
+
+
 
 const PostCard =({post})=> {
+    const axiosPublic = useAxiosPublic()
     const [expanded, setExpanded] = useState(false);
 
     const {_id,title,authorName, authorImage, authorEmail, description, usedTag, image, upVote, dawnVote, time} = post
+
+
+    const { refetch:cRefetch, data: comments , isLoading:isLoad  } = useQuery({
+        queryKey: ['comments', _id],
+        queryFn: async() => {
+            const res = await axiosPublic.get(`/comments?id=${_id}`);
+            return res.data;
+        }
+    })
+
+
+    if(isLoad){
+        return <LoadingSpinner></LoadingSpinner>
+    }
 
     // console.log(post)
     return (
@@ -70,15 +99,15 @@ const PostCard =({post})=> {
 
                     {/* comment  */}
                     <Link to={`/posts/${_id}`}
-                     className="flex items-center space-x-1">
+                     className="flex items-center hover:to-blue-500 space-x-1">
                         <FaRegCommentDots className="text-xl cursor-pointer" />
-                        <span>41</span>
+                        <span>{comments.length}</span>
                     </Link>
 
 
-                    <div className="flex items-center space-x-1">
+                    <div className="flex hover:to-blue-500 items-center space-x-1">
                         <FaShareAlt className="text-xl cursor-pointer" />
-                        <span>07</span>
+                        
                     </div>
                 </div>
             </div>
