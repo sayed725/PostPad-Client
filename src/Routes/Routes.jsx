@@ -20,6 +20,7 @@ import Activities from "../Pages/Dashboard/Activities";
 import AddaPost from "../Pages/Dashboard/AddaPost";
 import PostDetails from "../Pages/PostDetails";
 import NewDashboard from "../Layout/NewDashboard";
+import MemberShip from "../Pages/Dashboard/MemberShip";
 
 
 
@@ -54,6 +55,10 @@ import NewDashboard from "../Layout/NewDashboard";
         {
             path:'notification',
             element:<Notification></Notification>
+        },
+        {
+            path:'member',
+            element:<MemberShip></MemberShip>
         }
        
       ]

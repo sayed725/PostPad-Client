@@ -2,6 +2,9 @@ import React from 'react';
 import useAuth from '../../Hooks/useAuth';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import LoadingSpinner from '../../Components/LoadingSpinner';
+import { FaTrash } from "react-icons/fa6";
+import Swal from 'sweetalert2';
 
 const UserPost = () => {
 
@@ -12,15 +15,46 @@ const UserPost = () => {
 
    
 
-    const { data: posts = [], isLoading } = useQuery({
-        queryKey: ['userPosts', user],
+    const { refetch,data: posts = [], isLoading } = useQuery({
+        queryKey: ['userAllPosts', user],
         queryFn: async() => {
-            const res = await axiosSecure.get(`/post/${user?.email}`);
+            const res = await axiosSecure.get(`/allpost/${user?.email}`);
             return res.data;
         }
     })
 
-    console.log(posts)
+    // console.log(posts)
+
+    if(isLoading){
+        <LoadingSpinner></LoadingSpinner>
+    }
+
+    const handleDelete = (id)=>{
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                axiosSecure.delete(`/post/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your post has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
+    }
 
 
 
@@ -43,52 +77,32 @@ const UserPost = () => {
                       <thead className="text-xl font-semibold">
                         <tr>
                           <th></th>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Role</th>
-                          <th>Subscription Status</th>
-                          <th>Action</th>
+                          <th>Post Title</th>
+                          <th>No Of Votes</th>
+                          <th>Comment</th>
+                          <th>Delete</th>
+                         
                         </tr>
                       </thead>
                       <tbody>
-                        {/* {users.map((user, index) => ( */}
-                          <tr key={user._id}>
-                            {/* <th>{index + 1}</th> */}
-                            <td>{user.name}</td>
-                            <td>{user.email}</td>
-                            <td>
-                              {user.role === "admin" ? (
-                                <button className="btn  bg-[#005694] text-white hover:bg-[#005694]">
-                                  Admin Role
-                                </button>
-                              ) : (
-                                <button
-                                  onClick={() => handleMakeAdmin(user)}
-                                  className="btn bg-[#005694] text-white hover:bg-[#005694]"
-                                >
-                                  Make Admin
-                                </button>
-                              )}
-                            </td>
-                            <td className="px-4 flex justify-center items-center py-4 text-sm text-gray-500  whitespace-nowrap">
-                              {/* <RiMedalFill
-                                className={`${user.role === "bronze" && "text-4xl mt-3"} ${
-                                  user.role === "gold" && "text-4xl text-yellow-500 mt-3"
-                                } ${
-                                  user.role === "admin" && "text-4xl text-blue-500 mt-3"
-                                } `}
-                              ></RiMedalFill> */}
-                            </td>
-                            <td>
-                              <button
-                                onClick={() => handleDeleteUser(user)}
-                                className="btn btn-ghost btn-lg"
-                              >
-                                {/* <FaTrashAlt className="text-red-600"></FaTrashAlt> */}
-                              </button>
-                            </td>
+                        {posts.map((post, index) => (
+                          <tr key={index}>
+                            <th>{index + 1}</th>
+                            <td>{post.title}</td>
+                            <td>{post.upVote}</td>
+                            <td><button className='btn'>All Comments</button></td>
+
+
+
+
+
+
+
+                            <td><button onClick={()=>handleDelete(post._id)}
+                             className='btn text-2xl text-red-500'><FaTrash></FaTrash></button></td>
+                            
                           </tr>
-                        {/* ))} */}
+                        ))}
                       </tbody>
                     </table>
                   </div>
