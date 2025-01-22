@@ -7,6 +7,9 @@ import CheakoutForm from "./CheakoutForm";
 
 const stripePromise= loadStripe(import.meta.env.VITE_Payment_Gateway_PK)
 const Payment = () => {
+
+
+    
     return (
         <div>
             <h2 className="text-4xl font-semibold text-center mb-10">Payments</h2>

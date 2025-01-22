@@ -10,7 +10,10 @@ import useAuth from "../../../Hooks/useAuth";
 
 
 
+
 const CheakoutForm = () => {
+
+   
 
     const [error, setError] = useState('')
     const [clientSecret, setClientSecret] = useState('')
@@ -89,16 +92,16 @@ const CheakoutForm = () => {
 
 
                  axiosSecure.patch(`/payment/${user.email}`).then((res) => {
-                      // console.log(res.data)
+                    //   console.log(res.data)
                       if (res.data.modifiedCount > 0) {
                         Swal.fire({
                           position: "top-end",
                           icon: "success",
-                          title: `${user.name} is an Admin Now!`,
+                          title: ` Congrats!! ${user.displayName} is an Member Now!`,
                           showConfirmButton: false,
                           timer: 1500,
                         });
-                        // navigate('/dashboard/userHome')
+                        navigate('/member')
                       }
                     });
 
@@ -110,7 +113,8 @@ const CheakoutForm = () => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+       <div>
+         <form onSubmit={handleSubmit}>
            <CardElement
         options={{
           style: {
@@ -127,12 +131,19 @@ const CheakoutForm = () => {
           },
         }}
       />
-      <button className="btn btn-sm bg-primary my-4" type="submit" disabled={!stripe || !clientSecret}>
+      <button className="bg-[#005694] hover:bg-[#005694] text-white px-6 py-2 mt-10 rounded-md my-4" type="submit" disabled={!stripe || !clientSecret}>
         Pay
       </button>
       <p className="text-red-600">{error}</p>
       {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p> }
-        </form>
+        </form>  
+
+
+        <h2>Demo card for testing: 4242 4242 4242 4242 </h2>
+        <h2>Date: Any future date  </h2>
+        <h2>CVC: Any 3 number </h2>
+        <h2>ZIP: Any 5 number </h2>
+       </div>
     );
 };
 
