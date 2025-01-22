@@ -21,6 +21,8 @@ import AddaPost from "../Pages/Dashboard/AddaPost";
 import PostDetails from "../Pages/PostDetails";
 import NewDashboard from "../Layout/NewDashboard";
 import MemberShip from "../Pages/Dashboard/MemberShip";
+import Payment from "../Pages/Dashboard/Payment/Payment";
+
 
 
 
@@ -79,6 +81,10 @@ import MemberShip from "../Pages/Dashboard/MemberShip";
             {
              path: 'userPost',
              element: <UserPost></UserPost>
+            },
+            {
+             path:'payment',
+             element: <Payment></Payment>
             },
 
             // admin routes 
