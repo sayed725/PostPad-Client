@@ -26,11 +26,12 @@ const CommentState = ({ comment, index }) => {
     const reportInfo = {
         reportBy: user.email,
         reportCommentId: comment._id,
-        reportFor: feedback,
+        reportReason: feedback,
+        reportFor:comment.commentEmail,
         report: comment,
     }
 
-    console.log('report', reportInfo)
+    // console.log('report', reportInfo)
 
     
    

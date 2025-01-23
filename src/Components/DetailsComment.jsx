@@ -36,40 +36,10 @@ const DetailsComment = () => {
   }
 
 
-  // const [modalData, setModalData] = useState({ isOpen: false, commentText: "" });
-
-  // const openModal = (commentText) => {
-  //   setModalData({ isOpen: true, commentText });
-  // };
-
-  // const closeModal = () => {
-  //   setModalData({ isOpen: false, commentText: "" });
-  // };
-
-  // const [commentsState, setCommentsState] = useState('');
-
-  // const feedbackOptions = [
-  //   "Inappropriate content",
-  //   "Spam or irrelevant",
-  //   "Harassment or abuse",
-  // ];
-
+  
 
  
-    // console.log(commentsState)
-
-    console.log(comments)
-
-  // axiosSecure.post('/add-comment', commentItem)
-  // .then(res=>{
-  //   console.log(res.data)
-  //   if(res.data.insertedId){
-  //       toast.success('Comment Added')
-  //       e.target.reset()
-  //       cRefetch()
-
-  //   }
-  // })
+   
 
   return (
     <div className="mt-10 mx-auto bg-white  rounded-md p-5 shadow-lg">
@@ -102,84 +72,11 @@ const DetailsComment = () => {
 
 
 
-        {/* <table className="table table-zebra w-full bg-white">
-          <thead className="text-xl font-semibold">
-            <tr>
-              <th></th>
-              <th>Commenter Email</th>
-              <th>Comment</th>
-              <th>Feedback</th>
-              <th>Report</th>
-            </tr>
-          </thead>
-          <tbody>
-            {comments.map((comment, index) => (
-              <tr key={index}>
-                <th>{index + 1}</th>
-                <td>{comment.commentEmail}</td>
-                <td> {comment.comment.length > 20 ? (
-                    <>
-                      {comment.comment.substring(0, 20)}...
-                      <button
-                        onClick={() => openModal(comment.comment)}
-                        className="text-blue-500 underline ml-1"
-                      >
-                        Read More
-                      </button>
-                    </>
-                  ) : (
-                    comment.comment
-                  )}</td>
-                <td>
-                <select
-              name='report'
-              id='report'
-              onChange={e => setCommentsState(e.target.value)}
-              value={commentsState}
-              className='border p-4 rounded-md'
-            >
-              <option value="">Select an option</option>
-              <option >Inappropriate content</option>
-              <option >Spam or irrelevant</option>
-              <option >Harassment or abuse</option>
-            </select>
-                </td>
-
-                <td>
-                <button disabled={commentsState==''}
-                className="btn  bg-[#005694] text-white hover:bg-[#005694]">
-                      Report
-                    </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
 
       </div>
 
 
-      {/* Modal */}
-      {/* {modalData.isOpen && (
-        <div
-          className="fixed inset-0 bg-gray-900 z-50 bg-opacity-50 flex justify-center items-center"
-          onClick={closeModal}
-        >
-          <div
-            className="bg-white rounded-lg shadow-lg p-6 w-3/4 md:w-1/2"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-lg font-bold mb-4">Full Comment</h2>
-            <p className="text-gray-700 mb-6">{modalData.commentText}</p>
-            <button
-              onClick={closeModal}
-              className="btn  bg-[#005694] text-white hover:bg-[#005694]"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )} */}
+    
 
 
 

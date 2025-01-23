@@ -76,7 +76,7 @@ const NewDashboard = () => {
                     to="/dashboard/activities"
                   >
                     <RxActivityLog></RxActivityLog>
-                  <p className=""> Activities</p>
+                  <p className=""> Report/Activities</p>
                   </NavLink>
                 </li>
                 <li className="mt-2">
