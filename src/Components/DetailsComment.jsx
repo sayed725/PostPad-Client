@@ -4,13 +4,17 @@ import useAuth from "../Hooks/useAuth";
 import { FaEllipsisH } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import CommentState from "./CommentState";
+import LoadingSpinner from "./LoadingSpinner";
+
+
 
 const DetailsComment = () => {
   const { id } = useParams();
 
   
 
-  // console.log(id)
+  console.log(id)
 
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -20,59 +24,41 @@ const DetailsComment = () => {
     data: comments = [],
     isLoading,
   } = useQuery({
-    queryKey: ["comments", id],
+    queryKey: ["postComments", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/comments?id=${id}`);
       return res.data;
     },
   });
 
-
-  const [modalData, setModalData] = useState({ isOpen: false, commentText: "" });
-
-  const openModal = (commentText) => {
-    setModalData({ isOpen: true, commentText });
-  };
-
-  const closeModal = () => {
-    setModalData({ isOpen: false, commentText: "" });
-  };
-
-  const [commentsState, setCommentsState] = useState(
-    comments.map((comment) => ({
-      id: comment.id,
-      feedback: "",
-      isReported: false,
-    }))
-  );
-
-  const feedbackOptions = [
-    "Inappropriate content",
-    "Spam or irrelevant",
-    "Harassment or abuse",
-  ];
+  if(isLoading){
+    return <LoadingSpinner></LoadingSpinner>
+  }
 
 
-  const handleFeedbackChange = (commentId, selectedFeedback) => {
-    setCommentsState((prevState) =>
-      prevState.map((comment) =>
-        comment.id === commentId
-          ? { ...comment, feedback: selectedFeedback, isReported: false }
-          : comment
-      )
-    );
-  };
+  // const [modalData, setModalData] = useState({ isOpen: false, commentText: "" });
 
-  const handleReportClick = (commentId) => {
-    setCommentsState((prevState) =>
-      prevState.map((comment) =>
-        comment.id === commentId ? { ...comment, isReported: true } : comment
-      )
-    );
-    const reportedComment = commentsState.find((comment) => comment.id === commentId);
-    alert(`Reported comment ID: ${commentId} with feedback: "${reportedComment.feedback}"`);
-  };
-  //   console.log(commentItem)
+  // const openModal = (commentText) => {
+  //   setModalData({ isOpen: true, commentText });
+  // };
+
+  // const closeModal = () => {
+  //   setModalData({ isOpen: false, commentText: "" });
+  // };
+
+  // const [commentsState, setCommentsState] = useState('');
+
+  // const feedbackOptions = [
+  //   "Inappropriate content",
+  //   "Spam or irrelevant",
+  //   "Harassment or abuse",
+  // ];
+
+
+ 
+    // console.log(commentsState)
+
+    console.log(comments)
 
   // axiosSecure.post('/add-comment', commentItem)
   // .then(res=>{
@@ -88,8 +74,35 @@ const DetailsComment = () => {
   return (
     <div className="mt-10 mx-auto bg-white  rounded-md p-5 shadow-lg">
       <div className="overflow-x-auto w-full">
-        <table className="table table-zebra w-full bg-white">
-          {/* head */}
+
+
+      <table className="min-w-full bg-white border border-gray-300">
+          <thead>
+            <tr>
+              <th></th>
+              <th className="px-4 py-2 border">Email</th>
+              <th className="px-4 py-2 border">Comment</th>
+              <th className="px-4 py-2 border">Feedback</th>
+              <th className="px-4 py-2 border">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comments.map((comment,index) => (
+              <CommentState key={index} comment={comment} index={index} />
+            ))}
+          </tbody>
+        </table>
+
+
+
+
+
+
+
+
+
+
+        {/* <table className="table table-zebra w-full bg-white">
           <thead className="text-xl font-semibold">
             <tr>
               <th></th>
@@ -119,46 +132,35 @@ const DetailsComment = () => {
                   )}</td>
                 <td>
                 <select
-                      className="border rounded p-2 w-full"
-                      onChange={(e) =>
-                        handleFeedbackChange(comment.id, e.target.value)
-                      }
-                      value={commentsState.feedback || ""}
-                    >
-                      <option value="" disabled>
-                        Select feedback
-                      </option>
-                      {feedbackOptions.map((option, index) => (
-                        <option key={index} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
+              name='report'
+              id='report'
+              onChange={e => setCommentsState(e.target.value)}
+              value={commentsState}
+              className='border p-4 rounded-md'
+            >
+              <option value="">Select an option</option>
+              <option >Inappropriate content</option>
+              <option >Spam or irrelevant</option>
+              <option >Harassment or abuse</option>
+            </select>
                 </td>
 
                 <td>
-                <button
-                      className={`px-4 py-2 rounded text-white ${
-                        commentsState.feedback && !commentsState.isReported
-                          ? "bg-red-500 hover:bg-red-600"
-                          : "bg-gray-300 cursor-not-allowed"
-                      }`}
-                      disabled={!commentsState.feedback || commentsState.isReported}
-                      onClick={() => handleReportClick(comment.id)}
-                    >
-                      {commentsState.isReported ? "Reported" : "Report"}
+                <button disabled={commentsState==''}
+                className="btn  bg-[#005694] text-white hover:bg-[#005694]">
+                      Report
                     </button>
                 </td>
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
 
       </div>
 
 
       {/* Modal */}
-      {modalData.isOpen && (
+      {/* {modalData.isOpen && (
         <div
           className="fixed inset-0 bg-gray-900 z-50 bg-opacity-50 flex justify-center items-center"
           onClick={closeModal}
@@ -177,7 +179,7 @@ const DetailsComment = () => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
 
 
