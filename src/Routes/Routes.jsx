@@ -22,6 +22,7 @@ import PostDetails from "../Pages/PostDetails";
 import NewDashboard from "../Layout/NewDashboard";
 import MemberShip from "../Pages/Dashboard/MemberShip";
 import Payment from "../Pages/Dashboard/Payment/Payment";
+import DetailsComment from "../Components/DetailsComment";
 
 
 
@@ -85,6 +86,10 @@ import Payment from "../Pages/Dashboard/Payment/Payment";
             {
              path:'payment',
              element: <Payment></Payment>
+            },
+            {
+            path:'comments/:id',
+            element:<DetailsComment></DetailsComment>
             },
 
             // admin routes 

@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../Components/LoadingSpinner';
 import { FaTrash } from "react-icons/fa6";
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const UserPost = () => {
 
@@ -90,7 +91,11 @@ const UserPost = () => {
                             <th>{index + 1}</th>
                             <td>{post.title}</td>
                             <td>{post.upVote}</td>
-                            <td><button className='btn'>All Comments</button></td>
+                            <td>
+                             <Link to={`/dashboard/comments/${post._id}`}> 
+                             <button className='btn  bg-[#005694] ml-5 text-white hover:bg-[#005694]'>All Comments</button>
+                             </Link>
+                              </td>
 
 
 
