@@ -98,11 +98,11 @@ const PostCard =({post})=> {
                 <div className="flex items-center space-x-4">
 
                     {/* comment  */}
-                    <Link to={`/posts/${_id}`}
+                    <div 
                      className="flex items-center hover:to-blue-500 space-x-1">
                         <FaRegCommentDots className="text-xl cursor-pointer" />
                         <span>{comments.length}</span>
-                    </Link>
+                    </div>
 
 
                     <div className="flex hover:to-blue-500 items-center space-x-1">

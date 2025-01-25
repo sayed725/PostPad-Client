@@ -16,8 +16,8 @@ const Home = () => {
     const [ isAdmin ] = useAdmin()
     const [ isMember] = useMember()
 
-    console.log('admin',isAdmin)
-    console.log('member', isMember)
+    // console.log('admin',isAdmin)
+    // console.log('member', isMember)
 
 
     const {

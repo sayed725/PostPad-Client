@@ -31,7 +31,7 @@ const PostDetails = () => {
             }
         })
     
-        console.log(comments)
+        // console.log(comments)
 
 
      if(isLoading){
