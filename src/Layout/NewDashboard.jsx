@@ -159,7 +159,7 @@ const NewDashboard = () => {
                       ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
                       : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                   }
-                to="/order/salad"
+                to="/notification"
               >
                 <IoNotifications></IoNotifications>
                 <p className="">Notification</p>
@@ -172,7 +172,7 @@ const NewDashboard = () => {
                       ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
                       : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                   }
-                to="/order/contact"
+                to="/member"
               >
                 <MdCardMembership></MdCardMembership>
                 <p className="">MemberShip</p>

@@ -56,7 +56,7 @@ const AddaPost = () => {
         reset();
       }
     }
-    console.log("with image url", res.data);
+    // console.log("with image url", res.data);
   };
 
   return (

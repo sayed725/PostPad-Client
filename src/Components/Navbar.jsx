@@ -1,14 +1,32 @@
 import { useContext } from "react";
 import { IoHome, IoNotifications } from "react-icons/io5";
-import { MdCardMembership , MdSpaceDashboard  } from "react-icons/md";
+import { MdCardMembership, MdSpaceDashboard } from "react-icons/md";
 import { FaUser, FaEnvelope, FaFileAlt, FaCog, FaLock } from "react-icons/fa";
 
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import useAdmin from "../Hooks/useAdmin";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const [isAdmin] = useAdmin()
+  const [isAdmin] = useAdmin();
+  const axiosPublic = useAxiosPublic();
+
+  const {
+    refetch,
+    data: Notifications = [],
+    isLoading,
+  } = useQuery({
+    queryKey: ["notifications"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/announcement");
+      return res.data;
+    },
+  });
+
+  
 
   const links = (
     <>
@@ -29,12 +47,15 @@ const Navbar = () => {
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? " active btn text-3xl bg-[#005694] text-white  hover:bg-[#005694]"
-              : "  btn text-3xl  hover:bg-[#005694] hover:text-white"
+              ? " active btn text-3xl bg-[#005694] text-white  hover:bg-[#005694] relative"
+              : "  btn text-3xl  hover:bg-[#005694] hover:text-white relative"
           }
           to="/notification"
         >
           <IoNotifications></IoNotifications>
+         {
+            Notifications.length > 0 && <span className="absolute -top-2 -right-2 bg-[#005694] text-white text-base font-bold w-7 h-7 flex items-center justify-center rounded-full">{Notifications.length}</span>
+         }
         </NavLink>
       </li>
 
@@ -90,7 +111,7 @@ const Navbar = () => {
         <div className="navbar-end gap-2 sm:gap-10">
           <ul className="flex justify-between gap-2 sm:gap-10 text-sm ">
             <div className="flex">
-              <ul className="flex justify-between gap-2">{links}</ul>
+              <ul className="flex justify-between gap-2 sm:gap-5">{links}</ul>
             </div>
 
             {!user && (
@@ -130,33 +151,41 @@ const Navbar = () => {
               >
                 <div className="w-64 bg-white shadow-lg rounded-lg p-5">
                   <div className=" mb-4">
-                    <h2 className="text-xl font-bold">{user&& user?.displayName}</h2>
-                    <p className="text-sm text-gray-600">{user&& user?.email}</p>
+                    <h2 className="text-xl font-bold">
+                      {user && user?.displayName}
+                    </h2>
+                    <p className="text-sm text-gray-600">
+                      {user && user?.email}
+                    </p>
                   </div>
                   <div className="flex flex-col space-y-4">
                     <Link
-                      to={ isAdmin? 'dashboard/adminHome' : 'dashboard/userHome'}
+                      to={
+                        isAdmin ? "dashboard/adminHome" : "dashboard/userHome"
+                      }
                       className="flex items-center space-x-2 text-gray-700 hover:text-blue-500"
                     >
                       <FaUser />
                       <span>Profile</span>
                     </Link>
                     <Link
-                      to={ isAdmin? 'dashboard/adminHome' : 'dashboard/userHome'}
+                      to={
+                        isAdmin ? "dashboard/adminHome" : "dashboard/userHome"
+                      }
                       className="flex items-center space-x-2 text-gray-700 hover:text-blue-500"
                     >
                       <MdSpaceDashboard />
                       <span>DashBoard</span>
                     </Link>
                     <Link
-                    //   to="/activity"
+                      //   to="/activity"
                       className="flex items-center space-x-2 text-gray-700 hover:text-blue-500"
                     >
                       <FaFileAlt />
                       <span>Activity</span>
                     </Link>
                     <Link
-                    //   to="/settings"
+                      //   to="/settings"
                       className="flex items-center space-x-2 text-gray-700 hover:text-blue-500"
                     >
                       <FaCog />
@@ -166,7 +195,7 @@ const Navbar = () => {
                       onClick={logOut}
                       className="flex items-center space-x-2 rounded-md  bg-[#005694] text-white px-3 py-3 hover:bg-[#005694] hover:text-white text-center"
                     >
-                      <FaLock className="hover:text-black"/>
+                      <FaLock className="hover:text-black" />
                       <span>Logout</span>
                     </Link>
                   </div>

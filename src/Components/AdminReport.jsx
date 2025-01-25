@@ -16,7 +16,7 @@ const AdminReport = () => {
         }
     })
 
-   console.log(reports)
+  //  console.log(reports)
 
    if(isLoading){
     return <LoadingSpinner></LoadingSpinner>

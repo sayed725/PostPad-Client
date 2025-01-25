@@ -11,7 +11,7 @@ const CommentState = ({ comment, index }) => {
 
 
 
-  console.log(feedback)
+  // console.log(feedback)
 
   const openModal = (commentText) => {
     setModalData({ isOpen: true, commentText });
@@ -22,7 +22,8 @@ const CommentState = ({ comment, index }) => {
   };
 
   const handleReport = (comment) => {
-
+   
+   
     const reportInfo = {
         reportBy: user.email,
         reportCommentId: comment._id,
@@ -43,7 +44,16 @@ const CommentState = ({ comment, index }) => {
          setFeedback("")
           
       }
+      if(!res.data.insertedId){
+          toast.success(res.data.message)
+         setFeedback("")
+          
+      }
+
+
     })
+   
+  
 
 
 
