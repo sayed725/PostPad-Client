@@ -4,17 +4,37 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
+import useMember from "../../Hooks/useMember";
+import { useEffect, useState } from "react";
+import { use } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../Components/LoadingSpinner";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddaPost = () => {
     const { user } = useAuth()
+    const navigate = useNavigate();
+    const [isMember, isMemberLoading] = useMember();
+    const [postCount, setPostCount] = useState(0);
+    // console.log(isMember)
+    // console.log(postCount)
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
-  const { data: tags = [] } = useQuery({
+
+  useEffect( () =>{
+    axiosSecure.get(`/postCount/${user?.email}`)
+     .then(res => res.data)
+     .then(data => setPostCount(data.postCount))
+ }, [user?.email])
+
+
+
+
+  const { data: tags = [], isLoading } = useQuery({
     queryKey: ["tags"],
     queryFn: async () => {
       const res = await axiosSecure.get("/tags");
@@ -54,10 +74,36 @@ const AddaPost = () => {
         // show success popup
         toast.success('Post Successfully Added')
         reset();
+        navigate('/dashboard/userHome')
       }
     }
     // console.log("with image url", res.data);
   };
+
+  if (isMemberLoading) {
+    return <LoadingSpinner></LoadingSpinner>
+  }
+
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>
+  }
+
+  if (postCount >= 5 && !isMember)  {
+    // Show Become a Member button if user has reached the post limit
+    return (
+      <div className="text-center min-h-screen mt-10">
+        <div className="p-5 bg-white rounded-md shadow-lg">
+        <p className="mb-5 font-bold text-2xl">
+          You have reached the limit of 5 posts. Become a Member to add more posts.
+        </p>
+        <Link className="btn bg-[#005694] text-white hover:bg-[#005694]" to="/member">
+          Become a Member
+        </Link>
+        </div>
+      </div>
+    );
+  }
+
 
   return (
     <div>

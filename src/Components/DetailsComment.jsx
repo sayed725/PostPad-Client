@@ -14,7 +14,7 @@ const DetailsComment = () => {
 
   
 
-  console.log(id)
+  // console.log(id)
 
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();

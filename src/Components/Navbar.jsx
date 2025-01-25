@@ -8,6 +8,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import useAdmin from "../Hooks/useAdmin";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
+import { CgLogOut } from "react-icons/cg";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -177,25 +178,12 @@ const Navbar = () => {
                       <MdSpaceDashboard />
                       <span>DashBoard</span>
                     </Link>
-                    <Link
-                      //   to="/activity"
-                      className="flex items-center space-x-2 text-gray-700 hover:text-blue-500"
-                    >
-                      <FaFileAlt />
-                      <span>Activity</span>
-                    </Link>
-                    <Link
-                      //   to="/settings"
-                      className="flex items-center space-x-2 text-gray-700 hover:text-blue-500"
-                    >
-                      <FaCog />
-                      <span>Setting</span>
-                    </Link>
+                   
                     <Link
                       onClick={logOut}
                       className="flex items-center space-x-2 rounded-md  bg-[#005694] text-white px-3 py-3 hover:bg-[#005694] hover:text-white text-center"
                     >
-                      <FaLock className="hover:text-black" />
+                      <CgLogOut className="hover:text-black" />
                       <span>Logout</span>
                     </Link>
                   </div>

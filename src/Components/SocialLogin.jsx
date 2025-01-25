@@ -26,7 +26,7 @@ const SocialLogin = () => {
 
             axiosPublic.post('/users', userInfo)
             .then(res=>{
-                console.log(res.data)
+                // console.log(res.data)
                 toast.success(`Congratulations! Login Successful`);
                 navigate(from, { replace: true });
 
