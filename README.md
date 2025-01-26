@@ -9,6 +9,9 @@ This project is a fully responsive and interactive forum built using the **MERN 
 ## Live URL  
 [Forum Live Link](https://post-pad.web.app/)
 
+## Requirements Docs
+- Required PDF Link:   [https://drive.google.com/file/d/1xzrLiUste_hlF584wAB7w6lP2DM7GJ3h/view?usp=sharing) 
+
 ---
 
 ## Key Features  
