@@ -1,9 +1,28 @@
 import React from "react";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { FaLayerGroup } from "react-icons/fa6";
+import { MdGroups } from "react-icons/md";
+import { FaComments } from "react-icons/fa";
+import { RiArrowUpDownFill } from "react-icons/ri";
+import { TbMessageReportFilled } from "react-icons/tb"
 
 const AdminHome = () => {
 
+    const axiosSecure = useAxiosSecure();
+
     const { user } = useAuth();
+
+    const { data: stats = {} } = useQuery({
+        queryKey: ["admin-stats"],
+        queryFn: async () => {
+          const res = await axiosSecure.get("/admin-stats");
+          return res.data;
+        },
+      });
+
+    //   console.log(stats);
 
 
 
@@ -30,64 +49,48 @@ const AdminHome = () => {
 
         <div className="stat">
           <div className="stat-figure text-primary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block h-8 w-8 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              ></path>
-            </svg>
+           <FaLayerGroup className="text-4xl"/>
           </div>
-          <div className="stat-title">Total Likes</div>
-          <div className="stat-value text-primary">25.6K</div>
-          <div className="stat-desc">21% more than last month</div>
+          <div className="stat-title">Total Posts</div>
+          <div className="stat-value text-primary">{stats.posts}</div>
+          
         </div>
 
         <div className="stat">
           <div className="stat-figure text-secondary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block h-8 w-8 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              ></path>
-            </svg>
+            <FaComments className="text-4xl"/>
           </div>
-          <div className="stat-title">Page Views</div>
-          <div className="stat-value text-secondary">2.6M</div>
-          <div className="stat-desc">21% more than last month</div>
+          <div className="stat-title">All Comments</div>
+          <div className="stat-value text-secondary">{stats.comments}</div>
+         
         </div>
         <div className="stat">
           <div className="stat-figure text-secondary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block h-8 w-8 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              ></path>
-            </svg>
+            <RiArrowUpDownFill className="text-4xl"/>
           </div>
-          <div className="stat-title">Page Views</div>
-          <div className="stat-value text-secondary">2.6M</div>
-          <div className="stat-desc">21% more than last month</div>
+          <div className="stat-title">Total Votes</div>
+          <div className="stat-value text-secondary">{stats.totalVotes}</div>
+         
+        </div>
+
+
+
+
+        <div className="stat">
+          <div className="stat-figure text-secondary">
+          <MdGroups className="text-4xl"/>
+          </div>
+          <div className="stat-title">Total Users</div>
+          <div className="stat-value text-secondary">{stats.users}</div>
+          
+        </div>
+        <div className="stat">
+          <div className="stat-figure text-secondary">
+            <TbMessageReportFilled className="text-4xl"/>
+          </div>
+          <div className="stat-title">Total Reports</div>
+          <div className="stat-value text-secondary">{stats.reports}</div>
+         
         </div>
 
        
