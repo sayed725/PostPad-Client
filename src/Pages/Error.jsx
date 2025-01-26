@@ -1,8 +1,11 @@
+import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 
 const Error = () => {
   return (
+    
     <section className="flex justify-center items-center flex-col gap-10 min-h-screen">
+       <Helmet> <title>PostPad | Error </title></Helmet>
      <div>
         <img src="/404.webp" alt="" />
      </div>

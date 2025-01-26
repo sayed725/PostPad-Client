@@ -10,6 +10,7 @@ import ShowPost from '../Components/ShowPost';
 import HomeNotification from '../Components/HomeNotification';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
     const axiosPublic = useAxiosPublic()
@@ -40,6 +41,7 @@ const Home = () => {
 
     return (
         <div>
+           <Helmet> <title>PostPad | Home </title></Helmet>
            <div className='lg:grid p-1 sm:p-0 sm:grid-cols-5 gap-7'>
             <div className='hidden  lg:block'>
             <Tags></Tags>

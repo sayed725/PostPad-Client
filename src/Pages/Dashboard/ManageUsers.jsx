@@ -4,6 +4,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { RiMedalFill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -136,6 +137,7 @@ const ManageUsers = () => {
 
       {/* Pagination controls */}
       <div className="flex justify-center items-center mt-5">
+         <Helmet> <title>PostPad | Admin | UserManagement </title></Helmet>
         <div className="btn-group flex gap-5 sm:gap-10">
           <button
             onClick={() => handlePageChange(currentPage - 1)}

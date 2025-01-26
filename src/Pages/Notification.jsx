@@ -3,6 +3,7 @@ import { FaEllipsisH } from "react-icons/fa";
 import useAxiosPublic from '../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../Components/LoadingSpinner';
+import { Helmet } from 'react-helmet-async';
 
 const Notification = () => {
 
@@ -39,6 +40,7 @@ const Notification = () => {
 
     return (
         <div className='min-h-screen container lg:w-7/12 mx-auto border-2 bg-white shadow-lg'>
+           <Helmet> <title>PostPad | Notification </title></Helmet>
             <h2 className='text-4xl text-center py-10 border-b-2 font-bold'>Notifications</h2>
 
             {Notifications.map((notification) => (

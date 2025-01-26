@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import loginLottieJSON from '../../assets/lotte registation.json'
 import Lottie from 'lottie-react';
 
-import { useContext } from 'react'
-
+import { useContext, useState } from 'react'
+import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import toast from 'react-hot-toast'
 import { Helmet } from 'react-helmet-async'
 import { AuthContext } from '../../Provider/AuthProvider'
@@ -12,6 +12,7 @@ import SocialLogin from '../../Components/SocialLogin';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 
 const Registration = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
   const { createUser, updateUserProfile } =
     useContext(AuthContext)
@@ -69,7 +70,7 @@ const Registration = () => {
 
   
   return (
-    <div className='flex justify-center items-center min-h-[calc(100vh-306px)] my-12'>
+    <div className='flex justify-center items-center min-h-screen'>
       <Helmet> <title>PostPad | Register </title></Helmet>
       <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl '>
         <div className='w-full px-6 py-8 md:px-8 lg:w-1/2'>
@@ -142,10 +143,10 @@ const Registration = () => {
               />
             </div>
 
-            <div className='mt-4'>
+            <div className='mt-4 relative'>
               <div className='flex justify-between'>
                 <label
-                  className='block mb-2 text-sm font-medium text-gray-600 '
+                  className='block mb-2 text-sm font-medium text-gray-600'
                   htmlFor='loggingPassword'
                 >
                   Password
@@ -154,12 +155,19 @@ const Registration = () => {
 
               <input
                 id='loggingPassword'
+
                 autoComplete='current-password'
                 name='password'
                 required
-                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
-                type='password'
+                className='block w-full  px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                 type={showPassword ? "text" : "password"}
               />
+               <span
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-5 top-[42px] text-xl cursor-pointer"
+            >
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </span>
             </div>
             <div className='mt-6'>
               <button

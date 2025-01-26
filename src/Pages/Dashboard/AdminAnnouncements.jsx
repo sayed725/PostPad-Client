@@ -3,6 +3,7 @@ import React from 'react';
 import useAuth from '../../Hooks/useAuth';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const AdminAnnouncements = () => {
 
@@ -42,6 +43,7 @@ const AdminAnnouncements = () => {
 
     return (
         <div className='min-h-screen'>
+           <Helmet> <title>PostPad | Admin | Announcement </title></Helmet>
 
 
             <div className="mx-auto bg-white shadow-md rounded-lg overflow-hidden">

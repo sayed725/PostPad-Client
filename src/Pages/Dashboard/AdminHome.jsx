@@ -10,6 +10,7 @@ import { TbMessageReportFilled } from "react-icons/tb";
 // import { PieChart, Pie, Cell,  Legend } from "recharts";
 import { Cell, PieChart, Pie, Legend } from "recharts";
 import AddTags from "./AddTags";
+import { Helmet } from "react-helmet-async";
 
 const AdminHome = () => {
   const axiosSecure = useAxiosSecure();
@@ -62,6 +63,7 @@ const AdminHome = () => {
 
   return (
     <div className="min-h-screen">
+       <Helmet> <title>PostPad | Admin | Home </title></Helmet>
       <div>
         <div className="stats shadow w-full my-10 flex flex-col sm:grid">
           <div className="stat">

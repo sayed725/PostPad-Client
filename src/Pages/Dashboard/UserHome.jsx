@@ -5,6 +5,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import PostCard from "../../Components/Postcard";
 import LoadingSpinner from "../../Components/LoadingSpinner";
+import { Helmet } from "react-helmet-async";
 
 const UserHome = () => {
   const { user } = useAuth();
@@ -32,6 +33,7 @@ const UserHome = () => {
 
   return (
     <div>
+       <Helmet> <title>PostPad | UserProfile </title></Helmet>
       <div className="mx-auto bg-white shadow-md rounded-lg overflow-hidden">
         <div className="flex items-center justify-between p-2 sm:p-10">
           <div className="flex items-center">

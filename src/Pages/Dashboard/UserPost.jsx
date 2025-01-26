@@ -7,6 +7,7 @@ import { FaTrash } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { GrNext, GrPrevious } from "react-icons/gr";
+import { Helmet } from "react-helmet-async";
 
 const UserPost = () => {
   const { user } = useAuth();
@@ -70,6 +71,7 @@ const UserPost = () => {
 
   return (
     <div>
+       <Helmet> <title>PostPad | UserPost </title></Helmet>
       <div className="rounded-md min-h-screen">
         <div className="mb-5">
           <h2 className="text-3xl text-center">

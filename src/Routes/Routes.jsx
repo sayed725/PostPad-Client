@@ -6,7 +6,7 @@ import Login from "../Pages/Authentication/Login";
 import Register from "../Pages/Authentication/Register";
 import Member from "../Pages/Member";
 import Notification from "../Pages/Notification";
-import Dashboard from "../Layout/DashBoard";
+
 import UserHome from "../Pages/Dashboard/UserHome";
 
 import UserPost from "../Pages/Dashboard/UserPost";
@@ -20,7 +20,7 @@ import Activities from "../Pages/Dashboard/Activities";
 import AddaPost from "../Pages/Dashboard/AddaPost";
 import PostDetails from "../Pages/PostDetails";
 import NewDashboard from "../Layout/NewDashboard";
-import MemberShip from "../Pages/Dashboard/MemberShip";
+
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import DetailsComment from "../Components/DetailsComment";
 
@@ -53,16 +53,12 @@ import DetailsComment from "../Components/DetailsComment";
         ,
         {
             path:'member',
-            element:<Member></Member>
+            element: <PrivateRoute><Member></Member></PrivateRoute>
         },
         {
             path:'notification',
             element:<Notification></Notification>
         },
-        {
-            path:'member',
-            element:<MemberShip></MemberShip>
-        }
        
       ]
     },

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useMember from "../Hooks/useMember";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import { Helmet } from "react-helmet-async";
 
 const Member = () => {
 
@@ -19,6 +20,7 @@ const Member = () => {
 
   return (
     <div className="min-h-screen w-11/12 lg:w-7/12 mx-auto mt-[50px] lg:mt-[100px]">
+       <Helmet> <title>PostPad | Member </title></Helmet>
       <div className="flex flex-col md:flex-row items-center justify-between bg-white p-5 gap-10 sm:gap-0 lg:p-8 shadow-lg">
         <div className="md:w-1/2 text-left">
         {

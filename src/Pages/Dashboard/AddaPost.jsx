@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { use } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../Components/LoadingSpinner";
+import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -107,6 +108,7 @@ const AddaPost = () => {
 
   return (
     <div>
+       <Helmet> <title>PostPad | Add Post </title></Helmet>
       <h2 className="text-4xl font-semibold text-center">Add a Post</h2>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>

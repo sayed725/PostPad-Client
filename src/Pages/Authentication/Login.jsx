@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import loginLottieJSON from '../../assets/Animation - 1736922921301.json'
 
-import { useContext, useEffect, useState } from 'react'
+import { useContext,  useState } from 'react'
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast'
@@ -48,7 +48,7 @@ const Login = () => {
 
 
   return (
-    <div className='flex justify-center items-center min-h-[calc(100vh-306px)] my-12'>
+    <div className='flex justify-center items-center min-h-screen my-12'>
       <Helmet> <title>PostPad | LogIn </title></Helmet>
       <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl '>
         <div
