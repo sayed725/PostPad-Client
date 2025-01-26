@@ -9,6 +9,7 @@ import { RiArrowUpDownFill } from "react-icons/ri";
 import { TbMessageReportFilled } from "react-icons/tb";
 // import { PieChart, Pie, Cell,  Legend } from "recharts";
 import { Cell, PieChart, Pie, Legend } from "recharts";
+import AddTags from "./AddTags";
 
 const AdminHome = () => {
   const axiosSecure = useAxiosSecure();
@@ -115,7 +116,7 @@ const AdminHome = () => {
         </div>
       </div>
 
-      <div className="w-full h-96 flex justify-center">
+      <div className="w-full h-96 flex flex-col sm:flex-row gap-5 sm:gap-0 justify-around items-center">
         <PieChart width={300} height={300}>
           <Pie
             data={chartData}
@@ -136,7 +137,10 @@ const AdminHome = () => {
           </Pie>
           <Legend></Legend>
         </PieChart>
+      <AddTags></AddTags>
       </div>
+     
+      
     </div>
   );
 };

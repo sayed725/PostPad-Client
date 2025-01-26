@@ -36,10 +36,10 @@ const Tags = () => {
             <h2 className='text-xl font-semibold border-b-2 border-[#005694] pb-1 w-[120px] '>Popular Tags</h2>
 
 
-            <div className="mt-5 flex flex-col gap-3">
+            <div className="mt-5 flex flex-col gap-3 overflow-y-auto h-[400px]">
             
             {
-                tags.map((tag,index)=> <p className="hover:underline" key={index}>#{tag.tagname}</p>)
+                tags.map((tag,index)=> <p className="hover:underline" key={index}>{tag.tagname}</p>)
             }
             </div>
 

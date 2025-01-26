@@ -1,119 +1,155 @@
-import React from 'react';
-import useAuth from '../../Hooks/useAuth';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
-import { useQuery } from '@tanstack/react-query';
-import LoadingSpinner from '../../Components/LoadingSpinner';
+import React, { useState } from "react";
+import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "../../Components/LoadingSpinner";
 import { FaTrash } from "react-icons/fa6";
-import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+import { GrNext, GrPrevious } from "react-icons/gr";
 
 const UserPost = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-    const { user } = useAuth()
+  const {
+    refetch,
+    data: posts = [],
+    isLoading,
+  } = useQuery({
+    queryKey: ["userAllPosts", user],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/allpost/${user?.email}`);
+      return res.data;
+    },
+  });
 
-    const axiosSecure = useAxiosSecure()
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
-
-   
-
-    const { refetch,data: posts = [], isLoading } = useQuery({
-        queryKey: ['userAllPosts', user],
-        queryFn: async() => {
-            const res = await axiosSecure.get(`/allpost/${user?.email}`);
-            return res.data;
-        }
-    })
-
-    // console.log(posts)
-
-    if(isLoading){
-        <LoadingSpinner></LoadingSpinner>
-    }
-
-    const handleDelete = (id)=>{
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-
-                axiosSecure.delete(`/post/${id}`)
-                    .then(res => {
-                        if (res.data.deletedCount > 0) {
-                            refetch();
-                            Swal.fire({
-                                title: "Deleted!",
-                                text: "Your post has been deleted.",
-                                icon: "success"
-                            });
-                        }
-                    })
-            }
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/post/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your post has been deleted.",
+              icon: "success",
+            });
+          }
         });
+      }
+    });
+  };
+
+  // Pagination logic
+  const totalPages = Math.ceil(posts.length / itemsPerPage);
+  const paginatedPosts = posts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handlePageChange = (page) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
     }
+  };
 
-
-
-
-    return (
-        <div>
-             <div className="rounded-md min-h-screen">
-
-             <div className="mb-5">
-             <h2 className="text-3xl text-center">Hi! {user&& user?.displayName}</h2>
-      </div>
-                  
-                    
-                    
-                  
-            
-                  <div className="overflow-x-auto w-full">
-                    <table className="table table-zebra w-full bg-white">
-                      {/* head */}
-                      <thead className="text-xl font-semibold">
-                        <tr>
-                          <th></th>
-                          <th>Post Title</th>
-                          <th>No Of Votes</th>
-                          <th>Comment</th>
-                          <th>Delete</th>
-                         
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {posts.map((post, index) => (
-                          <tr key={index}>
-                            <th>{index + 1}</th>
-                            <td>{post.title}</td>
-                            <td>{post.upVote}</td>
-                            <td>
-                             <Link to={`/dashboard/comments/${post._id}`}> 
-                             <button className='btn  bg-[#005694] ml-5 text-white hover:bg-[#005694]'>All Comments</button>
-                             </Link>
-                              </td>
-
-
-
-
-
-
-
-                            <td><button onClick={()=>handleDelete(post._id)}
-                             className='btn text-2xl text-red-500'><FaTrash></FaTrash></button></td>
-                            
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+  return (
+    <div>
+      <div className="rounded-md min-h-screen">
+        <div className="mb-5">
+          <h2 className="text-3xl text-center">
+            Hi! {user && user?.displayName}
+          </h2>
         </div>
-    );
+
+        <div className="overflow-x-auto w-full">
+          <table className="min-w-full bg-white border border-gray-300 shadow-lg">
+            {/* head */}
+            <thead className="text-xl font-semibold">
+              <tr>
+                <th className="px-4 py-2 border"></th>
+                <th className="px-4 py-2 border">Post Title</th>
+                <th className="px-4 py-2 border">No Of UpVotes</th>
+                <th className="px-4 py-2 border">No Of Down Votes</th>
+                <th className="px-4 py-2 border">Comment</th>
+                <th className="px-4 py-2 border">Delete</th>
+              </tr>
+            </thead>
+            <tbody >
+              {paginatedPosts.map((post, index) => (
+                <tr key={index}>
+                  <th className="px-4 py-2 border">{(currentPage - 1) * itemsPerPage + index + 1}</th>
+                  <td className="px-4 py-2 border text-center">{post.title}</td>
+                  <td className="px-4 py-2 border text-center">{post.upVote}</td>
+                  <td className="px-4 py-2 border text-center">{post.dawnVote}</td>
+                  <td className="px-4 py-2 border text-center">
+                    <Link to={`/dashboard/comments/${post._id}`}>
+                      <button className="btn  bg-[#005694] ml-5 text-white hover:bg-[#005694]">
+                        All Comments
+                      </button>
+                    </Link>
+                  </td>
+
+                  <td className="px-4 py-2 border text-center">
+                    <button
+                      onClick={() => handleDelete(post._id)}
+                      className="btn text-2xl text-red-500"
+                    >
+                      <FaTrash></FaTrash>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Pagination controls */}
+        <div className="flex justify-center  items-center mt-5">
+          <div className="btn-group flex gap-5 sm:gap-10">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              className="btn text-white btn-sm bg-[#005694]"
+              disabled={currentPage === 1}
+            >
+              <GrPrevious/>Previous
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i}
+                onClick={() => handlePageChange(i + 1)}
+                className={`btn ${currentPage === i + 1 ? "btn text-white btn-sm bg-[#005694]" : ""}`}
+              >
+                {i + 1}
+              </button>
+            ))}
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              className="btn text-white btn-sm bg-[#005694]"
+              disabled={currentPage === totalPages}
+            >
+              Next<GrNext/>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default UserPost;

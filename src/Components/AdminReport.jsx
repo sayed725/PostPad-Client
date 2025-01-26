@@ -22,15 +22,17 @@ const AdminReport = () => {
     return <LoadingSpinner></LoadingSpinner>
    }
 
+   if  (reports.length === 0){
+       return <h1 className='text-2xl py-10 text-center'>No Reports Found</h1>
+   }
+
 
 
 
 
 
     return (
-        <div className='py-[100px]'>
-            <h2 className='text-4xl font-semibold text-center mb-10'>Admin reports</h2>
-
+        <div className='py-[50px] overflow-x-auto'>
             <table className="min-w-full bg-white border border-gray-300">
           <thead>
             <tr>

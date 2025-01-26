@@ -154,7 +154,7 @@ const AddaPost = () => {
                 Select a tag
               </option>
               {tags.map((tag, index) => (
-                <option key={index}>#{tag.tagname}</option>
+                <option key={index}>{tag.tagname}</option>
               ))}
             </select>
           </div>
