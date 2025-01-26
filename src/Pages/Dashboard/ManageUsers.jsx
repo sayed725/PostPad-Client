@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaSearch, FaTrashAlt } from "react-icons/fa";
 import { RiMedalFill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -8,13 +8,14 @@ import { Helmet } from "react-helmet-async";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
+  const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   const { data: users = [], refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", searchQuery],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(`/users?searchQuery=${searchQuery}`);
       return res.data;
     },
   });
@@ -74,8 +75,19 @@ const ManageUsers = () => {
 
   return (
     <div className="rounded-md min-h-screen">
-      <div className="flex justify-evenly mb-5">
+      <div className="flex flex-col sm:flex-row gap-5 sm:gap-0 justify-between items-center mb-5 px-4">
         <h2 className="text-3xl">All Users</h2>
+       <div className="relative ">
+                 <input
+                   type="text"
+                   name='search'
+                   onChange={e => setSearchQuery(e.target.value)}
+                   value={searchQuery}
+                   placeholder="Search by UserName...."
+                   className="w-full max-w-xs bg-white  text-black rounded-lg py-3 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500"
+                 />
+                 <FaSearch className="absolute left-4 top-3 text-blue-500 text-xl" />
+               </div>
         <h2 className="text-3xl">Total Users: {users.length}</h2>
       </div>
 
