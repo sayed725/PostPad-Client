@@ -40,7 +40,7 @@ const Registration = () => {
     try {
       //2. User Registration
       const result = await createUser(email, pass)
-      console.log(result)
+      // console.log(result)
 
 
 
@@ -55,7 +55,7 @@ const Registration = () => {
 
          axiosPublic.post('/users', userInfo)
          .then(res=>{
-             console.log(res.data)
+            //  console.log(res.data)
              toast.success(`Congratulations! Registration Successful`);
              navigate( "/");
 

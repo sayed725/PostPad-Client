@@ -3,6 +3,7 @@ import { FaEllipsisH } from "react-icons/fa";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import moment from "moment";
 
 const HomeNotification = () => {
   const axiosPublic = useAxiosPublic();
@@ -53,7 +54,7 @@ const HomeNotification = () => {
                 <div>
                   <p className="font-semibold">{notification.authorName}</p>
                   <p className="text-xs text-gray-500">
-                    {new Date(notification.date).toLocaleDateString()}
+                  {notification.date && moment(notification.date).fromNow()}
                   </p>
                 </div>
               </div>

@@ -4,6 +4,7 @@ import useAxiosPublic from '../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../Components/LoadingSpinner';
 import { Helmet } from 'react-helmet-async';
+import moment from 'moment';
 
 const Notification = () => {
 
@@ -56,7 +57,7 @@ const Notification = () => {
               </div>
               <div>
                 <p className="font-semibold">{notification.authorName}</p>
-                <p className="text-xs text-gray-500">{new Date(notification.date).toLocaleDateString()}</p>
+                <p className="text-xs text-gray-500">{notification.date && moment(notification.date).fromNow()}</p>
               </div>
             </div>
             <FaEllipsisH className="text-gray-500 cursor-pointer" />

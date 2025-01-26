@@ -35,7 +35,7 @@ const CommentState = ({ comment, index }) => {
     // console.log('report', reportInfo)
 
     axiosSecure.post("/report", reportInfo).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.insertedId) {
         toast.success("Report Received by Admin");
         setFeedback("");

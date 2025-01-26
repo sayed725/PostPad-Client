@@ -5,6 +5,7 @@ import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./LoadingSpinner";
+import moment from "moment/moment";
 
 
 
@@ -50,7 +51,7 @@ const PostCard =({post})=> {
                 />
                 <div>
                     <h3 className="font-semibold">{authorName}</h3>
-                    <p className="text-gray-500 text-sm">{new Date(time).toLocaleDateString()}</p>
+                    <p className="text-gray-500 text-sm">{time && moment(time).fromNow()}</p>
                 </div>
             </div>
 

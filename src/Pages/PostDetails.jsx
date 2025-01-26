@@ -49,7 +49,6 @@ const PostDetails = () => {
   return (
     <div className="min-h-screen">
          <Helmet> <title>PostPad | Details </title></Helmet>
-      <h2 className="text-4xl font-bold text-center">post details</h2>
       <div className="flex flex-col gap-5">
         <DetailsPostCard
           post={post}

@@ -9,6 +9,7 @@ import useAuth from "../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import ShareModal from "./ShareModal";
+import moment from "moment/moment";
 
 
 
@@ -51,7 +52,7 @@ const DetailsPostCard =({post, refetch , cRefetch , comments})=> {
 
       axiosSecure.post('/add-comment', commentItem)
       .then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         if(res.data.insertedId){
             toast.success('Comment Added')
             e.target.reset()
@@ -97,7 +98,7 @@ const DetailsPostCard =({post, refetch , cRefetch , comments})=> {
                 />
                 <div>
                     <h3 className="font-semibold">{authorName}</h3>
-                    <p className="text-gray-500 text-sm">{new Date(time).toLocaleDateString()}</p>
+                    <p className="text-gray-500 text-sm">{time && moment(time).fromNow()}</p>
                 </div>
             </div>
 
@@ -190,7 +191,7 @@ const DetailsPostCard =({post, refetch , cRefetch , comments})=> {
               </div>
               <div>
                 <p className="font-semibold">{comment.commentUser}</p>
-                <p className="text-xs text-gray-500">{new Date(comment.commentTime).toLocaleDateString()}</p>
+                <p className="text-xs text-gray-500">{comment.commentTime && moment(comment.commentTime).fromNow()}</p>
               </div>
             </div>
             <FaEllipsisH className="text-gray-500 cursor-pointer" />

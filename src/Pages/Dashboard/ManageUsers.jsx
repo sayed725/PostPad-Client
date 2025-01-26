@@ -5,6 +5,7 @@ import { RiMedalFill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import LoadingSpinner from "../../Components/LoadingSpinner";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -72,6 +73,10 @@ const ManageUsers = () => {
       setCurrentPage(page);
     }
   };
+
+  
+
+  
 
   return (
     <div className="rounded-md min-h-screen">
