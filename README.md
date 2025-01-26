@@ -7,7 +7,7 @@ This project is a fully responsive and interactive forum built using the **MERN 
 ---
 
 ## Live URL  
-[Forum Live Link](https://your-live-url.com)
+[Forum Live Link](https://post-pad.web.app/)
 
 ---
 
@@ -135,6 +135,6 @@ This project is a fully responsive and interactive forum built using the **MERN 
 ## How to Run Locally  
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/your-username/forum.git
+   git clone https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-sayed725.git
    cd forum
 
