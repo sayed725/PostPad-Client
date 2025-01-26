@@ -55,7 +55,7 @@ const UserPost = () => {
     });
   };
 
-  // Pagination logic
+  // Pagination fn
   const totalPages = Math.ceil(posts.length / itemsPerPage);
   const paginatedPosts = posts.slice(
     (currentPage - 1) * itemsPerPage,
@@ -119,7 +119,7 @@ const UserPost = () => {
           </table>
         </div>
 
-        {/* Pagination controls */}
+        {/* Pagination button */}
         <div className="flex justify-center  items-center mt-5">
           <div className="btn-group flex gap-5 sm:gap-10">
             <button
@@ -133,7 +133,7 @@ const UserPost = () => {
               <button
                 key={i}
                 onClick={() => handlePageChange(i + 1)}
-                className={`btn ${currentPage === i + 1 ? "btn text-white btn-sm bg-[#005694]" : ""}`}
+                className={`btn ${currentPage === i + 1 ? "btn text-white btn-sm bg-[#005694]" : "btn btn-sm"}`}
               >
                 {i + 1}
               </button>

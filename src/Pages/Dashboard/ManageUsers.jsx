@@ -1,12 +1,14 @@
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-
-import { FaTrashAlt, FaUsers } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import { RiMedalFill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
@@ -18,7 +20,6 @@ const ManageUsers = () => {
 
   const handleMakeAdmin = (user) => {
     axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
-      // console.log(res.data)
       if (res.data.modifiedCount > 0) {
         refetch();
         Swal.fire({
@@ -57,6 +58,19 @@ const ManageUsers = () => {
     });
   };
 
+  // Pagination logic
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+  const paginatedUsers = users.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handlePageChange = (page) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
   return (
     <div className="rounded-md min-h-screen">
       <div className="flex justify-evenly mb-5">
@@ -78,14 +92,14 @@ const ManageUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {paginatedUsers.map((user, index) => (
               <tr key={user._id}>
-                <th>{index + 1}</th>
+                <th>{(currentPage - 1) * itemsPerPage + index + 1}</th>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
                   {user.role === "admin" ? (
-                    <button className="btn  bg-[#005694] text-white hover:bg-[#005694]">
+                    <button className="btn bg-[#005694] text-white hover:bg-[#005694]">
                       Admin Role
                     </button>
                   ) : (
@@ -97,13 +111,13 @@ const ManageUsers = () => {
                     </button>
                   )}
                 </td>
-                <td className="px-4 flex justify-center items-center py-4 text-sm text-gray-500  whitespace-nowrap">
+                <td className="px-4 flex justify-center items-center py-4 text-sm text-gray-500 whitespace-nowrap">
                   <RiMedalFill
                     className={`${user.role === "bronze" && "text-4xl mt-3"} ${
                       user.role === "gold" && "text-4xl text-yellow-500 mt-3"
                     } ${
                       user.role === "admin" && "text-4xl text-blue-500 mt-3"
-                    } `}
+                    }`}
                   ></RiMedalFill>
                 </td>
                 <td>
@@ -118,6 +132,35 @@ const ManageUsers = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination controls */}
+      <div className="flex justify-center items-center mt-5">
+        <div className="btn-group flex gap-5 sm:gap-10">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            className="btn text-white btn-sm bg-[#005694]"
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => handlePageChange(i + 1)}
+              className={`btn ${currentPage === i + 1 ? "btn-active btn text-white btn-sm bg-[#005694]" : "btn btn-sm"}`}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            className="btn text-white btn-sm bg-[#005694]"
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

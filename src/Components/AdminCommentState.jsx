@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
+import ReactDOM from "react-dom";
+
 
 const AdminCommentState = ({ report, index, refetch }) => {
   const axiosSecure = useAxiosSecure();
@@ -96,26 +98,29 @@ const AdminCommentState = ({ report, index, refetch }) => {
       </tr>
 
       {/* Modal */}
-      {modalData.isOpen && (
-        <div
-          className="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex justify-center items-center"
-          onClick={closeModal}
-        >
+      
+     {modalData.isOpen &&
+        ReactDOM.createPortal(
           <div
-            className="bg-white rounded-lg shadow-lg p-6 w-3/4 md:w-1/2"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex justify-center items-center"
+            onClick={closeModal}
           >
-            <h2 className="text-lg font-bold mb-4">Full Comment</h2>
-            <p className="text-gray-700 mb-6">{modalData.commentText}</p>
-            <button
-              onClick={closeModal}
-              className="btn  bg-[#005694] text-white hover:bg-[#005694]"
+            <div
+              className="bg-white rounded-lg shadow-lg p-6 w-3/4 md:w-1/2"
+              onClick={(e) => e.stopPropagation()}
             >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+              <h2 className="text-lg font-bold mb-4">Full Comment</h2>
+              <p className="text-gray-700 mb-6">{modalData.commentText}</p>
+              <button
+                onClick={closeModal}
+                className="btn bg-[#005694] text-white hover:bg-[#005694]"
+              >
+                Close
+              </button>
+            </div>
+          </div>,
+          document.body 
+        )}
     </>
   );
 };

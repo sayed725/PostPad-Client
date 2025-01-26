@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
+import ReactDOM from "react-dom";
 
 const CommentState = ({ comment, index }) => {
-    const axiosSecure = useAxiosSecure()
-    const { user } = useAuth()
-  const [modalData, setModalData] = useState({ isOpen: false, commentText: "" });
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+  const [modalData, setModalData] = useState({
+    isOpen: false,
+    commentText: "",
+  });
   const [feedback, setFeedback] = useState("");
-
-
 
   // console.log(feedback)
 
@@ -22,47 +24,33 @@ const CommentState = ({ comment, index }) => {
   };
 
   const handleReport = (comment) => {
-   
-   
     const reportInfo = {
-        reportBy: user.email,
-        reportCommentId: comment._id,
-        reportReason: feedback,
-        reportFor:comment.commentEmail,
-        report: comment,
-    }
+      reportBy: user.email,
+      reportCommentId: comment._id,
+      reportReason: feedback,
+      reportFor: comment.commentEmail,
+      report: comment,
+    };
 
     // console.log('report', reportInfo)
 
-    
-   
-    axiosSecure.post('/report', reportInfo)
-    .then(res=>{
-      console.log(res.data)
-      if(res.data.insertedId){
-          toast.success('Report Received by Admin')
-         setFeedback("")
-          
+    axiosSecure.post("/report", reportInfo).then((res) => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        toast.success("Report Received by Admin");
+        setFeedback("");
       }
-      if(!res.data.insertedId){
-          toast.success(res.data.message)
-         setFeedback("")
-          
+      if (!res.data.insertedId) {
+        toast.error(res.data.message);
+        setFeedback("");
       }
-
-
-    })
-   
-  
-
-
-
+    });
   };
 
   return (
     <>
       <tr>
-        <td className="px-4 py-2 border">{index+1}</td>
+        <td className="px-4 py-2 border">{index + 1}</td>
         <td className="px-4 py-2 border">{comment.commentEmail}</td>
         <td className="px-4 py-2 border">
           {comment.comment.length > 20 ? (
@@ -92,49 +80,40 @@ const CommentState = ({ comment, index }) => {
           </select>
         </td>
         <td className="px-4 py-2 border text-center">
-        <button onClick={()=>handleReport(comment)} 
-        disabled={feedback ==""}
-
-                className="btn  bg-[#005694] text-white hover:bg-[#005694]">
-                      Report
-                    </button>
+          <button
+            onClick={() => handleReport(comment)}
+            disabled={feedback == ""}
+            className="btn  bg-[#005694] text-white hover:bg-[#005694]"
+          >
+            Report
+          </button>
         </td>
-
-
-
-      
       </tr>
 
-
-        {/* Modal */}
-        {modalData.isOpen && (
-        <div
-          className="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex justify-center items-center"
-          onClick={closeModal}
-        >
+      {/* Modal */}
+      {modalData.isOpen &&
+        ReactDOM.createPortal(
           <div
-            className="bg-white rounded-lg shadow-lg p-6 w-3/4 md:w-1/2"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex justify-center items-center"
+            onClick={closeModal}
           >
-            <h2 className="text-lg font-bold mb-4">Full Comment</h2>
-            <p className="text-gray-700 mb-6">{modalData.commentText}</p>
-            <button
-              onClick={closeModal}
-              className="btn  bg-[#005694] text-white hover:bg-[#005694]"
+            <div
+              className="bg-white rounded-lg shadow-lg p-6 w-3/4 md:w-1/2"
+              onClick={(e) => e.stopPropagation()}
             >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-
-
-
-
-
-      </>
-      
-    
+              <h2 className="text-lg font-bold mb-4">Full Comment</h2>
+              <p className="text-gray-700 mb-6">{modalData.commentText}</p>
+              <button
+                onClick={closeModal}
+                className="btn bg-[#005694] text-white hover:bg-[#005694]"
+              >
+                Close
+              </button>
+            </div>
+          </div>,
+          document.body 
+        )}
+    </>
   );
 };
 
