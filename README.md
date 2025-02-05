@@ -12,6 +12,12 @@ This project is a fully responsive and interactive forum built using the **MERN 
 ## Requirements Docs
 - Required PDF Link:   [https://drive.google.com/file/d/1xzrLiUste_hlF584wAB7w6lP2DM7GJ3h/view?usp=sharing) 
 
+## 🔑 Admin Login Credentials
+
+- **Email:** `post@gmail.com`
+- **Password:** `1234Aa!`
+
+
 ---
 
 ## Key Features  
@@ -125,19 +131,100 @@ This project is a fully responsive and interactive forum built using the **MERN 
 
 ---
 
-## Environment Variables  
-### Frontend:  
-- Firebase Config Keys (stored in `.env` file)  
 
-### Backend:  
-- MongoDB URI  
-- JWT Secret  
+
+## 📷 Project Images Highlights
+
+### 📷 Home Page `"/"` Image
+
+![Home Page](https://i.ibb.co.com/rKZHMYkg/Postpad-Home.png)
+
+### 📷 Post Details Page `"/Post Details"` Image
+
+![post Details](https://i.ibb.co.com/ZkGBM5P/post-Pad-post-details.png)
+
+### 📷 Admin Dashboard `"/dashboard"` Image
+
+![Admin Dashboard](https://i.ibb.co.com/zVCVD72k/Post-Pad-admin-home.png)
+
+### 📷 User Dashboard `"/dashboard"` Image
+
+![User Dashboard](https://i.ibb.co.com/jZ4Rgq8p/Post-Pad-User-Profile.png)
+
+### 📷 User add post `"/add-post"` Image
+
+![User add Post](https://i.ibb.co.com/WpYNDyWR/Post-Pad-User-Add-Post.png)
+
+### 📷 Member Payment Page `"/payment"` Image
+
+![Payment Section](https://i.ibb.co.com/pBGgJ9HC/Post-Pad-member-payment.png)
 
 ---
 
-## How to Run Locally  
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-sayed725.git
-   cd forum
+## ⚙️ Installation & Setup
 
+### Client Setup
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/sayed725/PostPad-Client.git
+   cd PostPad-Client
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Set up the environment variables in a `.env.local` file:
+
+   ```env
+   VITE_apiKey=your_firebase_apiKey
+   VITE_authDomain=your_firebase_authDomain
+   VITE_projectId=your_firebase_projectId
+   VITE_storageBucket=your_firebase_storageBucket
+   VITE_messagingSenderId=your_firebase_messagingSenderId
+   VITE_appId=your_firebase_appId
+
+   VITE_API_URL=your_server_api_link
+   VITE_STRIPE_PUBLIC_KEY=your_stripe_Publishable_Key
+   ```
+
+4. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:5173/](http://localhost:5173/) in your browser.
+
+### Server Setup
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/sayed725/PostPad-Server.git
+   cd PostPad-Server
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Set up the environment variables in a `.env` file:
+   ```env
+   DB_USER=your_db_user_name
+   DB_PASS=your_db_user_password
+   JWT_SECRET=jwt_secret_code
+   STRIPE_SECRET_KEY=your_stripe_Secret _Key
+   ```
+4. Run the development server:
+   ```bash
+   npm start
+   ```
+
+---
