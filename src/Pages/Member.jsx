@@ -11,9 +11,9 @@ const Member = () => {
     // console.log(isMember)
 
 
-    if(isMemberLoading){
-        return <LoadingSpinner></LoadingSpinner>
-    }
+    // if(isMemberLoading){
+    //     return <LoadingSpinner></LoadingSpinner>
+    // }
 
 
 

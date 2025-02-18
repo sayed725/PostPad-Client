@@ -11,6 +11,7 @@ import HomeNotification from '../Components/HomeNotification';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import { Helmet } from 'react-helmet-async';
+import Add2 from '../Components/Add2';
 
 const Home = () => {
     const axiosPublic = useAxiosPublic()
@@ -48,6 +49,9 @@ const Home = () => {
             {
                 Notifications.length > 0 && <HomeNotification></HomeNotification>
             }
+            <div className='py-5'>
+            <Add2></Add2>
+            </div>
             </div>
 
             <div className='col-span-3'>

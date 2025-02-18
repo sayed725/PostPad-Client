@@ -53,7 +53,7 @@ import DetailsComment from "../Components/DetailsComment";
         ,
         {
             path:'member',
-            element: <PrivateRoute><Member></Member></PrivateRoute>
+            element:<Member></Member>
         },
         {
             path:'notification',

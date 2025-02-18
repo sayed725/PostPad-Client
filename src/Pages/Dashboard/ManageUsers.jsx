@@ -13,7 +13,7 @@ const ManageUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const { data: users = [], refetch } = useQuery({
+  const { data: users = [], isLoading,refetch } = useQuery({
     queryKey: ["users", searchQuery],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users?searchQuery=${searchQuery}`);
@@ -76,8 +76,6 @@ const ManageUsers = () => {
 
   
 
-  
-
   return (
     <div className="rounded-md min-h-screen">
       <div className="flex flex-col sm:flex-row gap-5 sm:gap-0 justify-between items-center mb-5 px-4">
@@ -95,6 +93,7 @@ const ManageUsers = () => {
                </div>
         <h2 className="text-3xl">Total Users: {users.length}</h2>
       </div>
+      {isLoading && <LoadingSpinner></LoadingSpinner>}
 
       <div className="overflow-x-auto w-full">
         <table className="table table-zebra w-full bg-white">
