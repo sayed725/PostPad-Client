@@ -125,16 +125,16 @@ const ShowPost = () => {
                 }
             </div>
 
-            <div className='pagination text-center mb-10 flex justify-center items-center mt-4 gap-3 sm:gap-8'>
-                <button onClick={handlePrevPage} className='btn btn-sm bg-[#005694] hover:bg-[#005694] text-white' > <GrPrevious/>Prev</button>
+            <div className='pagination text-center mb-10 flex justify-center items-center mt-4 gap-3 dark:text-white sm:gap-8'>
+                <button onClick={handlePrevPage} className='btn btn-sm bg-[#005694] dark:bg-[#20293d] dark:text-white dark:hover:bg-[#005694] hover:bg-[#005694] text-white' > <GrPrevious/>Prev</button>
                 {
                     pages.map(page => <button
-                        className={currentPage === page ? 'btn text-white btn-sm bg-[#005694]' : undefined}
+                        className={currentPage === page ? 'btn text-white  dark:bg-[#20293d] dark:text-white btn-sm bg-[#005694]' : undefined}
                         onClick={() => setCurrentPage(page)}
                         key={page}
                     >{page}</button>)
                 }
-                <button onClick={handleNextPage} className='btn btn-sm bg-[#005694] hover:bg-[#005694] text-white'>Next<GrNext/></button>
+                <button onClick={handleNextPage} className='btn btn-sm dark:bg-[#20293d] dark:text-white bg-[#005694] hover:bg-[#005694] text-white'>Next<GrNext/></button>
                
             </div>
             

@@ -41,7 +41,7 @@ const ShareModal = ({ postId, postTitle }) => {
         overlayClassName="fixed inset-0 bg-black bg-opacity-50"
         
       >
-        <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg relative">
+        <div className="bg-white dark:bg-[#20293d] dark:text-white rounded-lg p-6 w-full max-w-md shadow-lg relative">
           <h2 className="text-xl font-bold mb-4">Share</h2>
 
           <div className="flex justify-around items-center mb-4">
@@ -77,16 +77,16 @@ const ShareModal = ({ postId, postTitle }) => {
 
           <div className="mb-4">
             <p>Or copy this link:</p>
-            <div className="flex items-center border border-gray-300 rounded">
+            <div className="flex items-center border  border-gray-300 rounded">
               <input 
                 type="text" 
                 value={shareUrl} 
                 readOnly 
-                className="w-full p-2 focus:outline-none"
+                className="w-full p-2 focus:outline-none dark:bg-[#20293d] dark:text-white"
                 onClick={(e) => e.target.select()}
               />
               <button 
-                className="bg-gray-200 px-4 py-2 text-sm rounded-r hover:bg-gray-300"
+                className="bg-gray-200 px-4 py-2 text-sm rounded-r hover:bg-gray-300 dark:bg-[#20293d] dark:text-white "
                 onClick={() => navigator.clipboard.writeText(shareUrl)}
               >
                 Copy

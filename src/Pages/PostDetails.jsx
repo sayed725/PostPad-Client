@@ -20,7 +20,7 @@ const PostDetails = () => {
   } = useQuery({
     queryKey: ["specificPost"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/posts/${id}`);
+      const res = await axiosPublic.get(`/posts/${id}`);
       return res.data;
     },
   });

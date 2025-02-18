@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaMapMarkerAlt,
   FaSun,
@@ -7,6 +7,12 @@ import {
 } from "react-icons/fa";
 
 const Add = () => {
+
+ 
+    const date = new Date();
+    const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    const today = date.toLocaleDateString('en-US', options);
+
   return (
     <div className="bg-white dark:bg-[#20293d] dark:text-white">
       <div className="p-5 text-start shadow-lg">
@@ -56,7 +62,7 @@ const Add = () => {
                 </div>
               </div>
               <div className="text-center mt-6">
-                <div className="text-lg">Sunday, 18th 2018</div>
+                <div className="text-lg">{today}</div>
                 <div className="text-sm flex items-center justify-center mt-1">
                   <FaMapMarkerAlt className="mr-1" /> Los Angeles, CA
                 </div>

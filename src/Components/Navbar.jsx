@@ -36,8 +36,8 @@ const Navbar = () => {
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? " active btn text-3xl bg-[#005694] text-white  hover:bg-[#005694]"
-              : "  btn text-3xl  hover:bg-[#005694] hover:text-white"
+              ? " active btn text-3xl bg-[#005694] text-white  dark:text-white dark:hover:bg-[#005694]  hover:bg-[#005694]"
+              : "  btn text-3xl  hover:bg-[#005694] dark:bg-[#20293d] dark:text-white dark:hover:bg-[#005694] hover:text-white"
           }
           to="/"
         >
@@ -50,7 +50,7 @@ const Navbar = () => {
           className={({ isActive }) =>
             isActive
               ? " active btn text-3xl bg-[#005694] text-white  hover:bg-[#005694] relative"
-              : "  btn text-3xl  hover:bg-[#005694] hover:text-white relative"
+              : "  btn text-3xl  hover:bg-[#005694] dark:bg-[#20293d] dark:text-white dark:hover:bg-[#005694] hover:text-white relative"
           }
           to="/notification"
         >
@@ -66,7 +66,7 @@ const Navbar = () => {
           className={({ isActive }) =>
             isActive
               ? " active btn text-3xl bg-[#005694] text-white  hover:bg-[#005694]"
-              : "  btn text-3xl  hover:bg-[#005694] hover:text-white"
+              : "  btn text-3xl  hover:bg-[#005694] dark:bg-[#20293d] dark:text-white dark:hover:bg-[#005694] hover:text-white"
           }
           to="/member"
         >
@@ -98,7 +98,7 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     isActive
                       ? " active btn bg-[#005694] text-white  hover:bg-[#005694]"
-                      : " btn hover:bg-[#005694] hover:text-white"
+                      : " btn hover:bg-[#005694] dark:bg-[#20293d] dark:text-white dark:hover:bg-[#005694] hover:text-white"
                   }
                   to="/login"
                 >

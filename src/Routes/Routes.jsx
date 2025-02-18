@@ -40,7 +40,7 @@ import DetailsComment from "../Components/DetailsComment";
         },
         {
            path:'posts/:id',
-           element: <PrivateRoute><PostDetails></PostDetails></PrivateRoute>
+           element: <PostDetails></PostDetails>
         },
         {
             path:'login',

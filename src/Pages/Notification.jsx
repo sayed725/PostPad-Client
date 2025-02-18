@@ -40,7 +40,7 @@ const Notification = () => {
 
 
     return (
-        <div className='min-h-screen container lg:w-7/12 mx-auto border-2 bg-white shadow-lg'>
+        <div className='min-h-screen container lg:w-7/12 mx-auto rounded-md bg-white shadow-lg dark:bg-[#20293d] dark:text-white '>
            <Helmet> <title>PostPad | Notification </title></Helmet>
             <h2 className='text-4xl text-center py-10 border-b-2 font-bold'>Notifications</h2>
 
@@ -57,13 +57,13 @@ const Notification = () => {
               </div>
               <div>
                 <p className="font-semibold">{notification.authorName}</p>
-                <p className="text-xs text-gray-500">{notification.date && moment(notification.date).fromNow()}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300">{notification.date && moment(notification.date).fromNow()}</p>
               </div>
             </div>
-            <FaEllipsisH className="text-gray-500 cursor-pointer" />
+            <FaEllipsisH className="text-gray-500  cursor-pointer" />
           </div>
 
-          <p className="text-gray-700">{notification.description}</p>
+          <p className="text-gray-700 dark:text-white">{notification.description}</p>
 
         
          
