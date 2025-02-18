@@ -9,6 +9,7 @@ import useAdmin from "../Hooks/useAdmin";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import { CgLogOut } from "react-icons/cg";
+import Darkmode from "./Darkmode";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -76,45 +77,21 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-white sticky top-0 z-10 mb-8 py-1 shadow-lg">
-      <div className="navbar  sm:w-11/12  lg:w-9/12 bg-white   mx-auto">
-        <div className="navbar-start">
-          {/* <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden border-2 border-[#ebb475] mr-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className=" flex flex-col gap-7 dropdown-content bg-base-100 rounded-box z-[1] mt-3  w-52 px-2 py-5  shadow"
-          >
-            {links}
-          </ul>
-        </div> */}
+    <div className="bg-white dark:bg-[#20293d] sticky top-0 z-10 mb-8 py-1 shadow-lg">
+      <div className="navbar  sm:w-11/12  lg:w-9/12 bg-white dark:bg-[#20293d]   mx-auto">
+        <div className="navbar-start ">
           <Link to="/" className="flex gap-2 items-center">
             <img className="w-auto h-7" src="/postpad-logo.png" alt="logo" />
             {/* <p className="font-bold">PostPad</p> */}
           </Link>
         </div>
 
-        <div className="navbar-end gap-2 sm:gap-10">
-          <ul className="flex justify-between gap-2 sm:gap-10 text-sm ">
+        <div className="navbar-end gap-2 sm:gap-5">
+          <ul className="flex justify-between gap-2 sm:gap-5  text-sm ">
             <div className="flex">
               <ul className="flex justify-between gap-2 sm:gap-5">{links}</ul>
             </div>
-
+            <Darkmode></Darkmode>
             {!user && (
               <li>
                 <NavLink

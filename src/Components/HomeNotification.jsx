@@ -27,7 +27,7 @@ const HomeNotification = () => {
   }
 
   return (
-    <div className=" bg-white shadow-lg mt-10">
+    <div className=" bg-white dark:bg-[#20293d] dark:text-white shadow-lg mt-10">
       <div className="p-5">
         <h2 className="text-xl font-semibold border-b-2 border-[#005694] pb-1 w-[120px] ">
           Announcement
@@ -61,7 +61,7 @@ const HomeNotification = () => {
               <FaEllipsisH className="text-gray-500 cursor-pointer" />
             </div>
 
-            <p className="text-gray-700">{notification.description}</p>
+            <p className="text-gray-700 dark:text-white">{notification.description}</p>
           </div>
         ))}
       </div>

@@ -8,7 +8,7 @@ import {
 
 const Add = () => {
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:bg-[#20293d] dark:text-white">
       <div className="p-5 text-start shadow-lg">
         <h2 className="text-xl font-semibold border-b-2 border-[#005694] pb-1 w-[150px] ">
           Advertisements

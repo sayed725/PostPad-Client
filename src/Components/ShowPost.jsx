@@ -75,8 +75,8 @@ const ShowPost = () => {
 
     return (
         <div className=''>
-             <div className="p-5 shadow-lg bg-white ">
-                  <div className="flex flex-col items-center justify-center text-white">
+             <div className="p-5 shadow-lg bg-white dark:bg-[#20293d] dark:text-white ">
+                  <div className="flex flex-col items-center justify-center text-white dark:bg-[#20293d]">
                     {/* search by tags */}
                     <div className="relative w-full flex flex-col sm:flex-row gap-5 sm:gap-2 justify-center items-center">
                       <input
@@ -85,20 +85,20 @@ const ShowPost = () => {
                         onChange={e => setSearch(e.target.value)}
                         value={search}
                         placeholder="Search by tags without #...."
-                        className="w-full bg-[#f5f5f5]  text-black rounded-lg py-3 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-[#f5f5f5] dark:bg-[#060817] dark:text-white text-black rounded-lg py-3 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500"
                       />
                       <FaSearch className="absolute left-4 top-3 text-blue-500 text-xl" />
                      <div className='flex sm:flex-none gap-5 sm:gap-2'>
                        {/* Popularity sort button  */}
                        <h2 onClick={()=>setSort('popularity')}
-                      className='text-black btn-sm sm:btn flex justify-center items-center gap-2 rounded-lg hover:bg-[#005694] hover:text-white'><LuArrowUpDown/> <span>Popularity</span></h2>
+                      className='text-black btn-sm sm:btn flex justify-center dark:bg-[#20293d] dark:text-white dark:hover:bg-[#005694] items-center gap-2 rounded-lg hover:bg-[#005694] hover:text-white'><LuArrowUpDown/> <span>Popularity</span></h2>
                       {/* reset button  */}
                       <h2 onClick={resetAll} 
-                      className='text-black btn-sm sm:btn flex justify-center items-center gap-2 rounded-lg hover:bg-[#005694] hover:text-white'><BiReset/> <span>Reset</span></h2>
+                      className='text-black btn-sm sm:btn flex justify-center items-center dark:bg-[#20293d] dark:text-white dark:hover:bg-[#005694] gap-2 rounded-lg hover:bg-[#005694] hover:text-white'><BiReset/> <span>Reset</span></h2>
                      </div>
                     </div>
                     <div className="mt-4 text-sm flex">
-                      <span className="text-gray-700">Most Popular tags: </span>
+                      <span className="text-gray-700 dark:text-white">Most Popular tags: </span>
                       <p onClick={()=>setSearch('smartphone')}  className="text-blue-400 hover:underline mx-1">
                         #smartphone
                       </p>
