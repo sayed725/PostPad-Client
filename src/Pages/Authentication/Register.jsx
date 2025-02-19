@@ -108,7 +108,7 @@ const Registration = () => {
                 name='name'
                 placeholder='Username'
                 required
-                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg border-2 border-gray-300 dark:bg-[#20293d] dark:text-white     focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg  border-gray-300 dark:bg-[#20293d] dark:text-white     focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                 type='text'
               />
             </div>
@@ -125,7 +125,7 @@ const Registration = () => {
                 name='photo'
                 placeholder='Photo URL'
                 required
-                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg  border-2 border-gray-300 dark:bg-[#20293d] dark:text-white    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg   border-gray-300 dark:bg-[#20293d] dark:text-white    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                 type='text'
               />
             </div>
@@ -142,7 +142,7 @@ const Registration = () => {
                 placeholder='Email'
                 required
                 name='email'
-                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg border-2 border-gray-300 dark:bg-[#20293d] dark:text-white     focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg  border-gray-300 dark:bg-[#20293d] dark:text-white     focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                 type='email'
               />
             </div>
@@ -164,7 +164,7 @@ const Registration = () => {
                 name='password'
                 placeholder='Password'
                 required
-                className='block w-full  px-4 py-2 text-gray-700 bg-white border rounded-lg border-2 border-gray-300 dark:bg-[#20293d] dark:text-white    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                className='block w-full  px-4 py-2 text-gray-700 bg-white border rounded-lg border-gray-300 dark:bg-[#20293d] dark:text-white    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                  type={showPassword ? "text" : "password"}
               />
                <span
