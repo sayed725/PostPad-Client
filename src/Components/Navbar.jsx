@@ -127,12 +127,12 @@ const Navbar = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content z-[1] rounded-box  font-bold"
               >
-                <div className="w-64 bg-white shadow-lg rounded-lg p-5">
+                <div className="w-64 bg-white dark:bg-[#20293d] dark:text-white shadow-lg rounded-lg p-5">
                   <div className=" mb-4">
                     <h2 className="text-xl font-bold">
                       {user && user?.displayName}
                     </h2>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       {user && user?.email}
                     </p>
                   </div>
@@ -141,24 +141,33 @@ const Navbar = () => {
                       to={
                         isAdmin ? "dashboard/adminHome" : "dashboard/userHome"
                       }
-                      className="flex items-center space-x-2 text-gray-700 hover:text-blue-500"
+                      className="flex items-center space-x-2 text-gray-700 dark:text-white dark:hover:text-blue-500 hover:text-blue-500"
                     >
                       <FaUser />
                       <span>Profile</span>
                     </Link>
                     <Link
                       to={
+                        "dashboard/addPost"
+                      }
+                      className="flex items-center space-x-2 text-gray-700 dark:text-white dark:hover:text-blue-500 hover:text-blue-500"
+                    >
+                      <FaUser />
+                      <span>Add Post</span>
+                    </Link>
+                    <Link
+                      to={
                         isAdmin ? "dashboard/adminHome" : "dashboard/userHome"
                       }
-                      className="flex items-center space-x-2 text-gray-700 hover:text-blue-500"
-                    >
+                      className="flex items-center space-x-2 text-gray-700 dark:text-white dark:hover:text-blue-500 hover:text-blue-500"
+                    > 
                       <MdSpaceDashboard />
                       <span>DashBoard</span>
                     </Link>
                    
                     <Link
                       onClick={logOut}
-                      className="flex items-center space-x-2 rounded-md  bg-[#005694] text-white px-3 py-3 hover:bg-[#005694] hover:text-white text-center"
+                      className="flex items-center space-x-2 rounded-md dark:bg-[#20293d] dark:text-white border-2 dark:hover:bg-[#005694]  bg-[#005694] text-white px-3 py-3 hover:bg-[#005694] hover:text-white text-center"
                     >
                       <CgLogOut className="hover:text-black" />
                       <span>Logout</span>

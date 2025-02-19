@@ -40,7 +40,7 @@ const AdminReport = () => {
 
   return (
     <div className="py-[50px] overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-300">
+      <table className="min-w-full bg-white border border-gray-300 dark:bg-[#20293d] dark:text-white">
         <thead>
           <tr>
             <th></th>
@@ -68,7 +68,7 @@ const AdminReport = () => {
         <div className="btn-group flex gap-5 sm:gap-10">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
-            className="btn-active btn text-white btn-sm bg-[#005694]"
+            className="btn-active btn text-white btn-sm bg-[#005694] hover:bg-[#005694]"
             disabled={currentPage === 1}
           >
             Previous
@@ -77,14 +77,14 @@ const AdminReport = () => {
             <button
               key={i}
               onClick={() => handlePageChange(i + 1)}
-              className={`btn ${currentPage === i + 1 ? ' btn-active btn text-white btn-sm bg-[#005694]' : 'btn btn-sm'}`}
+              className={`btn ${currentPage === i + 1 ? ' btn-active btn text-white btn-sm bg-[#005694] hover:bg-[#005694]' : 'btn btn-sm'}`}
             >
               {i + 1}
             </button>
           ))}
           <button
             onClick={() => handlePageChange(currentPage + 1)}
-            className="btn-active btn text-white btn-sm bg-[#005694]"
+            className="btn-active btn text-white btn-sm bg-[#005694] hover:bg-[#005694]"
             disabled={currentPage === totalPages}
           >
             Next

@@ -40,7 +40,7 @@ const AddTags = () => {
           type="text"
           value={tagName}
           onChange={(e) => setTagName(e.target.value)}
-          className=" className='block px-4 py-3 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'"
+          className=" className='block px-4 py-3 text-gray-700 bg-white border rounded-lg dark:bg-[#20293d] dark:text-white    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'"
           placeholder="Enter tag name"
           required
         />

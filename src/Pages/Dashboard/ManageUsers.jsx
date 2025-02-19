@@ -87,7 +87,7 @@ const ManageUsers = () => {
                    onChange={e => setSearchQuery(e.target.value)}
                    value={searchQuery}
                    placeholder="Search by UserName...."
-                   className="w-full max-w-xs bg-white  text-black rounded-lg py-3 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500"
+                   className="w-full max-w-xs bg-white dark:bg-[#20293d] dark:text-white  text-black rounded-lg py-3 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500"
                  />
                  <FaSearch className="absolute left-4 top-3 text-blue-500 text-xl" />
                </div>
@@ -96,7 +96,7 @@ const ManageUsers = () => {
       {isLoading && <LoadingSpinner></LoadingSpinner>}
 
       <div className="overflow-x-auto w-full">
-        <table className="table table-zebra w-full bg-white">
+        <table className="table w-full bg-white dark:bg-[#20293d] dark:text-white">
           {/* head */}
           <thead className="text-xl font-semibold">
             <tr>
@@ -157,7 +157,7 @@ const ManageUsers = () => {
         <div className="btn-group flex gap-5 sm:gap-10">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
-            className="btn text-white btn-sm bg-[#005694]"
+            className="btn text-white btn-sm bg-[#005694] hover:bg-[#005694]"
             disabled={currentPage === 1}
           >
             Previous
@@ -166,14 +166,14 @@ const ManageUsers = () => {
             <button
               key={i}
               onClick={() => handlePageChange(i + 1)}
-              className={`btn ${currentPage === i + 1 ? "btn-active btn text-white btn-sm bg-[#005694]" : "btn btn-sm"}`}
+              className={`btn ${currentPage === i + 1 ? "btn-active btn text-white btn-sm bg-[#005694] hover:bg-[#005694]" : "btn btn-sm"}`}
             >
               {i + 1}
             </button>
           ))}
           <button
             onClick={() => handlePageChange(currentPage + 1)}
-            className="btn text-white btn-sm bg-[#005694]"
+            className="btn text-white btn-sm bg-[#005694] hover:bg-[#005694]"
             disabled={currentPage === totalPages}
           >
             Next

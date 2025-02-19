@@ -22,9 +22,10 @@ const NewDashboard = () => {
       <div className="bg-[#f5f5f5] dark:bg-[#060817] dark:text-white drawer  flex mx-auto">
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content flex flex-col py-10 w-full">
+          <div className="drawer-content flex flex-col py-10   w-full">
            
-           <label
+          <div className="flex items-center gap-5">
+          <label
               htmlFor="my-drawer-2"
               className="btn btn-primary drawer-button lg:hidden w-[200px] bg-[#005694] mb-2 text-white hover:bg-[#005694]"
               >
@@ -37,9 +38,10 @@ const NewDashboard = () => {
              
              <Darkmode></Darkmode>
             </label>
+          </div>
            
             {/* Page content here */}
-            <div className="bg-[#f5f5f5] dark:bg-[#060817] dark:text-white p-1 w-full">
+            <div className="bg-[#f5f5f5] dark:bg-[#060817] dark:text-white p-5  w-full">
               <Outlet></Outlet>
             </div>
           </div>
@@ -51,8 +53,8 @@ const NewDashboard = () => {
             ></label>
 
             {/* Sidebar content here */}
-            <ul className="text-start lg:text-base text-xl min-h-screen   w-80 shadow-lg bg-[#f5f5f5] dark:bg-[#20293d] dark:text-white">
-             <div className="justify-between hidden lg:flex">
+            <ul className="text-start lg:text-base text-xl min-h-screen   w-[260px] shadow-lg bg-[#f5f5f5] dark:bg-[#20293d] dark:text-white">
+             <div className="justify-between hidden lg:flex px-3">
              <h2 className="text-2xl font-semibold border-b-2 border-[#005694] my-5 pb-1 w-[120px] ">
                 ShortCuts
               </h2>
@@ -65,7 +67,7 @@ const NewDashboard = () => {
                       className={({ isActive }) =>
                         isActive
                           ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:text-white  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
+                          : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                       }
                       to="/dashboard/adminHome"
                     >
@@ -78,7 +80,7 @@ const NewDashboard = () => {
                       className={({ isActive }) =>
                         isActive
                           ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
+                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                       }
                       to="/dashboard/manageUsers"
                     >
@@ -91,7 +93,7 @@ const NewDashboard = () => {
                       className={({ isActive }) =>
                         isActive
                           ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
+                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                       }
                       to="/dashboard/activities"
                     >
@@ -104,7 +106,7 @@ const NewDashboard = () => {
                       className={({ isActive }) =>
                         isActive
                           ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
+                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                       }
                       to="/dashboard/announcement"
                     >
@@ -121,7 +123,7 @@ const NewDashboard = () => {
                       className={({ isActive }) =>
                         isActive
                           ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
+                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                       }
                       to="/dashboard/userHome"
                     >
@@ -134,7 +136,7 @@ const NewDashboard = () => {
                       className={({ isActive }) =>
                         isActive
                           ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
+                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                       }
                       to="/dashboard/addPost"
                     >
@@ -147,7 +149,7 @@ const NewDashboard = () => {
                       className={({ isActive }) =>
                         isActive
                           ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:text-white  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
+                          : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                       }
                       to="/dashboard/userPost"
                     >
@@ -165,7 +167,7 @@ const NewDashboard = () => {
                   className={({ isActive }) =>
                     isActive
                       ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                      : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:text-white flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
+                      : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                   }
                   to="/"
                 >
@@ -178,7 +180,7 @@ const NewDashboard = () => {
                   className={({ isActive }) =>
                     isActive
                       ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                      : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:text-white  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
+                      : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:text-white  dark:hover:bg-[#005694] flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                   }
                   to="/notification"
                 >
@@ -191,7 +193,7 @@ const NewDashboard = () => {
                   className={({ isActive }) =>
                     isActive
                       ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                      : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
+                      : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
                   }
                   to="/member"
                 >

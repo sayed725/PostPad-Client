@@ -65,7 +65,7 @@ const AdminHome = () => {
     <div className="min-h-screen">
        <Helmet> <title>PostPad | Admin | Home </title></Helmet>
       <div>
-        <div className="stats shadow w-full my-10 flex flex-col sm:grid">
+        <div className="stats shadow dark:bg-[#20293d] dark:text-white w-full my-10 flex flex-col sm:grid">
           <div className="stat">
             <div className="stat-figure text-secondary">
               <div className="avatar">
@@ -75,14 +75,14 @@ const AdminHome = () => {
               </div>
             </div>
             <div className="stat-value">{user && user?.displayName}</div>
-            <div className="stat-title">{user && user?.email}</div>
+            <div className="stat-title dark:text-white">{user && user?.email}</div>
           </div>
 
           <div className="stat">
             <div className="stat-figure text-primary">
               <FaLayerGroup className="text-4xl" />
             </div>
-            <div className="stat-title">Total Posts</div>
+            <div className="stat-title dark:text-white">Total Posts</div>
             <div className="stat-value text-primary">{stats.posts}</div>
           </div>
 
@@ -90,14 +90,14 @@ const AdminHome = () => {
             <div className="stat-figure text-secondary">
               <FaComments className="text-4xl" />
             </div>
-            <div className="stat-title">All Comments</div>
+            <div className="stat-title dark:text-white">All Comments</div>
             <div className="stat-value text-secondary">{stats.comments}</div>
           </div>
           <div className="stat">
             <div className="stat-figure text-secondary">
               <RiArrowUpDownFill className="text-4xl" />
             </div>
-            <div className="stat-title">Total Votes</div>
+            <div className="stat-title dark:text-white">Total Votes</div>
             <div className="stat-value text-secondary">{stats.totalVotes}</div>
           </div>
 
@@ -105,14 +105,14 @@ const AdminHome = () => {
             <div className="stat-figure text-secondary">
               <MdGroups className="text-4xl" />
             </div>
-            <div className="stat-title">Total Users</div>
+            <div className="stat-title dark:text-white">Total Users</div>
             <div className="stat-value text-secondary">{stats.users}</div>
           </div>
           <div className="stat">
             <div className="stat-figure text-secondary">
               <TbMessageReportFilled className="text-4xl" />
             </div>
-            <div className="stat-title">Total Reports</div>
+            <div className="stat-title dark:text-white">Total Reports</div>
             <div className="stat-value text-secondary">{stats.reports}</div>
           </div>
         </div>
