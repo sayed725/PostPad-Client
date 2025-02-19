@@ -65,6 +65,11 @@ const DetailsPostCard = ({ post, refetch, cRefetch, comments }) => {
   };
 
   const setUpvote = (upPost) => {
+
+    if(!user){
+      return toast.error("Please Log in to Vote")
+    }
+
     axiosSecure.put(`post/upvote`, upPost).then((res) => {
       //   console.log(res.data)
       if (res.data.modifiedCount > 0) {
@@ -74,6 +79,10 @@ const DetailsPostCard = ({ post, refetch, cRefetch, comments }) => {
     });
   };
   const setDawnVote = (dwPost) => {
+
+    if(!user){
+      return toast.error("Please Log in to Vote")
+    }
     axiosSecure.put(`/post/dawnvote`, dwPost).then((res) => {
       //   console.log(res.data)
       if (res.data.modifiedCount > 0) {

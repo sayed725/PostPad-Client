@@ -80,7 +80,7 @@ const UserPost = () => {
         </div>
 
         <div className="overflow-x-auto w-full">
-          <table className="min-w-full bg-white border border-gray-300 shadow-lg">
+          <table className="min-w-full bg-white border dark:bg-[#20293d] dark:text-white border-gray-300 shadow-lg">
             {/* head */}
             <thead className="text-xl font-semibold">
               <tr>
@@ -126,7 +126,7 @@ const UserPost = () => {
           <div className="btn-group flex gap-5 sm:gap-10">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
-              className="btn text-white btn-sm bg-[#005694]"
+              className="btn text-white btn-sm bg-[#005694] dark:hover:bg-[#005694]"
               disabled={currentPage === 1}
             >
               <GrPrevious/>Previous
@@ -135,14 +135,14 @@ const UserPost = () => {
               <button
                 key={i}
                 onClick={() => handlePageChange(i + 1)}
-                className={`btn ${currentPage === i + 1 ? "btn text-white btn-sm bg-[#005694]" : "btn btn-sm"}`}
+                className={`btn ${currentPage === i + 1 ? "btn text-white btn-sm dark:hover:bg-[#005694] bg-[#005694]" : "btn btn-sm"}`}
               >
                 {i + 1}
               </button>
             ))}
             <button
               onClick={() => handlePageChange(currentPage + 1)}
-              className="btn text-white btn-sm bg-[#005694]"
+              className="btn text-white btn-sm bg-[#005694] dark:hover:bg-[#005694]"
               disabled={currentPage === totalPages}
             >
               Next<GrNext/>

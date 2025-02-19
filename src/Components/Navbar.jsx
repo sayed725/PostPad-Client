@@ -79,15 +79,15 @@ const Navbar = () => {
   return (
     <div className="bg-white dark:bg-[#20293d] sticky top-0 z-10 mb-8 py-1 shadow-lg">
       <div className="navbar  sm:w-11/12  lg:w-9/12 bg-white dark:bg-[#20293d]   mx-auto">
-        <div className="navbar-start ">
+        <div className="navbar-start hidden sm:block ">
           <Link to="/" className="flex gap-2 items-center">
             <img className="w-auto h-7" src="/postpad-logo.png" alt="logo" />
             {/* <p className="font-bold">PostPad</p> */}
           </Link>
         </div>
 
-        <div className="navbar-end gap-2 sm:gap-5">
-          <ul className="flex justify-between gap-2 sm:gap-5  text-sm ">
+        <div className="sm:navbar-end gap-2 sm:gap-5 mx-auto w-full">
+          <ul className="flex justify-between gap-2 sm:gap-5 mx-auto lg:mx-0  text-sm ">
             <div className="flex">
               <ul className="flex justify-between gap-2 sm:gap-5">{links}</ul>
             </div>

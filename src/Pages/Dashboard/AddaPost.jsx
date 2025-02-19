@@ -93,7 +93,7 @@ const AddaPost = () => {
     // Show Become a Member button if user has reached the post limit
     return (
       <div className="text-center min-h-screen mt-10">
-        <div className="p-5 bg-white rounded-md shadow-lg">
+        <div className="p-5 bg-white dark:bg-[#20293d] dark:text-white rounded-md shadow-lg">
         <p className="mb-5 font-bold text-2xl">
           You have reached the limit of 5 posts. Become a Member to add more posts.
         </p>
@@ -116,14 +116,14 @@ const AddaPost = () => {
             {/* title  */}
           <div className="form-control w-full my-6">
             <label className="label">
-              <span className="label-text">Post Title*</span>
+              <span className="label-text dark:text-white">Post Title*</span>
             </label>
             <input
               type="text"
               placeholder="Post Title"
               {...register("title", { required: true })}
               required
-              className="input input-bordered w-full focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+              className="input input-bordered w-full dark:bg-[#20293d] dark:text-white focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
 
@@ -131,11 +131,11 @@ const AddaPost = () => {
           {/* post description */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Post Description*</span>
+              <span className="label-text dark:text-white">Post Description*</span>
             </label>
             <textarea
               {...register("description")}
-              className="textarea textarea-bordered h-32 focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+              className="textarea textarea-bordered h-32 dark:bg-[#20293d] dark:text-white focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
               placeholder="Post Description"
             ></textarea>
           </div>
@@ -144,13 +144,13 @@ const AddaPost = () => {
            {/* tag select */}
            <div className="form-control w-full my-6">
             <label className="label">
-              <span className="label-text">Select Tag*</span>
+              <span className="label-text dark:text-white">Select Tag*</span>
             </label>
 
             <select
               defaultValue="default"
               {...register("tag", { required: true })}
-              className="select select-bordered w-full focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+              className="select select-bordered w-full focus:border-blue-400  dark:bg-[#20293d] dark:text-white focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
             >
               <option disabled value="default">
                 Select a tag
@@ -166,7 +166,7 @@ const AddaPost = () => {
             <input
               {...register("image",{ required: true})}
               type="file"
-              className="file-input w-full max-w-xs focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+              className="file-input w-full max-w-xs focus:border-blue-400 dark:bg-[#20293d] dark:text-white focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
 

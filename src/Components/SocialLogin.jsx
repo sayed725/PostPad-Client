@@ -47,7 +47,7 @@ const SocialLogin = () => {
     return (
         <div
         onClick={handleGoogleSignIn}
-        className='flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg   hover:bg-gray-50 '
+        className='flex cursor-pointer items-center justify-center mt-4 dark:text-white text-gray-600 transition-colors duration-300 transform border rounded-lg   hover:bg-gray-50 dark:hover:bg-[#20293d]'
       >
         <div className='px-4 py-2'>
           <svg className='w-6 h-6' viewBox='0 0 40 40'>

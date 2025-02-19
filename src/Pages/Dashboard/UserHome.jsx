@@ -32,9 +32,9 @@ const UserHome = () => {
 
 
   return (
-    <div>
+    <div className="w-3/5 mx-auto">
        <Helmet> <title>PostPad | UserProfile </title></Helmet>
-      <div className="mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+      <div className="mx-auto bg-white dark:bg-[#20293d] dark:text-white shadow-md rounded-lg overflow-hidden">
         <div className="flex items-center justify-between p-2 sm:p-10">
           <div className="flex items-center">
             <img
@@ -44,11 +44,11 @@ const UserHome = () => {
             />
             <div className="ml-2 sm:ml-5">
               <div className="flex items-center">
-                <h2 className="text-xl font-bold text-gray-800">
+                <h2 className="text-xl font-bold text-gray-800 dark:text-white">
                   {user && user?.displayName}
                 </h2>
               </div>
-              <p className="text-gray-600">{user && user?.email}</p>
+              <p className="text-gray-600 dark:text-gray-300">{user && user?.email}</p>
             </div>
           </div>
 

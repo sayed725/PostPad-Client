@@ -13,6 +13,8 @@ import SocialLogin from '../../Components/SocialLogin';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState({});
+  const [email,setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || "/";
@@ -48,9 +50,10 @@ const Login = () => {
 
 
   return (
-    <div className='flex justify-center items-center min-h-screen my-12'>
+   <div className='min-h-screen'>
+     <div className='flex  lg:my-[100px] my-[50px]'>
       <Helmet> <title>PostPad | LogIn </title></Helmet>
-      <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl '>
+      <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white dark:bg-[#20293d] dark:text-white rounded-lg shadow-lg  lg:max-w-4xl '>
         <div
           className='hidden bg-cover bg-center lg:block lg:w-1/2'>
             <Lottie animationData={loginLottieJSON}></Lottie>
@@ -62,7 +65,7 @@ const Login = () => {
             <img className='w-auto h-7 sm:h-8' src='/postpad-logo.png' alt='' />
           </div>
 
-          <p className='mt-3 text-xl text-center text-gray-600 animate__animated animate__fadeInLeft'>
+          <p className='mt-3 text-xl text-center text-gray-600 dark:text-white animate__animated animate__fadeInLeft'>
             Welcome back!
           </p>
 
@@ -70,7 +73,7 @@ const Login = () => {
           <div className='flex items-center justify-between mt-4'>
             <span className='w-1/5 border-b  lg:w-1/4'></span>
 
-            <div className='text-xs text-center text-gray-500 uppercase  hover:underline'>
+            <div className='text-xs text-center text-gray-500 dark:text-white uppercase  hover:underline'>
               or login with email
             </div>
 
@@ -81,12 +84,14 @@ const Login = () => {
           {/* Email Field */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text ">Email address</span>
+              <span className="label-text dark:text-white ">Email address</span>
             </label>
             <input
               type="email"
               placeholder="Email"
-              className={`input input-bordered ${errors.email ? "border-red-600" : ""} focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300`}
+              defaultValue={email}
+             
+              className={`input input-bordered ${errors.email ? "border-red-600" : ""} focus:border-blue-400 border-2 border-gray-300  dark:bg-[#20293d] dark:text-white focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300`}
               {...register("email", {
                 required: "Email is required",
               })}
@@ -99,12 +104,13 @@ const Login = () => {
           {/* Password Field */}
           <div className="form-control relative">
             <label className="label">
-              <span className="label-text">Password</span>
+              <span className="label-text dark:text-white">Password</span>
             </label>
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              className={`input input-bordered ${errors.password ? "border-red-600" : ""} focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300`}
+              defaultValue={password}
+              className={`input input-bordered ${errors.password ? "border-red-600" : ""} focus:border-blue-400 border-2 border-gray-300 dark:bg-[#20293d] dark:text-white focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300`}
               {...register("password", {
                 required: "Password is required",
               })}
@@ -135,14 +141,14 @@ const Login = () => {
 
           {/* Submit Button */}
           <div className="form-control mt-6">
-            <button className="btn rounded-md text-white bg-[#005694] hover:text-black hover:bg-[#005694]">
+            <button className="btn rounded-md text-white bg-[#005694]  hover:bg-[#005694]">
               Login
             </button>
           </div>
         </form>
 
           <div className='flex items-center justify-between mt-4'>
-            <span className='w-1/5 border-b  md:w-1/4'></span>
+            <span className='w-1/5 border-b   md:w-1/4'></span>
 
             <Link
               to='/register'
@@ -156,6 +162,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+   </div>
   )
 }
 
