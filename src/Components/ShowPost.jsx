@@ -65,7 +65,7 @@ const ShowPost = () => {
   };
 
   return (
-    <div className="">
+    <div className=" mb-10">
       <div className="p-5 shadow-lg bg-white dark:bg-[#20293d] dark:text-white ">
         <div className="flex flex-col items-center justify-center text-white dark:bg-[#20293d]">
           {/* search by tags */}

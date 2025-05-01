@@ -46,9 +46,8 @@ const Home = () => {
            <div className='lg:grid p-1 sm:p-0 sm:grid-cols-5 gap-7'>
             <div className='hidden  lg:block'>
             <Tags></Tags>
-            {
-                Notifications.length > 0 && <HomeNotification></HomeNotification>
-            }
+            <HomeNotification></HomeNotification>
+            
             <div className='py-5'>
             <Add2></Add2>
             </div>

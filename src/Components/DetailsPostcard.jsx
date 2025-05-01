@@ -127,7 +127,7 @@ const DetailsPostCard = ({ post, refetch, cRefetch, comments }) => {
       </div>
 
       {/* Likes, Comments, and Share */}
-      <div className="flex items-center justify-between mt-4 text-gray-600  dark:text-white">
+      <div className="flex items-center justify-between mt-4 text-gray-600  dark:text-white dark:bg-[#20293d]">
         <div className="flex items-center space-x-1 sm:space-x-2 ">
           <div
             onClick={() => setUpvote(post)}
@@ -191,7 +191,7 @@ const DetailsPostCard = ({ post, refetch, cRefetch, comments }) => {
         {comments.map((comment) => (
           <div
             key={comment._id}
-            className="border-b pb-3 mb-3 flex flex-col space-y-2"
+            className="border-b pb-3 mb-3 flex flex-col space-y-2 dark:bg-[#20293d]"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
