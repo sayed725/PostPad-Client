@@ -3,7 +3,7 @@ import PostCard from "./Postcard";
 import { useQuery } from "@tanstack/react-query";
 import { FaSearch } from "react-icons/fa";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
-import LoadingSpinner from "./LoadingSpinner";
+
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { LuArrowUpDown } from "react-icons/lu";
 import { BiReset } from "react-icons/bi";
@@ -173,9 +173,9 @@ const ShowPost = () => {
         )}
       </div>
 
-      {posts.length < 5 ? (
+      {/* {posts.length < 5 ? (
         ""
-      ) : (
+      ) : ( */}
         <div className="flex justify-center items-center gap-5">
           <button
             onClick={handlePrevPage}
@@ -203,14 +203,7 @@ const ShowPost = () => {
             <GrNext />
           </button>
         </div>
-      )}
-      {posts.length === 0 && (
-        <div className="flex justify-center items-center">
-          <h2 className="text-2xl text-gray-500 dark:text-white">
-            No posts found
-          </h2>
-        </div>
-      )}
+      {/* )} */}
     </div>
   );
 };

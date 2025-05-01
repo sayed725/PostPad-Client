@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FiArrowLeft, FiHome, FiWifi, FiAlertTriangle } from "react-icons/fi";
+import { Helmet } from "react-helmet-async";
 
 const Error = () => {
   const handleGoBack = () => {
@@ -9,6 +10,7 @@ const Error = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center transition-colors duration-300 bg-blue-50">
+      <Helmet> <title>PostPad | Error </title></Helmet>
       <div className="container px-4 mx-auto">
         <div className="max-w-5xl mx-auto relative overflow-hidden bg-white/90 border border-blue-200 backdrop-blur-md rounded-2xl shadow-2xl transition-all duration-300">
           {/* Decorative Blue Gradients */}
