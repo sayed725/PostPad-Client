@@ -173,9 +173,9 @@ const ShowPost = () => {
         )}
       </div>
 
-      {/* {posts.length < 5 ? (
+      { (search.length) ? (
         ""
-      ) : ( */}
+      ) : (
         <div className="flex justify-center items-center gap-5">
           <button
             onClick={handlePrevPage}
@@ -203,7 +203,7 @@ const ShowPost = () => {
             <GrNext />
           </button>
         </div>
-      {/* )} */}
+      )}
     </div>
   );
 };
