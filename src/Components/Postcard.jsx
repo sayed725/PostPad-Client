@@ -25,7 +25,7 @@ const PostCard =({post})=> {
     const {_id,title,authorName, authorImage, authorEmail, description, usedTag, image, upVote, dawnVote, time} = post
 
 
-    const { refetch:cRefetch, data: comments , isLoading:isLoad  } = useQuery({
+    const { refetch:cRefetch, data: comments = 0 , isLoading:isLoad  } = useQuery({
         queryKey: ['comments', _id],
         queryFn: async() => {
             const res = await axiosPublic.get(`/comments?id=${_id}`);
@@ -34,9 +34,45 @@ const PostCard =({post})=> {
     })
 
 
-    if(isLoad){
-        return <LoadingSpinner></LoadingSpinner>
-    }
+    // if(isLoad){
+    //     return <div className="w-full bg-white dark:bg-[#20293d] rounded-lg hover:scale-[1.05] transition-all animate-pulse">
+    //     <div className="rounded-lg shadow-lg overflow-hidden bg-white dark:bg-[#20293d]">
+    //       {/* Author Section */}
+    //       <div className="p-5 flex items-center space-x-3">
+    //         <div className="w-10 h-10 bg-gray-300 dark:bg-gray-700 rounded-full" />
+    //         <div className="flex-1">
+    //           <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/3" />
+    //           <div className="h-3 bg-gray-300 dark:bg-gray-700 rounded w-1/4 mt-2" />
+    //         </div>
+    //       </div>
+      
+    //       {/* Post Content */}
+    //       <div className="px-5">
+    //         <div className="h-5 bg-gray-300 dark:bg-gray-700 rounded w-3/4" />
+    //         <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-full mt-3" />
+    //         <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-5/6 mt-2" />
+    //         <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2 mt-2" />
+    //       </div>
+      
+    //       {/* Post Image */}
+    //       <div className="mt-4 px-5">
+    //         <div className="w-full h-[350px] bg-gray-300 dark:bg-gray-700 rounded-lg" />
+    //       </div>
+      
+    //       {/* Likes, Comments, and Share */}
+    //       <div className="flex items-center justify-between mt-4 px-5 pb-5">
+    //         <div className="flex items-center space-x-2">
+    //           <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-16" />
+    //           <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-16" />
+    //         </div>
+    //         <div className="flex items-center space-x-4">
+    //           <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-10" />
+    //           <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-10" />
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // }
 
     // console.log(post)
     return (
