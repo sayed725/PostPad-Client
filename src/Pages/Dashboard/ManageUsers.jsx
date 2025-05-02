@@ -116,13 +116,13 @@ const ManageUsers = () => {
                 <td>{user.email}</td>
                 <td>
                   {user.role === "admin" ? (
-                    <button className="btn btn-sm bg-[#005694] text-white hover:bg-[#005694]">
+                    <button className="btn btn-sm hover:text-white hover:bg-[#005694]">
                       Admin Role
                     </button>
                   ) : (
                     <button
                       onClick={() => handleMakeAdmin(user)}
-                      className="btn btn-sm bg-[#005694] text-white hover:bg-[#005694]"
+                      className="btn btn-sm hover:text-white hover:bg-[#005694]"
                     >
                       Make Admin
                     </button>

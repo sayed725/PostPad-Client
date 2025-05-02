@@ -40,7 +40,7 @@ const Footer = () => {
           </a>
 
           <a
-            href="https://www.facebook.com/abu.ssayed.khan.2024"
+            href="https://github.com/sayed725"
             target="_blank"
             className="mx-2 text-gray-600 transition-colors duration-300 dark:hover:text-blue-500 dark:text-white hover:text-blue-500 "
             aria-label="Github"

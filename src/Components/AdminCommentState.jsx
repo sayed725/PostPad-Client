@@ -84,14 +84,14 @@ const AdminCommentState = ({ report, index, refetch }) => {
           <button
             disabled={disabled}
             onClick={() => removeComment(report.reportCommentId)}
-            className="btn  bg-[#005694] text-white hover:bg-[#005694]"
+            className="btn btn-sm hover:text-white hover:bg-[#005694]"
           >
             Remove
           </button>
         </td>
         <td className="px-4 py-2 border text-center">
           <button  onClick={() => removeUser(report.reportFor)}
-          className="btn  bg-[#005694] text-white hover:bg-[#005694]">
+          className="btn btn-sm hover:text-white hover:bg-[#005694]">
             Remove User
           </button>
         </td>
@@ -106,14 +106,14 @@ const AdminCommentState = ({ report, index, refetch }) => {
             onClick={closeModal}
           >
             <div
-              className="bg-white rounded-lg shadow-lg p-6 w-3/4 md:w-1/2"
+              className="bg-white rounded-lg dark:bg-[#20293d] dark:text-white shadow-lg p-6 w-3/4 md:w-1/2"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-lg font-bold mb-4">Full Comment</h2>
-              <p className="text-gray-700 mb-6">{modalData.commentText}</p>
+              <p className="text-gray-700 dark:text-white mb-6">{modalData.commentText}</p>
               <button
                 onClick={closeModal}
-                className="btn bg-[#005694] text-white hover:bg-[#005694]"
+                className="btn btn-sm hover:text-white hover:bg-[#005694]"
               >
                 Close
               </button>
