@@ -116,13 +116,13 @@ const ManageUsers = () => {
                 <td>{user.email}</td>
                 <td>
                   {user.role === "admin" ? (
-                    <button className="btn bg-[#005694] text-white hover:bg-[#005694]">
+                    <button className="btn btn-sm bg-[#005694] text-white hover:bg-[#005694]">
                       Admin Role
                     </button>
                   ) : (
                     <button
                       onClick={() => handleMakeAdmin(user)}
-                      className="btn bg-[#005694] text-white hover:bg-[#005694]"
+                      className="btn btn-sm bg-[#005694] text-white hover:bg-[#005694]"
                     >
                       Make Admin
                     </button>
@@ -140,9 +140,9 @@ const ManageUsers = () => {
                 <td>
                   <button
                     onClick={() => handleDeleteUser(user)}
-                    className="btn btn-ghost btn-lg"
+                    className="btn btn-ghost btn-md"
                   >
-                    <FaTrashAlt className="text-red-600"></FaTrashAlt>
+                    <FaTrashAlt size={20} className="text-red-600"></FaTrashAlt>
                   </button>
                 </td>
               </tr>

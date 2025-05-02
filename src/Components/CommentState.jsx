@@ -49,7 +49,7 @@ const CommentState = ({ comment, index }) => {
 
   return (
     <>
-      <tr>
+      <tr className="dark:bg-[#20293d] dark:text-white border-gray-300">
         <td className="px-4 py-2 border">{index + 1}</td>
         <td className="px-4 py-2 border">{comment.commentEmail}</td>
         <td className="px-4 py-2 border">
@@ -67,9 +67,9 @@ const CommentState = ({ comment, index }) => {
             comment.comment
           )}
         </td>
-        <td className="px-4 py-2 border">
+        <td className="px-4 py-2">
           <select
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full dark:bg-[#20293d] dark:text-white border-gray-300"
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
           >
@@ -83,7 +83,7 @@ const CommentState = ({ comment, index }) => {
           <button
             onClick={() => handleReport(comment)}
             disabled={feedback == ""}
-            className="btn  bg-[#005694] text-white hover:bg-[#005694]"
+            className="btn btn-sm bg-[#005694] text-white hover:bg-[#005694]"
           >
             Report
           </button>
@@ -94,18 +94,18 @@ const CommentState = ({ comment, index }) => {
       {modalData.isOpen &&
         ReactDOM.createPortal(
           <div
-            className="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex justify-center items-center"
+            className="fixed inset-0 bg-gray-900  bg-opacity-50 z-50 flex justify-center items-center"
             onClick={closeModal}
           >
             <div
-              className="bg-white rounded-lg shadow-lg p-6 w-3/4 md:w-1/2"
+              className="bg-white dark:bg-[#20293d] rounded-lg shadow-lg p-6 w-3/4 md:w-1/2"
               onClick={(e) => e.stopPropagation()}
             >
-              <h2 className="text-lg font-bold mb-4">Full Comment</h2>
-              <p className="text-gray-700 mb-6">{modalData.commentText}</p>
+              <h2 className="text-lg font-bold dark:text-white mb-4">Full Comment</h2>
+              <p className="text-gray-700 dark:text-white mb-6">{modalData.commentText}</p>
               <button
                 onClick={closeModal}
-                className="btn bg-[#005694] text-white hover:bg-[#005694]"
+                className="btn btn-sm bg-[#005694] text-white hover:bg-[#005694]"
               >
                 Close
               </button>

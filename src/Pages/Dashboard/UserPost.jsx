@@ -101,13 +101,13 @@ const UserPost = () => {
                   <td className="px-4 py-2 border text-center">{post.dawnVote}</td>
                   <td className="px-4 py-2 border text-center">
                     <Link to={`/dashboard/comments/${post._id}`}>
-                      <button className="btn  bg-[#005694] ml-5 text-white hover:bg-[#005694]">
+                      <button className="btn btn-sm   ml-5 ">
                         All Comments
                       </button>
                     </Link>
                   </td>
 
-                  <td className="px-4 py-2 border text-center">
+                  <td className="px-4 py-2  border text-center">
                     <button
                       onClick={() => handleDelete(post._id)}
                       className="btn text-2xl text-red-500"
