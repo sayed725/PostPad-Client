@@ -1,4 +1,4 @@
-import { FaRegCommentDots, FaShareAlt } from "react-icons/fa";
+import { FaRegCommentDots } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
@@ -6,14 +6,14 @@ import toast from "react-hot-toast";
 import { FaEllipsisH } from "react-icons/fa";
 
 import useAuth from "../Hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../Hooks/useAxiosPublic";
+
+
 import ShareModal from "./ShareModal";
 import moment from "moment/moment";
 
 const DetailsPostCard = ({ post, refetch, cRefetch, comments }) => {
   const axiosSecure = useAxiosSecure();
-  const axiosPublic = useAxiosPublic();
+ 
   const { user } = useAuth();
 
   const {

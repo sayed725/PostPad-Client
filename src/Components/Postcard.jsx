@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { FaRegCommentDots, FaShareAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { BiSolidDownvote, BiSolidUpvote } from "react-icons/bi";
+
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
-import LoadingSpinner from "./LoadingSpinner";
+
 import moment from "moment/moment";
 
 

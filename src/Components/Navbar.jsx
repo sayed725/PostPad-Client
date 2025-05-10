@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { IoHome, IoNotifications } from "react-icons/io5";
 import { MdCardMembership, MdSpaceDashboard } from "react-icons/md";
-import { FaUser, FaEnvelope, FaFileAlt, FaCog, FaLock } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
