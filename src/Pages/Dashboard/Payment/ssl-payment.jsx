@@ -16,7 +16,7 @@ const SslPayment = () => {
     const payment = {
         email: user?.email,
         name: user?.displayName,
-        amount: totalPrice,
+        price: totalPrice,
         transactionId: "",
         date: new Date(),
         status: 'pending',
@@ -24,7 +24,11 @@ const SslPayment = () => {
 
 
     const response = await axiosPublic.post('/create-ssl-payment', payment);
-    console.log(response)
+    // console.log(response)
+
+    if(response.data?.gatewayURL){
+      window.location.replace(response.data.gatewayURL);
+    }
 
 
 
@@ -41,7 +45,7 @@ const SslPayment = () => {
 
 
 
-    console.log('Processing SSL payment for amount', payment);
+    // console.log('Processing SSL payment for amount', payment);
   };
 
   return (
