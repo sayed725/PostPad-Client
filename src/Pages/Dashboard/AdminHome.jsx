@@ -25,6 +25,8 @@ const AdminHome = () => {
     },
   });
 
+  console.log(stats)
+
   // custom shape for the pie chart
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -64,59 +66,115 @@ const AdminHome = () => {
   return (
     <div className="min-h-screen">
        <Helmet> <title>PostPad | Admin | Home </title></Helmet>
-      <div>
-        <div className="stats shadow dark:bg-[#20293d] dark:text-white w-full my-10 flex flex-col sm:grid">
-          <div className="stat">
-            <div className="stat-figure text-secondary">
-              <div className="avatar">
-                <div className="w-16 rounded-full">
-                  <img src={user && user?.photoURL} />
-                </div>
-              </div>
-            </div>
-            <div className="stat-value">{user && user?.displayName}</div>
-            <div className="stat-title dark:text-white">{user && user?.email}</div>
+
+
+       {/* Admin Profile  */}
+
+        <div className="w-full border shadow-sm border-[#e5e7eb] dark:border-none dark:bg-[#20293d] rounded-lg">
+      <div className="p-6">
+        <div className="flex flex-col md:flex-row gap-6">
+          <div className="flex-shrink-0">
+           <div className="avatar h-32 w-32 rounded-md">
+  <div className="ring-primary ring-offset-base-100 w-24 rounded-md ring-2 ring-offset-2">
+    <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+  </div>
+</div>
           </div>
 
-          <div className="stat">
-            <div className="stat-figure text-primary">
-              <FaLayerGroup className="text-4xl" />
+          <div className="flex-grow space-y-4">
+            <div>
+              <h1 className="text-2xl font-bold">{user?.displayName}</h1>
+              <p className="text-muted-foreground font-semibold">
+                Email: {user?.email}
+              </p>
             </div>
-            <div className="stat-title dark:text-white">Total Posts</div>
-            <div className="stat-value text-primary">{stats.posts}</div>
-          </div>
 
-          <div className="stat">
-            <div className="stat-figure text-secondary">
-              <FaComments className="text-4xl" />
-            </div>
-            <div className="stat-title dark:text-white">All Comments</div>
-            <div className="stat-value text-secondary">{stats.comments}</div>
-          </div>
-          <div className="stat">
-            <div className="stat-figure text-secondary">
-              <RiArrowUpDownFill className="text-4xl" />
-            </div>
-            <div className="stat-title dark:text-white">Total Votes</div>
-            <div className="stat-value text-secondary">{stats.totalVotes}</div>
-          </div>
-
-          <div className="stat">
-            <div className="stat-figure text-secondary">
-              <MdGroups className="text-4xl" />
-            </div>
-            <div className="stat-title dark:text-white">Total Users</div>
-            <div className="stat-value text-secondary">{stats.users}</div>
-          </div>
-          <div className="stat">
-            <div className="stat-figure text-secondary">
-              <TbMessageReportFilled className="text-4xl" />
-            </div>
-            <div className="stat-title dark:text-white">Total Reports</div>
-            <div className="stat-value text-secondary">{stats.reports}</div>
+            <p className=" w-full md:w-11/12 lg:w-10/12 xl:w-9/12">
+              Welcome to the admin dashboard. Here you can manage users, posts,
+              comments, and site settings. Use the navigation menu to access
+              different sections of the admin panel.
+            </p>
+            <p className=" w-full md:w-11/12 lg:w-10/12 xl:w-9/12">
+             You can add new tags for posts and manage existing ones using the "Add Tags" section below.
+            </p>
           </div>
         </div>
       </div>
+    </div>
+
+
+    {/* stats card  */}
+
+
+     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
+
+       <div className="border-2 shadow-sm border-[#e5e7eb] dark:bg-[#20293d] dark:border-none rounded-lg">
+           <div className="p-6 flex justify-between items-center">
+           <div>
+             <div className=" dark:text-white">Total Posts</div>
+            <div className="text-3xl text-[#005694] mt-3">{stats.posts}</div>
+           </div>
+             <div className="text-[#005694]">
+              <FaLayerGroup className="text-4xl" />
+            </div>
+           </div>
+        </div>
+
+         <div className="border-2 shadow-sm border-[#e5e7eb] dark:bg-[#20293d] dark:border-none rounded-lg">
+           <div className="p-6 flex justify-between items-center">
+           <div>
+             <div className=" dark:text-white">All Comments</div>
+            <div className="text-3xl text-[#005694] mt-3">{stats.comments}</div>
+           </div>
+             <div className="text-[#005694]">
+              <FaComments  className="text-4xl" />
+            </div>
+           </div>
+        </div>
+
+         <div className="border-2 shadow-sm border-[#e5e7eb] dark:bg-[#20293d] dark:border-none rounded-lg">
+           <div className="p-6 flex justify-between items-center">
+           <div>
+             <div className=" dark:text-white">Total Votes</div>
+            <div className="text-3xl text-[#005694] mt-3">{stats.totalVotes}</div>
+           </div>
+             <div className="text-[#005694]">
+              <RiArrowUpDownFill className="text-4xl" />
+            </div>
+           </div>
+        </div>
+
+         <div className="border-2 shadow-sm border-[#e5e7eb] dark:bg-[#20293d] dark:border-none rounded-lg">
+           <div className="p-6 flex justify-between items-center">
+           <div>
+             <div className=" dark:text-white">Total Users</div>
+            <div className="text-3xl text-[#005694] mt-3">{stats.users}</div>
+           </div>
+             <div className="text-[#005694]">
+              <MdGroups className="text-4xl" />
+            </div>
+           </div>
+        </div>
+
+         <div className="border-2 shadow-sm border-[#e5e7eb] dark:bg-[#20293d] dark:border-none rounded-lg">
+           <div className="p-6 flex justify-between items-center">
+           <div>
+             <div className=" dark:text-white">Total Reports</div>
+            <div className="text-3xl text-[#005694] mt-3">{stats.reports}</div>
+           </div>
+             <div className="text-[#005694]">
+              <TbMessageReportFilled className="text-4xl" />
+            </div>
+           </div>
+        </div>
+       
+       
+
+      
+     </div>
+
+
+    
 
       <div className="w-full h-96 flex flex-col sm:flex-row gap-5 sm:gap-0 justify-around items-center">
         <PieChart width={300} height={300}>
