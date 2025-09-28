@@ -45,7 +45,7 @@ const DetailsComment = () => {
   };
 
   return (
-    <div className="mt-10 mx-auto bg-white dark:bg-[#20293d] dark:text-white rounded-md p-5 shadow-lg">
+    <div className="mt-10 mx-auto bg-white min-h-screen dark:bg-black dark:text-white rounded-md shadow-lg">
       <div className="overflow-x-auto w-full">
         <table className="min-w-full bg-white border dark:bg-[#20293d] dark:text-white border-gray-300">
           <thead>

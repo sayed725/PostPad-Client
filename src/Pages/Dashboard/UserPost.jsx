@@ -91,7 +91,7 @@ const UserPost = () => {
       
 
   return (
-    <div>
+    <div className="">
        <Helmet> <title>PostPad | UserPost </title></Helmet>
       <div className="rounded-md min-h-screen">
         <div className="mb-5">
@@ -131,7 +131,7 @@ const UserPost = () => {
                   <td className="px-4 py-2  border text-center">
                     <button
                       onClick={() => handleDelete(post._id)}
-                      className="btn text-2xl text-red-500"
+                      className="btn btn-sm text-xl text-red-500"
                     >
                       <FaTrash></FaTrash>
                     </button>

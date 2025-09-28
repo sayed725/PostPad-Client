@@ -44,7 +44,7 @@ const NewDashboard = () => {
               className="drawer-button lg:hidden btn lg:btn-sm mb-2 text-black dark:text-white dark:bg-black cursor-pointer"
               >
              
-              <TiThMenu className="text-4xl"></TiThMenu>
+              <TiThMenu className="text-3xl"></TiThMenu>
             </label>
          </div>
           </div>
