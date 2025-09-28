@@ -69,6 +69,27 @@ const UserPost = () => {
     }
   };
 
+    
+        if (!posts.length)
+          return(
+        <div className="text-center mt-10">
+          <h2 className="text-2xl font-semibold mb-4">No Posts Found</h2>
+          <p className="text-gray-600 dark:text-gray-300">
+            You haven't created any posts yet. Start sharing your thoughts and
+            ideas with the community!
+          </p>
+          <button className="mt-5 bg-[#005694] hover:bg-[#005694] text-white px-6 py-2 rounded-md">
+            <Link
+              to="/dashboard/addPost"
+              className="mt-5 bg-[#005694] hover:bg-[#005694] text-white px-6 py-2 rounded-md"
+            >
+              Create Your First Post
+            </Link>
+          </button>
+        </div>
+         )
+      
+
   return (
     <div>
        <Helmet> <title>PostPad | UserPost </title></Helmet>

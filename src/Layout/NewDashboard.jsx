@@ -6,12 +6,13 @@ import { MdOutlinePostAdd, MdCardMembership } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { IoNotifications } from "react-icons/io5";
 import { GrMultiple } from "react-icons/gr";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
 import Footer from "../Components/Footer";
 import { FaArrowUpShortWide } from "react-icons/fa6";
 import { Helmet } from "react-helmet-async";
 import Darkmode from "../Components/Darkmode";
+import { TiThMenu } from "react-icons/ti";
 
 const NewDashboard = () => {
   const [isAdmin] = useAdmin();
@@ -22,22 +23,30 @@ const NewDashboard = () => {
       <div className="bg-[#f5f5f5] dark:bg-[#060817] dark:text-white drawer  flex mx-auto">
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content flex flex-col py-10   w-full">
+          <div className="drawer-content flex flex-col py-2   w-full">
            
-          <div className="flex items-center gap-5">
-          <label
-              htmlFor="my-drawer-2"
-              className="btn btn-primary drawer-button lg:hidden w-[200px] bg-[#005694] mb-2 text-white hover:bg-[#005694]"
-              >
-             
-              <FaArrowUpShortWide></FaArrowUpShortWide> ShortCuts
-            </label>
+          <div className="flex items-center gap-5 justify-between lg:hidden ">
+
+             <Link to="/" className="flex gap-2 items-center">
+            <img className="w-auto h-10" src="/postpad-logo.png" alt="logo" />
+            {/* <p className="font-bold">PostPad</p> */}
+          </Link>
+
+         <div className="flex items-center gap-2">
             <label
               className="lg:hidden"
               >
              
              <Darkmode></Darkmode>
             </label>
+           <label
+              htmlFor="my-drawer-2"
+              className="drawer-button lg:hidden btn lg:btn-sm mb-2 text-black dark:text-white dark:bg-black cursor-pointer"
+              >
+             
+              <TiThMenu className="text-4xl"></TiThMenu>
+            </label>
+         </div>
           </div>
            
             {/* Page content here */}
@@ -55,9 +64,14 @@ const NewDashboard = () => {
             {/* Sidebar content here */}
             <ul className="text-start lg:text-base text-xl min-h-screen   w-[260px] shadow-lg bg-[#f5f5f5] dark:bg-[#20293d] dark:text-white">
              <div className="justify-between hidden lg:flex px-3">
-             <h2 className="text-2xl font-semibold border-b-2 border-[#005694] my-5 pb-1 w-[120px] ">
+             {/* <h2 className="text-2xl font-semibold border-b-2 border-[#005694] my-5 pb-1 w-[120px] ">
                 ShortCuts
-              </h2>
+              </h2> */}
+               <Link to="/" className="flex text-2xl font-semibold  gap-2 items-center my-5 pb-1 w-[120px]">
+            <img className="w-auto h-10" src="/postpad-logo.png" alt="logo" />
+            {/* <p className="font-bold">PostPad</p> */}
+          </Link>
+              
               <Darkmode></Darkmode>
              </div>
               {isAdmin ? (
@@ -211,9 +225,13 @@ const NewDashboard = () => {
           {/* dashboard side bar */}
           <div className="drawer-content lg:w-64 w-[80px] min-h-screen bg-white shadow-lg ">
             <ul className="text-start p-3 lg:p-5 lg:text-base text-2xl ">
-              <h2 className="hidden lg:block text-2xl font-semibold border-b-2 border-[#005694] my-5 pb-1 w-[120px] ">
+              {/* <h2 className="hidden lg:block text-2xl font-semibold border-b-2 border-[#005694] my-5 pb-1 w-[120px] ">
                 ShortCuts
-              </h2>
+              </h2> */}
+               <Link to="/" className="lg:flex gap-2 items-center hidden">
+            <img className="w-auto h-7" src="/postpad-logo.png" alt="logo" />
+            {/* <p className="font-bold">PostPad</p> */}
+          </Link>
               {isAdmin ? (
                 <>
                   <li className="">

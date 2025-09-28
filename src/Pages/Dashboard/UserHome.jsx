@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import PostCard from "../../Components/Postcard";
 import LoadingSpinner from "../../Components/LoadingSpinner";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 const UserHome = () => {
   const { user } = useAuth();
@@ -25,13 +26,13 @@ const UserHome = () => {
   // }
 
   return (
-    <div className="w-3/5 mx-auto">
+    <div className="lg:w-3/5 mx-auto">
       <Helmet>
         {" "}
         <title>PostPad | UserProfile </title>
       </Helmet>
       <div className="mx-auto bg-white dark:bg-[#20293d] dark:text-white shadow-md rounded-lg overflow-hidden">
-        <div className="flex items-center justify-between p-2 sm:p-10">
+        <div className="flex items-center justify-between p-2">
           <div className="flex items-center">
             <img
               className="w-16 h-16 rounded-full border-2 border-blue-500"
@@ -56,8 +57,33 @@ const UserHome = () => {
         </div>
       </div>
 
-      {/* post section  */}
-      <h3 className="text-4xl text-center font-semibold mt-5">
+      {
+         (!posts.length)&&(
+        <div className="text-center mt-10">
+          <h2 className="text-2xl font-semibold mb-4">No Posts Found</h2>
+          <p className="text-gray-600 dark:text-gray-300">
+            You haven't created any posts yet. Start sharing your thoughts and
+            ideas with the community!
+          </p>
+          <button className="mt-5 bg-[#005694] hover:bg-[#005694] text-white px-6 py-2 rounded-md">
+            <Link
+              to="/dashboard/addPost"
+              className="mt-5 bg-[#005694] hover:bg-[#005694] text-white px-6 py-2 rounded-md"
+            >
+              Create Your First Post
+            </Link>
+          </button>
+        </div>
+         )
+      }
+
+
+
+     {/* post section  */}
+     {
+      (posts.length >0 ) && (
+       <div>
+       <h3 className="text-4xl text-center font-semibold mt-5">
         Your top 3 post
       </h3>
 
@@ -114,6 +140,14 @@ const UserHome = () => {
           posts.map((post) => <PostCard key={post._id} post={post}></PostCard>)
         )}
       </div>
+     </div>
+      )
+        
+      
+     }
+
+      
+     
     </div>
   );
 };

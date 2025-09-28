@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useAuth from '../../../Hooks/useAuth';
 import useAxiosPublic from '../../../Hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet-async';
 
 const SslPayment = () => {
    const { user } = useAuth();
@@ -24,11 +25,14 @@ const SslPayment = () => {
 
 
     const response = await axiosPublic.post('/create-ssl-payment', payment);
-    // console.log(response)
+    console.log(response)
 
     if(response.data?.gatewayURL){
       window.location.replace(response.data.gatewayURL);
     }
+
+
+
 
 
 
@@ -50,6 +54,10 @@ const SslPayment = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 border rounded-lg shadow-md">
+        <Helmet>
+        {" "}
+        <title>PostPad | Payment </title>
+      </Helmet>
       <h3 className="text-2xl font-medium mb-4 text-center">SSL Payment</h3>
       <form onSubmit={handlePayment}>
         <div className="mb-4">
