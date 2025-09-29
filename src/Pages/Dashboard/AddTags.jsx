@@ -33,7 +33,7 @@ const AddTags = () => {
 
 
   return (
-    <div>
+    <div className="text-center">
       <h2 className="text-2xl font-semibold py-3">Add tags</h2>
       <form onSubmit={handleAddTag}>
         <input
@@ -44,7 +44,7 @@ const AddTags = () => {
           placeholder="Enter tag name"
           required
         />
-        <button className="btn  bg-[#005694] ml-5 text-white hover:bg-[#005694]" type="submit">Add Tag</button>
+        <button className="btn mt-5 sm:mt-0  bg-[#005694] ml-5 text-white hover:bg-[#005694]" type="submit">Add Tag</button>
       </form>
     </div>
   );

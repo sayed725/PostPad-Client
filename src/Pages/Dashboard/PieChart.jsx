@@ -1,6 +1,25 @@
 import { Cell, PieChart, Pie, Legend, ResponsiveContainer } from "recharts";
 
-const PieChartt = ({stats}) => {
+const PieChartt = ({stats, isLoading}) => {
+
+
+
+
+     if (isLoading) {
+    return (
+      <div className="w-full h-[300px] flex flex-col items-center justify-center border-2 shadow-sm border-[#e5e7eb] dark:bg-[#20293d] dark:border-none mt-10  rounded-lg p-5">
+         <div>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
+        User, Post & Comment Distribution
+      </h2>
+      <p className={"text-lg tracking-wider font-medium"}>
+        A visual representation of users, posts, and comments distribution.
+      </p>
+         </div>
+        <div className="w-40 h-40 mt-10 bg-gray-200 skeleton rounded-full animate-pulse" />
+      </div>
+    );
+  }
   // custom shape for the pie chart
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -38,7 +57,7 @@ const PieChartt = ({stats}) => {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
 
   return (
-    <div className="border-2 shadow-sm border-[#e5e7eb] dark:bg-[#20293d] dark:border-none mt-10  rounded-lg p-5">
+    <div className="border-2 shadow-sm border-[#e5e7eb] dark:bg-[#20293d] dark:border-none  rounded-lg p-5">
       <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
         User, Post & Comment Distribution
       </h2>

@@ -3,7 +3,33 @@ import LoadingSpinner from '../../Components/LoadingSpinner';
 
 const CustomChart = ({ stats, isLoading }) => {
     if (isLoading) {
-        return <LoadingSpinner />;
+        return <div className="space-y-4 w-full h-[350px] ">
+
+             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-5">
+              Total Statistics Overview
+            </h2>
+            <p className={"-mt-3 text-lg tracking-wider font-medium"}>
+                A comprehensive overview of all key metrics at a glance.
+            </p>
+
+              <div className="flex justify-between items-baseline gap-8">
+                <div className="skeleton h-48 w-full"></div>
+                <div className="skeleton h-40 w-full"></div>
+                <div className="skeleton h-44 w-full"></div>
+                <div className="skeleton h-36 w-full"></div>
+                <div className="skeleton h-48 w-full"></div>
+                <div className="skeleton h-52 w-full"></div>
+                
+              </div>
+              <div className="flex justify-between gap-8">
+                <div className="skeleton h-4 w-20 mt-6 "></div>
+                <div className="skeleton h-4 w-20 mt-6 "></div>
+                <div className="skeleton h-4 w-20 mt-6 "></div>
+                <div className="skeleton h-4 w-20 mt-6 "></div>
+                <div className="skeleton h-4 w-20 mt-6"></div>
+                <div className="skeleton h-4 w-20 mt-6 "></div>
+              </div>
+            </div>
     }
 
     // Transform stats object into data array for Recharts
@@ -62,6 +88,7 @@ const CustomChart = ({ stats, isLoading }) => {
             <p className={"-mt-3 text-lg tracking-wider font-medium"}>
                 A comprehensive overview of all key metrics at a glance.
             </p>
+
           
          <ResponsiveContainer width="100%" height={350} className={"mt-10"}>
             <BarChart

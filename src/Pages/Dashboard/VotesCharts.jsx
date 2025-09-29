@@ -3,7 +3,29 @@ import LoadingSpinner from '../../Components/LoadingSpinner';
 
 const VotesCharts = ({ stats, isLoading }) => {
     if (isLoading) {
-        return <LoadingSpinner />;
+        return <div className="space-y-4 w-full h-[350px] ">
+
+               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-5">
+              Total Votes Overview
+            </h2>
+            <p className={"-mt-3 text-lg tracking-wider font-medium"}>
+                A comprehensive overview of total votes at a glance.
+            </p>
+
+              <div className="flex justify-between items-baseline gap-8">
+                <div className="skeleton h-48 w-full"></div>
+                <div className="skeleton h-40 w-full"></div>
+                <div className="skeleton h-44 w-full"></div>
+                
+                
+              </div>
+              <div className="flex justify-between gap-8">
+                <div className="skeleton h-4 w-20 mt-6 "></div>
+                <div className="skeleton h-4 w-20 mt-6 "></div>
+                <div className="skeleton h-4 w-20 mt-6 "></div>
+               
+              </div>
+            </div>
     }
 
     // Transform stats object into data array for Recharts

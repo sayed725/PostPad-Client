@@ -36,9 +36,9 @@ const AdminHome = () => {
   console.log(stats)
 
  
-    if(isLoading){
-        return <LoadingSpinner/>
-    }
+    // if(isLoading){
+    //     return <LoadingSpinner/>
+    // }
 
   return (
     <div className="min-h-screen">
@@ -126,13 +126,13 @@ const AdminHome = () => {
 
     
 
-      <div className="grid grid-cols-1  lg:grid-cols-2 gap-5 mt-10 justify-center items-center">
+      <div className="grid grid-cols-1  lg:grid-cols-2 gap-5 mt-10 justify-center">
 
         {/* pie chart  */}
 
-        <PieChartt stats={stats}/>
+        <PieChartt stats={stats} isLoading={isLoading}/>
         {/* add tags  */}
-     <div className="border-2 shadow-sm border-[#e5e7eb] dark:bg-[#20293d] dark:border-none rounded-lg p-5">
+     <div className="border-2 shadow-sm border-[#e5e7eb] dark:bg-[#20293d] dark:border-none rounded-lg p-5 ">
       <div>
          <AddTags></AddTags>
       </div>
