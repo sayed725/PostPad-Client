@@ -52,8 +52,8 @@ const AdminHome = () => {
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-shrink-0">
            <div className="avatar h-32 w-32 rounded-md">
-  <div className="ring-primary ring-offset-base-100 w-24 rounded-md ring-2 ring-offset-2">
-    <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+  <div className="ring-[#005694] ring-offset-base-100 w-24 rounded-md ring-2 ring-offset-2">
+    <img src= {user?.photoURL} alt={user?.displayName} />
   </div>
 </div>
           </div>

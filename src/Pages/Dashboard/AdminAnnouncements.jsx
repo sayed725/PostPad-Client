@@ -46,31 +46,41 @@ const AdminAnnouncements = () => {
            <Helmet> <title>PostPad | Admin | Announcement </title></Helmet>
 
 
-            <div className="mx-auto bg-white dark:bg-[#20293d] dark:text-white shadow-md rounded-lg overflow-hidden">
-                    <div className="flex items-center justify-between p-2 sm:p-10">
-                      <div className="flex items-center">
-                        <img
-                          className="w-16 h-16 rounded-full border-2 border-blue-500"
-                          src={user && user?.photoURL}
-                          alt="User avatar"
-                        />
-                        <div className="ml-2 sm:ml-5">
-                          <div className="flex items-center">
-                            <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-                              {user && user?.displayName}
-                            </h2>
-                          </div>
-                          <p className="text-gray-600 dark:text-gray-300">{user && user?.email}</p>
-                        </div>
-                      </div>
-                    </div>
-                    </div>
+            <div className="w-full border shadow-sm border-[#e5e7eb] dark:border-none dark:bg-[#20293d] rounded-lg">
+      <div className="p-6">
+        <div className="flex flex-col md:flex-row gap-6">
+          <div className="flex-shrink-0">
+           <div className="avatar h-32 w-32 rounded-md">
+  <div className="ring-offset-base-100 w-24 rounded-md ring-2 ring-[#005694] ring-offset-2">
+    <img src= {user?.photoURL} alt={user?.displayName} />
+  </div>
+</div>
+          </div>
+
+          <div className="flex-grow space-y-4">
+            <div>
+              <h1 className="text-2xl font-bold">{user?.displayName}</h1>
+              <p className="text-muted-foreground font-semibold">
+                Email: {user?.email}
+              </p>
+            </div>
+
+            <p className=" w-full md:w-11/12 lg:w-10/12 xl:w-9/12">
+              As an admin, you have the authority to make announcements that will be visible to all users on the platform.
+            </p>
+            <p className=" w-full md:w-11/12 lg:w-10/12 xl:w-9/12">
+              Use the form below to create and publish important updates, news, or information that you want to share with the community.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
 
            <form onSubmit={handleSubmit}
-            className='mx-auto mt-10 bg-white dark:bg-[#20293d] dark:text-white shadow-lg rounded-lg overflow-hidden p-2 sm:p-10'>
+            className='mx-auto mt-10  dark:bg-[#20293d] dark:text-white shadow-lg rounded-lg overflow-hidden p-2 sm:p-10'>
 
 
           <div className='grid grid-cols-1 gap-6 mt-4 sm:grid-cols-1'>
@@ -95,7 +105,7 @@ const AdminAnnouncements = () => {
                 Description
             </label>
             <textarea
-              className='block w-full px-4 py-2 mt-2 dark:bg-[#20293d] dark:text-white text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring'
+              className='block w-full px-4 py-10 mt-2 dark:bg-[#20293d] dark:text-white text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring'
               name='description'
               placeholder='Description'
               id='description'

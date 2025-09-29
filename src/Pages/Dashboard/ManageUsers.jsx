@@ -98,7 +98,7 @@ const ManageUsers = () => {
   );
 
   return (
-    <div className="container mx-auto p-6 min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="container mx-auto min-h-screen  dark:bg-black">
       <Helmet>
         <title>PostPad | Admin | User Management</title>
       </Helmet>
@@ -111,7 +111,7 @@ const ManageUsers = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             value={searchQuery}
             placeholder="Search by UserName..."
-            className="w-full bg-white dark:bg-gray-800 dark:text-white text-gray-800 rounded-lg py-3 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+            className="w-full  dark:bg-gray-800 dark:text-white text-gray-800 rounded-lg py-3 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
           />
           <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-blue-500 text-lg" />
         </div>
@@ -165,7 +165,7 @@ const ManageUsers = () => {
                   <td className="px-6 py-4 flex justify-center">
                     <RiMedalFill
                       className={`text-3xl ${
-                        user.role === "bronze" ? "text-amber-600" :
+                        user.role === "bronze" ? "text-gray-600" :
                         user.role === "gold" ? "text-yellow-500" :
                         user.role === "admin" ? "text-blue-500" : "text-gray-500"
                       }`}

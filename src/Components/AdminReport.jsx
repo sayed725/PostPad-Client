@@ -55,13 +55,12 @@ const AdminReport = () => {
   );
 
   return (
-    <div className="container mx-auto p-6 min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div className="container mx-auto p-6 min-h-screen  dark:bg-black transition-colors duration-300">
       <Helmet>
         <title>PostPad | Admin | Report Management</title>
       </Helmet>
-      <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-8">Reported Comments</h2>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden">
+      <div className=" dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden">
         {isLoading ? (
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-800 dark:text-gray-200">
@@ -91,7 +90,7 @@ const AdminReport = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-800 dark:text-gray-200">
-              <thead className="text-xs uppercase bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 ">
+              <thead className="text-xs uppercase bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 ">
                 <tr className="">
                   <th scope="col" className="px-6 py-4 font-semibold">#</th>
                   <th scope="col" className="px-6 py-4 font-semibold">Email</th>
