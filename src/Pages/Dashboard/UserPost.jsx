@@ -99,7 +99,7 @@ const UserPost = () => {
             Hi! {user && user?.displayName}
           </h2>
           <p className="text-xl font-semibold">
-            Welcome to your post dashboard. Here you can view all of
+            Welcome to your post dashboard. Here you can manage and view all of
             your posts.
           </p>
           <p className="text-xl font-semibold">
@@ -112,7 +112,7 @@ const UserPost = () => {
             {/* head */}
             <thead className="text-xl font-semibold">
               <tr>
-                <th className="px-4 py-2 border"></th>
+                <th className="px-4 py-2 border">#</th>
                 <th className="px-4 py-2 border">Post Title</th>
                 <th className="px-4 py-2 border">No Of UpVotes</th>
                 <th className="px-4 py-2 border">No Of Down Votes</th>

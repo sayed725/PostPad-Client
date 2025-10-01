@@ -45,12 +45,29 @@ const DetailsComment = () => {
   };
 
   return (
-    <div className="mt-10 mx-auto  min-h-screen dark:bg-[#171717] dark:text-white rounded-md">
+    <div className="mx-auto  min-h-screen dark:bg-[#171717] dark:text-white rounded-md">
+
+      <div className="mb-5 text-center space-y-3">
+          <h2 className="text-3xl text-center font-bold">
+            Hi! {user && user?.displayName}
+          </h2>
+          <p className="text-xl font-semibold">
+            Welcome to your Comment dashboard. Here you can view or report all of
+            your Comment.
+          </p>
+          <p className="text-xl font-semibold">
+            You have total {comments.length} {comments.length === 1 ? "Comment" : "Comments"} on this post.
+          </p>
+        </div>
+
+
+
+
       <div className="overflow-x-auto w-full">
-        <table className="min-w-full  dark:bg-[#20293d] dark:text-white">
+        <table className="min-w-full bg-white  dark:bg-[#20293d] dark:text-white">
           <thead>
             <tr>
-              <th></th>
+              <th>#</th>
               <th className="px-4 py-2 border">Email</th>
               <th className="px-4 py-2 border">Comment</th>
               <th className="px-4 py-2 border">Feedback</th>
