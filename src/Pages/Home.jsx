@@ -41,7 +41,7 @@ const Home = () => {
 
 
     return (
-        <div>
+        <div className='bg-[#f5f5f5] dark:bg-[#171717]'> 
            <Helmet> <title>PostPad | Home </title></Helmet>
            <div className='lg:grid p-1 sm:p-0 sm:grid-cols-5 gap-7'>
             <div className='hidden  lg:block'>

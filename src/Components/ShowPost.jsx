@@ -76,7 +76,7 @@ const ShowPost = () => {
               onChange={(e) => setSearch(e.target.value)}
               value={search}
               placeholder="Search by tags without #...."
-              className="w-full bg-[#f5f5f5] dark:bg-[#060817] dark:text-white text-black rounded-lg py-3 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#f5f5f5] dark:bg-[#171717] dark:text-white text-black rounded-lg py-3 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500"
             />
             <FaSearch className="absolute left-4 top-3 text-blue-500 text-xl" />
             <div className="flex sm:flex-none gap-5 sm:gap-2">

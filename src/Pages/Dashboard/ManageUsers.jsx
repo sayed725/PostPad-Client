@@ -98,7 +98,7 @@ const ManageUsers = () => {
   );
 
   return (
-    <div className="container mx-auto min-h-screen  dark:bg-black">
+    <div className="container mx-auto min-h-screen  dark:bg-[#171717]">
       <Helmet>
         <title>PostPad | Admin | User Management</title>
       </Helmet>

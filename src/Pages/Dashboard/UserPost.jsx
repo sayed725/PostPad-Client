@@ -94,10 +94,17 @@ const UserPost = () => {
     <div className="">
        <Helmet> <title>PostPad | UserPost </title></Helmet>
       <div className="rounded-md min-h-screen">
-        <div className="mb-5">
-          <h2 className="text-3xl text-center">
+        <div className="mb-5 text-center space-y-3">
+          <h2 className="text-3xl text-center font-bold">
             Hi! {user && user?.displayName}
           </h2>
+          <p className="text-xl font-semibold">
+            Welcome to your post dashboard. Here you can view all of
+            your posts.
+          </p>
+          <p className="text-xl font-semibold">
+            You have total {posts.length} {posts.length === 1 ? "post" : "posts"}
+          </p>
         </div>
 
         <div className="overflow-x-auto w-full">

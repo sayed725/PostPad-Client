@@ -33,7 +33,7 @@ createRoot(document.getElementById("root")).render(
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <RouterProvider router={router} />
+          <RouterProvider router={router}  />
           <Toaster position="top-right" reverseOrder={false} />
         </AuthProvider>
       </QueryClientProvider>

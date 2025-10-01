@@ -18,9 +18,9 @@ const NewDashboard = () => {
   const [isAdmin] = useAdmin();
 
   return (
-    <div className="bg-[#f5f5f5] dark:bg-[#060817] dark:text-white">
+    <div className="bg-[#f5f5f5] dark:bg-[#171717] dark:text-white">
        <Helmet> <title>PostPad | DashBoard </title></Helmet>
-      <div className="bg-[#f5f5f5] dark:bg-[#060817] dark:text-white drawer  flex mx-auto">
+      <div className="bg-[#f5f5f5] dark:bg-[#171717] dark:text-white drawer  flex mx-auto">
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content flex flex-col py-2   w-full">
@@ -50,7 +50,7 @@ const NewDashboard = () => {
           </div>
            
             {/* Page content here */}
-            <div className="bg-[#f5f5f5] dark:bg-[#060817] dark:text-white p-5  w-full">
+            <div className="bg-[#f5f5f5] dark:bg-[#171717] dark:text-white p-5  w-full">
               <Outlet></Outlet>
             </div>
           </div>

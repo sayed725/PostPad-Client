@@ -55,7 +55,7 @@ const AdminReport = () => {
   );
 
   return (
-    <div className="container mx-auto p-6 min-h-screen  dark:bg-black transition-colors duration-300">
+    <div className="container mx-auto p-6 min-h-screen  dark:bg-[#171717] transition-colors duration-300">
       <Helmet>
         <title>PostPad | Admin | Report Management</title>
       </Helmet>
