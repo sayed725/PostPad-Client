@@ -7,26 +7,26 @@ import { Helmet } from "react-helmet-async";
 const Member = () => {
   const [isMember, isMemberLoading] = useMember();
 
-  // if (isMemberLoading) {
-  //   return   <div className="min-h-screen w-11/12 lg:w-7/12 mx-auto mt-[50px] lg:mt-[100px] animate-pulse">
-  //   <div className="flex flex-col md:flex-row items-center justify-between bg-white dark:bg-[#20293d] p-5 gap-10 sm:gap-2 lg:p-8 shadow-lg">
-  //     {/* Text Section */}
-  //     <div className="md:w-1/2 text-left">
-  //       <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded w-2/3 mb-4" />
-  //       <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/3 mb-4" />
-  //       <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4 mb-3" />
-  //       <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-2/3 mb-3" />
-  //       <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4 mb-3" />
-  //       <div className="h-10 bg-gray-300 dark:bg-gray-700 rounded w-1/3 mt-5" />
-  //     </div>
+  if (isMemberLoading) {
+    return   <div className="min-h-screen w-11/12 lg:w-7/12 mx-auto mt-[50px] lg:mt-[100px] animate-pulse">
+    <div className="flex flex-col md:flex-row items-center justify-between bg-white dark:bg-[#20293d] p-5 gap-10 sm:gap-2 lg:p-8 shadow-lg">
+      {/* Text Section */}
+      <div className="md:w-1/2 text-left">
+        <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded w-2/3 mb-4" />
+        <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/3 mb-4" />
+        <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4 mb-3" />
+        <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-2/3 mb-3" />
+        <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4 mb-3" />
+        <div className="h-10 bg-gray-300 dark:bg-gray-700 rounded w-1/3 mt-5" />
+      </div>
 
-  //     {/* Image Section */}
-  //     <div className="md:w-1/2 flex items-center justify-center">
-  //       <div className="w-full h-64 bg-gray-300 dark:bg-gray-700 rounded" />
-  //     </div>
-  //   </div>
-  // </div>;
-  // }
+      {/* Image Section */}
+      <div className="md:w-1/2 flex items-center justify-center">
+        <div className="w-full h-64 bg-gray-300 dark:bg-gray-700 rounded" />
+      </div>
+    </div>
+  </div>;
+  }
 
   return (
     <div className="min-h-screen w-11/12 lg:w-7/12 mx-auto mt-[50px] lg:mt-[100px]">

@@ -55,16 +55,20 @@ const PostCard =({post})=> {
             {/* Post Content */}
             <p className="mt-3 text-xl font-semibold">{title}</p>
             <p className="mt-3 text-gray-700 dark:text-white">
-            {expanded ? description : `${description.slice(0, 200)}...`}
-            <span className="ml-2 font-semibold">{usedTag}</span>
-                {!expanded && (
+            {expanded ? (
+                <span dangerouslySetInnerHTML={{ __html: description }} />
+            ) : (
+                <>
+                    {description.slice(0, 200)}...
+                    <span className="ml-2 font-semibold">{usedTag}</span>
                     <button 
                         onClick={() => setExpanded(true)} 
                         className="text-blue-500 ml-2"
                     >
                         Read More
                     </button>
-                )}
+                </>
+            )}
                
             </p>
 
