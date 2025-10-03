@@ -13,9 +13,16 @@ import { FaArrowUpShortWide } from "react-icons/fa6";
 import { Helmet } from "react-helmet-async";
 import Darkmode from "../Components/Darkmode";
 import { TiThMenu } from "react-icons/ti";
+import useRole from "../Hooks/useRole";
+
 
 const NewDashboard = () => {
   const [isAdmin] = useAdmin();
+
+
+  const [role, isLoading] = useRole();
+
+  console.log("User role:", role, isLoading);
 
   return (
     <div className="bg-[#f5f5f5] dark:bg-[#171717] dark:text-white">

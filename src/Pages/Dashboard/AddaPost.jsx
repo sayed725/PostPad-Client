@@ -24,6 +24,19 @@ const AddaPost = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
+   // State to manage image preview and file
+    const [preview, setPreview] = useState("");
+    const [image, setImage] = useState(null);
+
+     const handleUploadImage = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(file);
+            const filePreview = URL.createObjectURL(file);
+            setPreview(filePreview);
+        }
+    };
+
   // Cleanup preview URL on unmount or file change
   useEffect(() => {
     return () => {
