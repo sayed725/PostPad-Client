@@ -6,23 +6,21 @@ import useAuth from "./useAuth";
 const useRole = () => {
   const { user, loading } = useAuth();
 
-//   console.log("User in useRole:", user?.email);
-
-  const { data: role = "", isLoading } = useQuery({
+  const { data: role = null, isLoading: isRoleLoading, error } = useQuery({
     queryKey: ["role", user?.email],
-     enabled: !loading,
     queryFn: async () => {
+      if (!user?.email) {
+        throw new Error("User email is not available");
+      }
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/users/role/${user?.email}`
+        `${import.meta.env.VITE_API_URL}/users/role/${user.email}`
       );
-      return data.role;
+      return data.role || null;
     },
-    enabled: !!user?.email, 
+    enabled: !!user?.email && !loading, // Run query only when user.email exists and loading is false
   });
 
-  return [role, isLoading];
+  return [role, isRoleLoading, error];
 };
-
-// console.log("User role:", useRole());
 
 export default useRole;

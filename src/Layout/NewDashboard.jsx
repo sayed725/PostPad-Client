@@ -14,53 +14,63 @@ import { Helmet } from "react-helmet-async";
 import Darkmode from "../Components/Darkmode";
 import { TiThMenu } from "react-icons/ti";
 import useRole from "../Hooks/useRole";
-
+import { Button } from "../../@/components/ui/button";
+import { cn } from "../../@/lib/utils";
 
 const NewDashboard = () => {
   const [isAdmin] = useAdmin();
-
 
   const [role, isLoading] = useRole();
 
   console.log("User role:", role, isLoading);
 
+  const navItemClass = ({ isActive }) =>
+    cn(
+      "flex items-center justify-center lg:justify-start gap-2 w-full rounded-md ",
+      isActive
+        ? "bg-[#005694] text-base text-white hover:bg-[#005694]"
+        : "text-base hover:bg-[#005694] hover:text-white dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white"
+    );
+
   return (
-    <div className="bg-[#f5f5f5] dark:bg-[#171717] dark:text-white">
-       <Helmet> <title>PostPad | DashBoard </title></Helmet>
+    <div className="bg-[#f5f5f5] dark:bg-[#101720] dark:text-white">
+      <Helmet>
+        {" "}
+        <title>PostPad | DashBoard </title>
+      </Helmet>
       <div className="bg-[#f5f5f5] dark:bg-[#171717] dark:text-white drawer  flex mx-auto">
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content flex flex-col py-2   w-full">
-           
-          <div className="flex items-center gap-5 justify-between lg:hidden ">
+            <div className="flex items-center gap-5 justify-between lg:hidden ">
+              <Link to="/" className="flex gap-2 items-center">
+                <img
+                  className="w-auto h-10"
+                  src="/postpad-logo.png"
+                  alt="logo"
+                />
+              </Link>
 
-             <Link to="/" className="flex gap-2 items-center">
-            <img className="w-auto h-10" src="/postpad-logo.png" alt="logo" />
-            {/* <p className="font-bold">PostPad</p> */}
-          </Link>
+              <div className="flex items-center gap-2">
+                <label className="lg:hidden">
+                  <Darkmode></Darkmode>
+                </label>
+                <label
+                  htmlFor="my-drawer-2"
+                  className="drawer-button lg:hidden btn lg:btn-sm border-2 border-gray-500 mb-2 text-black dark:text-white dark:bg-black cursor-pointer"
+                >
+                  <TiThMenu className="text-3xl"></TiThMenu>
+                </label>
+              </div>
+            </div>
 
-         <div className="flex items-center gap-2">
-            <label
-              className="lg:hidden"
-              >
-             
-             <Darkmode></Darkmode>
-            </label>
-           <label
-              htmlFor="my-drawer-2"
-              className="drawer-button lg:hidden btn lg:btn-sm mb-2 text-black dark:text-white dark:bg-black cursor-pointer"
-              >
-             
-              <TiThMenu className="text-3xl"></TiThMenu>
-            </label>
-         </div>
-          </div>
-           
             {/* Page content here */}
-            <div className="bg-[#f5f5f5] dark:bg-[#171717] dark:text-white p-5  w-full">
+            <div className="bg-white dark:bg-[#171717] dark:text-white lg:px-5 px-2 py-5 lg:py-10 w-full">
               <Outlet></Outlet>
             </div>
           </div>
+
+          {/* large device sidebar  */}
           <div className="drawer-side">
             <label
               htmlFor="my-drawer-2"
@@ -69,70 +79,81 @@ const NewDashboard = () => {
             ></label>
 
             {/* Sidebar content here */}
-            <ul className="text-start lg:text-base text-xl min-h-screen   w-[260px] shadow-lg bg-[#f5f5f5] dark:bg-[#20293d] dark:text-white">
-             <div className="justify-between hidden lg:flex px-3">
-             {/* <h2 className="text-2xl font-semibold border-b-2 border-[#005694] my-5 pb-1 w-[120px] ">
-                ShortCuts
-              </h2> */}
-               <Link to="/" className="flex text-2xl font-semibold  gap-2 items-center my-5 pb-1 w-[120px]">
-            <img className="w-auto h-10" src="/postpad-logo.png" alt="logo" />
-            {/* <p className="font-bold">PostPad</p> */}
-          </Link>
-              
-              <Darkmode></Darkmode>
-             </div>
+
+
+            <ul className="text-start lg:text-base text-xl min-h-screen py-5 lg:py-0  w-[220px] shadow-lg bg-[#f5f5f5] dark:bg-[#20293d] dark:text-white">
+              <p className="lg:hidden text-center font-semibold">Dashboard</p>
+
+               <div className="divider lg:hidden"></div>
+
+              <div className="justify-between hidden lg:flex px-3">
+                <Link
+                  to="/"
+                  className="flex text-2xl font-semibold  gap-2 items-center my-5 pb-1 w-[120px]"
+                >
+                  <img
+                    className="w-auto h-10"
+                    src="/postpad-logo.png"
+                    alt="logo"
+                  />
+                </Link>
+
+                <Darkmode></Darkmode>
+              </div>
+
+
               {isAdmin ? (
                 <>
-                  <li className="">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/adminHome"
-                    >
-                      <FaHome></FaHome>
-                      <p className=""> Admin Home</p>
+                 <li className="">
+                    <NavLink to="/dashboard/adminHome" className={navItemClass}>
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "default" : "ghost"}
+                          className={cn(navItemClass({ isActive }), "w-full")}
+                        >
+                          <FaHome />
+                          <span>Admin Home</span>
+                        </Button>
+                      )}
+                    </NavLink>
+                  </li>
+                 <li className="mt-2">
+                    <NavLink to="/dashboard/manageUsers" className={navItemClass}>
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "default" : "ghost"}
+                          className={cn(navItemClass({ isActive }), "w-full")}
+                        >
+                          <FaUsersCog />
+                          <span>Manage Users</span>
+                        </Button>
+                      )}
                     </NavLink>
                   </li>
                   <li className="mt-2">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/manageUsers"
-                    >
-                      <FaUsersCog></FaUsersCog>
-                      <p className=""> Manage Users</p>
+                    <NavLink to="/dashboard/activities" className={navItemClass}>
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "default" : "ghost"}
+                          className={cn(navItemClass({ isActive }), "w-full")}
+                        >
+                          <RxActivityLog />
+                          <span>Report/Activities</span>
+                        </Button>
+                      )}
                     </NavLink>
                   </li>
-                  <li className="mt-2">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/activities"
-                    >
-                      <RxActivityLog></RxActivityLog>
-                      <p className=""> Report/Activities</p>
-                    </NavLink>
-                  </li>
-                  <li className="mt-2">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/announcement"
-                    >
-                      <TfiAnnouncement></TfiAnnouncement>
-                      <p className="">Announcements</p>
+                 <li className="mt-2">
+                    <NavLink to="/dashboard/announcement" className={navItemClass}>
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "default" : "ghost"}
+                          className={cn(navItemClass({ isActive }), "w-full")}
+                        >
+                          <TfiAnnouncement />
+                          <span>Announcements</span>
+                        </Button>
+                      )}
                     </NavLink>
                   </li>
                 </>
@@ -140,42 +161,42 @@ const NewDashboard = () => {
                 // normal users
                 <>
                   <li className="">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/userHome"
-                    >
-                      <CgProfile></CgProfile>
-                      <p className=""> My Profile</p>
+                    <NavLink to="/dashboard/userHome" className={navItemClass}>
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "default" : "ghost"}
+                          className={cn(navItemClass({ isActive }), "w-full")}
+                        >
+                          <CgProfile />
+                          <span>My Profile</span>
+                        </Button>
+                      )}
                     </NavLink>
                   </li>
                   <li className="mt-2">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/addPost"
-                    >
-                      <MdOutlinePostAdd></MdOutlinePostAdd>
-                      <p className=""> Add Post</p>
+                    <NavLink to="/dashboard/addPost" className={navItemClass}>
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "default" : "ghost"}
+                          className={cn(navItemClass({ isActive }), "w-full")}
+                        >
+                          <MdOutlinePostAdd />
+                          <span>Add Post</span>
+                        </Button>
+                      )}
                     </NavLink>
                   </li>
                   <li className="mt-2">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/userPost"
-                    >
-                      <GrMultiple></GrMultiple>
-                      <p className=""> My Post</p>
+                    <NavLink to="/dashboard/userPost" className={navItemClass}>
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "default" : "ghost"}
+                          className={cn(navItemClass({ isActive }), "w-full")}
+                        >
+                          <GrMultiple />
+                          <span>My Post</span>
+                        </Button>
+                      )}
                     </NavLink>
                   </li>
                 </>
@@ -184,42 +205,42 @@ const NewDashboard = () => {
               {/* normal navbar  */}
               <div className="divider"></div>
               <li className="mt-2">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                      : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                  }
-                  to="/"
-                >
-                  <FaHome></FaHome>
-                  <p className=""> Home</p>
+                <NavLink to="/" className={navItemClass}>
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "default" : "ghost"}
+                      className={cn(navItemClass({ isActive }), "w-full")}
+                    >
+                      <FaHome />
+                      <span>Home</span>
+                    </Button>
+                  )}
                 </NavLink>
               </li>
               <li className="mt-2">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                      : "  hover:bg-[#005694] py-3 px-3 dark:bg-[#20293d] dark:text-white  dark:hover:bg-[#005694] flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                  }
-                  to="/notification"
-                >
-                  <IoNotifications></IoNotifications>
-                  <p className="">Notification</p>
+                <NavLink to="/notification" className={navItemClass}>
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "default" : "ghost"}
+                      className={cn(navItemClass({ isActive }), "w-full")}
+                    >
+                      <IoNotifications />
+                      <span>Notification</span>
+                    </Button>
+                  )}
                 </NavLink>
               </li>
               <li className="mt-2">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                      : "  hover:bg-[#005694] py-3 px-3  flex dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                  }
-                  to="/member"
-                >
-                  <MdCardMembership></MdCardMembership>
-                  <p className="">MemberShip</p>
+                <NavLink to="/member" className={navItemClass}>
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "default" : "ghost"}
+                      className={cn(navItemClass({ isActive }), "w-full")}
+                    >
+                      <MdCardMembership />
+                      <span>MemberShip</span>
+                    </Button>
+                  )}
                 </NavLink>
               </li>
             </ul>
@@ -227,168 +248,7 @@ const NewDashboard = () => {
         </div>
       </div>
 
-      <div className="bg-[#f5f5f5] drawer sm:w-11/12  lg:w-9/12 mx-auto hidden">
-        <div className="flex">
-          {/* dashboard side bar */}
-          <div className="drawer-content lg:w-64 w-[80px] min-h-screen bg-white shadow-lg ">
-            <ul className="text-start p-3 lg:p-5 lg:text-base text-2xl ">
-              {/* <h2 className="hidden lg:block text-2xl font-semibold border-b-2 border-[#005694] my-5 pb-1 w-[120px] ">
-                ShortCuts
-              </h2> */}
-               <Link to="/" className="lg:flex gap-2 items-center hidden">
-            <img className="w-auto h-7" src="/postpad-logo.png" alt="logo" />
-            {/* <p className="font-bold">PostPad</p> */}
-          </Link>
-              {isAdmin ? (
-                <>
-                  <li className="">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/adminHome"
-                    >
-                      <FaHome></FaHome>
-                      <p className="hidden lg:block"> Admin Home</p>
-                    </NavLink>
-                  </li>
-                  <li className="mt-2">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/manageUsers"
-                    >
-                      <FaUsersCog></FaUsersCog>
-                      <p className="hidden lg:block"> Manage Users</p>
-                    </NavLink>
-                  </li>
-                  <li className="mt-2">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/activities"
-                    >
-                      <RxActivityLog></RxActivityLog>
-                      <p className="hidden lg:block"> Activities</p>
-                    </NavLink>
-                  </li>
-                  <li className="mt-2">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/announcement"
-                    >
-                      <TfiAnnouncement></TfiAnnouncement>
-                      <p className="hidden lg:block">Announcements</p>
-                    </NavLink>
-                  </li>
-                </>
-              ) : (
-                // normal users
-                <>
-                  <li className="">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/userHome"
-                    >
-                      <CgProfile></CgProfile>
-                      <p className="hidden lg:block"> User Profile</p>
-                    </NavLink>
-                  </li>
-                  <li className="mt-2">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/addPost"
-                    >
-                      <MdOutlinePostAdd></MdOutlinePostAdd>
-                      <p className="hidden lg:block"> Add Post</p>
-                    </NavLink>
-                  </li>
-                  <li className="mt-2">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                          : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                      }
-                      to="/dashboard/userPost"
-                    >
-                      <GrMultiple></GrMultiple>
-                      <p className="hidden lg:block"> User Post</p>
-                    </NavLink>
-                  </li>
-                </>
-              )}
-
-              {/* normal navbar  */}
-              <div className="divider"></div>
-              <li className="mt-2">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                      : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                  }
-                  to="/"
-                >
-                  <FaHome></FaHome>
-                  <p className="hidden lg:block"> Home</p>
-                </NavLink>
-              </li>
-              <li className="mt-2">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                      : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                  }
-                  to="/order/salad"
-                >
-                  <IoNotifications></IoNotifications>
-                  <p className="hidden lg:block">Notification</p>
-                </NavLink>
-              </li>
-              <li className="mt-2">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "  bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start items-center  gap-2 rounded-md  text-white  hover:bg-[#005694]"
-                      : "  hover:bg-[#005694] py-3 px-3  flex  lg:py-3 lg:px-5 justify-center lg:justify-start  items-center bg-slate-50 gap-2 rounded-md hover:text-white"
-                  }
-                  to="/order/contact"
-                >
-                  <MdCardMembership></MdCardMembership>
-                  <p className="hidden lg:block">MemberShip</p>
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-          {/* dashboard content */}
-          <div className="flex-1 p-3 lg:p-8">
-            <Outlet></Outlet>
-          </div>
-        </div>
-        <Footer></Footer>
-      </div>
+     
     </div>
   );
 };

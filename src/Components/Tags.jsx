@@ -16,7 +16,7 @@ const Tags = () => {
   });
 
   return (
-    <div className="bg-white shadow-lg dark:bg-[#20293d] dark:text-white">
+    <div className=" shadow-lg ">
       <div className="p-5">
         <h2 className="text-xl font-semibold border-b-2 border-[#005694] pb-1 w-[120px] ">
           Popular Tags
@@ -27,7 +27,7 @@ const Tags = () => {
 
         {
             isLoading ?   [1, 2, 3, 4, 5, 6,7,8,9,10].map((_, index) => (
-                <div key={index} className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/3" />
+                <div key={index} className="h-4 bg-gray-300  rounded w-1/3" />
               )) : 
                 tags.map((tag, index) => (
                     <p className="hover:underline" key={index}>

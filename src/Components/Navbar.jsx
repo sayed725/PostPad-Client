@@ -10,6 +10,7 @@ import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import { CgLogOut } from "react-icons/cg";
 import Darkmode from "./Darkmode";
+import { ModeToggle } from "./theme/mode-toogle";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -92,6 +93,7 @@ const Navbar = () => {
               <ul className="flex justify-between gap-2 sm:gap-5">{links}</ul>
             </div>
             <Darkmode></Darkmode>
+            {/* <ModeToggle></ModeToggle> */}
             {!user && (
               <li>
                 <NavLink

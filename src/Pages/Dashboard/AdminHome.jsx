@@ -33,7 +33,7 @@ const AdminHome = () => {
     },
   });
 
-  console.log(stats)
+  // console.log(stats)
 
  
     // if(isLoading){

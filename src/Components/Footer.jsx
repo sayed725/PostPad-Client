@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="bg-white shadow-lg dark:bg-[#20293d] dark:text-white">
+    <div className="bg-primary shadow-lg dark:bg-[#20293d] dark:text-white">
       <div className="flex mx-auto flex-col py-5  sm:w-11/12  lg:w-9/12  items-center sm:flex-row sm:justify-between">
         <p className="text-sm text-gray-500 dark:text-white ">
           © Copyright 2025. All Rights Reserved.
