@@ -8,14 +8,13 @@ import { IoNotifications } from "react-icons/io5";
 import { GrMultiple } from "react-icons/gr";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
-import Footer from "../Components/Footer";
-import { FaArrowUpShortWide } from "react-icons/fa6";
 import { Helmet } from "react-helmet-async";
 import Darkmode from "../Components/Darkmode";
 import { TiThMenu } from "react-icons/ti";
 import useRole from "../Hooks/useRole";
 import { Button } from "../../@/components/ui/button";
 import { cn } from "../../@/lib/utils";
+import { NavUser } from "../Pages/Dashboard/nav-user";
 
 const NewDashboard = () => {
   const [isAdmin] = useAdmin();
@@ -81,7 +80,7 @@ const NewDashboard = () => {
             {/* Sidebar content here */}
 
 
-            <ul className="text-start lg:text-base text-xl min-h-screen py-5 lg:py-0  w-[220px] shadow-lg bg-[#f5f5f5] dark:bg-[#20293d] dark:text-white">
+            <ul className="text-start min-h-screen relative lg:text-base text-xl  py-5 lg:py-0  w-[220px] shadow-lg bg-[#f5f5f5] dark:bg-[#20293d] dark:text-white">
               <p className="lg:hidden text-center font-semibold">Dashboard</p>
 
                <div className="divider lg:hidden"></div>
@@ -243,10 +242,15 @@ const NewDashboard = () => {
                   )}
                 </NavLink>
               </li>
+          <li>
+             <NavUser className="w-full text-center"/>
+          </li>
             </ul>
           </div>
         </div>
       </div>
+
+      
 
      
     </div>
