@@ -8,7 +8,7 @@ const Activities = () => {
         <div className='min-h-screen'>
              <Helmet> <title>PostPad | Admin | Activity </title></Helmet>
             <h2 className=' text-3xl lg:text-4xl font-bold text-center'> Admin Activities or Reports</h2>    
-            <p className='mt-3 text-xl text-center'> All users Reported Comments with reason Will Show here for admin Action </p>
+            <p className='mt-3 text-xl text-center mb-5 lg:mb-10'> All users reported comments with reason will Show here for admin action </p>
             <AdminReport></AdminReport>
 
         </div>

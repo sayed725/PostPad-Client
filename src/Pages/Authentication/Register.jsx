@@ -50,6 +50,8 @@ const Registration = () => {
           const userInfo = {
             email: result.user?.email,
             name: result.user?.displayName,
+            photo: result.user?.photoURL,
+            time: new Date(),
             role: 'bronze'
          }
 

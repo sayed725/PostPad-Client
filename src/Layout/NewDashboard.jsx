@@ -1,27 +1,27 @@
 import { FaHome, FaUsersCog } from "react-icons/fa";
 import { RxActivityLog } from "react-icons/rx";
-
 import { TfiAnnouncement } from "react-icons/tfi";
 import { MdOutlinePostAdd, MdCardMembership } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { IoNotifications } from "react-icons/io5";
 import { GrMultiple } from "react-icons/gr";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import useAdmin from "../Hooks/useAdmin";
+// import useAdmin from "../Hooks/useAdmin";
 import { Helmet } from "react-helmet-async";
-import Darkmode from "../Components/Darkmode";
+// import Darkmode from "../Components/Darkmode";
 import { TiThMenu } from "react-icons/ti";
 import useRole from "../Hooks/useRole";
 import { Button } from "../../@/components/ui/button";
 import { cn } from "../../@/lib/utils";
 import { NavUser } from "../Pages/Dashboard/nav-user";
+// import { ModeToggle } from "../Components/theme/mode-toogle";
+import useAuth from "../Hooks/useAuth";
 
 const NewDashboard = () => {
-  const [isAdmin] = useAdmin();
+  const { user, loading } = useAuth();
+  const [role, isRoleLoading] = useRole();
 
-  const [role, isLoading] = useRole();
-
-  console.log("User role:", role, isLoading);
+  console.log("User role:", role, isRoleLoading);
 
   const navItemClass = ({ isActive }) =>
     cn(
@@ -52,7 +52,8 @@ const NewDashboard = () => {
 
               <div className="flex items-center gap-2">
                 <label className="lg:hidden">
-                  <Darkmode></Darkmode>
+                  {/* <Darkmode></Darkmode> */}
+                   {/* <ModeToggle></ModeToggle> */}
                 </label>
                 <label
                   htmlFor="my-drawer-2"
@@ -64,7 +65,7 @@ const NewDashboard = () => {
             </div>
 
             {/* Page content here */}
-            <div className="bg-white dark:bg-[#171717] dark:text-white lg:px-5 px-2 py-5 lg:py-10 w-full">
+            <div className="bg-white dark:bg-[#011222]  dark:text-white lg:px-7 px-2 py-5 lg:py-10 w-full">
               <Outlet></Outlet>
             </div>
           </div>
@@ -97,11 +98,12 @@ const NewDashboard = () => {
                   />
                 </Link>
 
-                <Darkmode></Darkmode>
+                {/* <Darkmode></Darkmode> */}
+                 {/* <ModeToggle></ModeToggle> */}
               </div>
 
-
-              {isAdmin ? (
+              {/* Administrator Dashboard Menu*/}
+              { role === "admin" && (
                 <>
                  <li className="">
                     <NavLink to="/dashboard/adminHome" className={navItemClass}>
@@ -156,8 +158,12 @@ const NewDashboard = () => {
                     </NavLink>
                   </li>
                 </>
-              ) : (
-                // normal users
+              ) } 
+
+
+              {/*  normal users / member dashboard menu*/}
+              
+              { role !== "admin" &&  (
                 <>
                   <li className="">
                     <NavLink to="/dashboard/userHome" className={navItemClass}>
@@ -199,9 +205,9 @@ const NewDashboard = () => {
                     </NavLink>
                   </li>
                 </>
-              )}
+              ) }
 
-              {/* normal navbar  */}
+              {/* default navbar  */}
               <div className="divider"></div>
               <li className="mt-2">
                 <NavLink to="/" className={navItemClass}>

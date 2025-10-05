@@ -92,8 +92,8 @@ const Navbar = () => {
             <div className="flex">
               <ul className="flex justify-between gap-2 sm:gap-5">{links}</ul>
             </div>
-            <Darkmode></Darkmode>
-            {/* <ModeToggle></ModeToggle> */}
+            {/* <Darkmode></Darkmode> */}
+            <ModeToggle></ModeToggle>
             {!user && (
               <li>
                 <NavLink

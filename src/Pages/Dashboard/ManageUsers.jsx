@@ -5,14 +5,34 @@ import { RiMedalFill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../../@/components/ui/table";
+import { Input } from "../../../@/components/ui/input";
+import { Button } from "../../../@/components/ui/button";
+import moment from "moment";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "../../../@/components/ui/avatar";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const { data: users = [], isLoading, refetch } = useQuery({
+  const {
+    data: users = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["users", searchQuery],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users?searchQuery=${searchQuery}`);
@@ -20,16 +40,30 @@ const ManageUsers = () => {
     },
   });
 
+  // console.log(users);
+
   const handleMakeAdmin = (user) => {
-    axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
-      if (res.data.modifiedCount > 0) {
-        refetch();
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: `${user.name} is an Admin Now!`,
-          showConfirmButton: false,
-          timer: 1500,
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Do you want to make ${user.name} an Admin?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, make admin!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
+          if (res.data.modifiedCount > 0) {
+            refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${user.name} is an Admin Now!`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
         });
       }
     });
@@ -75,147 +109,183 @@ const ManageUsers = () => {
 
   // Skeleton Loader Component
   const SkeletonRow = () => (
-    <tr className="animate-pulse">
-      <td className="px-6 py-4">
+    <TableRow className="animate-pulse">
+      <TableCell>
         <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-8"></div>
-      </td>
-      <td className="px-6 py-4">
+      </TableCell>
+      <TableCell>
         <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
-      </td>
-      <td className="px-6 py-4">
+      </TableCell>
+      <TableCell>
         <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-48"></div>
-      </td>
-      <td className="px-6 py-4">
+      </TableCell>
+      <TableCell>
         <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
-      </td>
-      <td className="px-6 py-4">
+      </TableCell>
+      <TableCell>
         <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-12 mx-auto"></div>
-      </td>
-      <td className="px-6 py-4">
+      </TableCell>
+      <TableCell>
         <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-12"></div>
-      </td>
-    </tr>
+      </TableCell>
+      <TableCell>
+        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-12"></div>
+      </TableCell>
+    </TableRow>
   );
 
   return (
-    <div className="container mx-auto min-h-screen  dark:bg-[#171717]">
+    <div className="container mx-auto min-h-screen">
       <Helmet>
         <title>PostPad | Admin | User Management</title>
       </Helmet>
       <div className="flex flex-col sm:flex-row gap-6 items-center justify-between mb-8">
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-white">All Users</h2>
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
+          All Users
+        </h2>
         <div className="relative w-full sm:w-80">
-          <input
+          <Input
             type="text"
             name="search"
             onChange={(e) => setSearchQuery(e.target.value)}
             value={searchQuery}
             placeholder="Search by UserName..."
-            className="w-full  dark:bg-gray-800 dark:text-white text-gray-800 rounded-lg py-3 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+            className="w-full dark:bg-gray-800 dark:text-white text-gray-800 rounded-lg py-2 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
           />
           <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-blue-500 text-lg" />
         </div>
-        <h2 className="text-xl font-semibold text-gray-600 dark:text-gray-300">
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
           Total Users: {users.length}
         </h2>
       </div>
 
-      <div className="overflow-x-auto shadow-md rounded-lg">
-        <table className="w-full bg-white dark:bg-gray-800 text-gray-800 dark:text-white">
-          <thead className="bg-gray-200 dark:bg-gray-700 text-lg font-semibold text-gray-700 dark:text-gray-200">
-            <tr>
-              <th className="px-6 py-4 text-left">#</th>
-              <th className="px-6 py-4 text-left">Name</th>
-              <th className="px-6 py-4 text-left">Email</th>
-              <th className="px-6 py-4 text-left">Role</th>
-              <th className="px-6 py-4 text-center">Subscription</th>
-              <th className="px-6 py-4 text-left">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
-              Array.from({ length: itemsPerPage }).map((_, index) => (
-                <SkeletonRow key={index} />
-              ))
-            ) : (
-              paginatedUsers.map((user, index) => (
-                <tr
-                  key={user._id}
-                  className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
-                >
-                  <td className="px-6 py-4">
-                    {(currentPage - 1) * itemsPerPage + index + 1}
-                  </td>
-                  <td className="px-6 py-4">{user.name}</td>
-                  <td className="px-6 py-4">{user.email}</td>
-                  <td className="px-6 py-4">
-                    {user.role === "admin" ? (
-                      <button className="px-4 py-2 bg-blue-100 text-blue-600 rounded-lg font-medium hover:bg-blue-200 transition-colors duration-200">
-                        Admin Role
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleMakeAdmin(user)}
-                        className="px-4 py-2 bg-green-100 text-green-600 rounded-lg font-medium hover:bg-green-200 transition-colors duration-200"
+      <div className="mx-auto overflow-x-auto bg-white dark:bg-[#20293d] dark:text-white shadow-md">
+        <Table className="">
+          <TableHeader className=" ">
+            <TableRow className="bg-base-200 hover:bg-base-300 dark:bg-gray-700">
+              <TableHead className="font-bold text-black dark:text-white text-left">Photo</TableHead>
+              <TableHead className="font-bold text-black dark:text-white text-left">Name</TableHead>
+              <TableHead className="font-bold text-black dark:text-white text-left">Email</TableHead>
+              <TableHead className=" font-bold text-black dark:text-white text-left">Register At</TableHead>
+              <TableHead className=" font-bold text-black dark:text-white text-left">Assign Role</TableHead>
+              <TableHead className=" font-bold text-black dark:text-white text-left">Current Role</TableHead>
+              <TableHead className=" text-center font-bold dark:text-white text-black">Subscription</TableHead>
+              <TableHead className="font-bold text-black dark:text-white text-left">Action</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody className="">
+            {isLoading
+              ? Array.from({ length: itemsPerPage }).map((_, index) => (
+                  <SkeletonRow key={index} />
+                ))
+              : paginatedUsers.map((user, index) => (
+                  <TableRow
+                    key={user._id}
+                    className="hover:bg-base-200 dark:hover:bg-gray-700"
+                  >
+                    <TableCell className="">
+                      <Avatar>
+                        <AvatarImage src={user?.photo || "/random_user.jpg"} alt={user?.name} />
+                      </Avatar>
+                    </TableCell>
+
+                    <TableCell className="">{user.name}</TableCell>
+                    <TableCell className="">{user.email}</TableCell>
+                    <TableCell className="text-blue-600">
+                      {user.date && moment(user.date).fromNow() || "Just Now"}
+                    </TableCell>
+                    <TableCell className="">
+                      {user.role === "admin" ? (
+                        <Button className=" bg-blue-300 text-gray-700 dark:text-black rounded-lg font-medium hover:bg-blue-200 transition-colors duration-200">
+                          Admin Role
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => handleMakeAdmin(user)}
+                          className=" bg-green-100 dark:bg-green-400 text-gray-700 rounded-lg font-medium hover:bg-green-200 transition-colors duration-200"
+                        >
+                          Make Admin
+                        </Button>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {user.role === "bronze" && (
+                        <Button className=" bg-gray-300  text-gray-600 dark:text-black rounded-lg font-medium  transition-colors duration-200">
+                          User
+                        </Button>
+                      )}
+                      {user.role === "gold" && (
+                        <Button className=" bg-yellow-300 dark:bg-yellow-200  text-gray-700 dark:text-black rounded-lg font-medium  transition-colors duration-200">
+                          Member
+                        </Button>
+                      )}
+
+                      {user.role === "admin" && (
+                        <Button className=" bg-blue-300 text-gray-700 dark:text-black rounded-lg font-medium  transition-colors duration-200">
+                          Admin
+                        </Button>
+                      )}
+                    </TableCell>
+                    <TableCell className="flex justify-center items-center">
+                      <Button variant="ghost">
+                        <RiMedalFill
+                        className={`text-3xl ${
+                          user.role === "bronze"
+                            ? "text-gray-600"
+                            : user.role === "gold"
+                            ? "text-yellow-300"
+                            : user.role === "admin"
+                            ? "text-blue-500"
+                            : "text-gray-500"
+                        }`}
+                      />
+                      </Button>
+                    </TableCell>
+                    <TableCell className="">
+                      <Button
+                        variant="ghost"
+                        onClick={() => handleDeleteUser(user)}
+                        className=" rounded-full hover:bg-red-100"
                       >
-                        Make Admin
-                      </button>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 flex justify-center">
-                    <RiMedalFill
-                      className={`text-3xl ${
-                        user.role === "bronze" ? "text-gray-600" :
-                        user.role === "gold" ? "text-yellow-500" :
-                        user.role === "admin" ? "text-blue-500" : "text-gray-500"
-                      }`}
-                    />
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => handleDeleteUser(user)}
-                      className="p-2 rounded-full hover:bg-red-100 transition-colors duration-200"
-                    >
-                      <FaTrashAlt size={18} className="text-red-600" />
-                    </button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+                        <FaTrashAlt size={18} className="text-red-600" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+          </TableBody>
+        </Table>
       </div>
 
       {/* Pagination controls */}
       <div className="flex justify-center items-center mt-8">
         <div className="flex gap-2">
-          <button
+          <Button
             onClick={() => handlePageChange(currentPage - 1)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400"
+            className=" bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400"
             disabled={currentPage === 1}
           >
             Previous
-          </button>
+          </Button>
           {Array.from({ length: totalPages }, (_, i) => (
-            <button
+            <Button
               key={i}
               onClick={() => handlePageChange(i + 1)}
-              className={`px-4 py-2 rounded-lg ${
+              className={`rounded-lg ${
                 currentPage === i + 1
                   ? "bg-blue-600 text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               } transition-colors duration-200`}
             >
               {i + 1}
-            </button>
+            </Button>
           ))}
-          <button
+          <Button
             onClick={() => handlePageChange(currentPage + 1)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400"
+            className="bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400"
             disabled={currentPage === totalPages}
           >
             Next
-          </button>
+          </Button>
         </div>
       </div>
     </div>

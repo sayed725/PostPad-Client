@@ -3,6 +3,7 @@ import useAxiosSecure from "../Hooks/useAxiosSecure";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
 import ReactDOM from "react-dom";
+import { Button } from '../../@/components/ui/button';
 
 
 const AdminCommentState = ({ report, index, refetch }) => {
@@ -61,16 +62,16 @@ const AdminCommentState = ({ report, index, refetch }) => {
 
   return (
     <>
-      <tr>
-        <td className="px-4 py-2 border">{index + 1}</td>
-        <td className="px-4 py-2 border">{report.reportFor}</td>
-        <td className="px-4 py-2 border">
+      <tr className="hover:bg-base-200 dark:hover:bg-gray-700">
+        <td className="px-4 py-2 border dark:border-gray-700">{index + 1}</td>
+        <td className="px-4 py-2 border dark:border-gray-700">{report.reportFor}</td>
+        <td className="px-4 py-2 border dark:border-gray-700 ">
           {report.report.comment.length > 20 ? (
             <>
               {report.report.comment.substring(0, 20)}...
               <button
                 onClick={() => openModal(report.report.comment)}
-                className="text-blue-500 underline ml-1"
+                className="text-blue-500 underline ml-1 overflow-x-scroll"
               >
                 Read More
               </button>
@@ -79,21 +80,31 @@ const AdminCommentState = ({ report, index, refetch }) => {
             report.report.comment
           )}
         </td>
-        <td className="px-4 py-2 border text-center">{report.reportReason}</td>
-        <td className="px-4 py-2 border text-center">
-          <button
+        <td className="px-4 py-2 border text-center dark:border-gray-700">
+          <Button
+          variant="ghost"
+          className="bg-red-300 dark:text-black"
+            >
+            { report.reportReason.substring(0, 13)}
+          </Button>
+        </td>
+        <td className="px-4 py-2 border text-center dark:border-gray-700">
+          <Button
             disabled={disabled}
+            variant="ghost"
             onClick={() => removeComment(report.reportCommentId)}
-            className="btn btn-sm hover:text-white hover:bg-[#005694]"
+            className=" hover:text-white hover:bg-[#005694]"
           >
             Remove
-          </button>
+          </Button>
         </td>
-        <td className="px-4 py-2 border text-center">
-          <button  onClick={() => removeUser(report.reportFor)}
-          className="btn btn-sm hover:text-white hover:bg-[#005694]">
+        <td className="px-4 py-2 border text-center dark:border-gray-700">
+          <Button
+          variant="ghost"
+            onClick={() => removeUser(report.reportFor)}
+          className=" hover:text-white w-full hover:bg-[#005694]">
             Remove User
-          </button>
+          </Button>
         </td>
       </tr>
 
@@ -106,17 +117,18 @@ const AdminCommentState = ({ report, index, refetch }) => {
             onClick={closeModal}
           >
             <div
-              className="bg-white rounded-lg dark:bg-[#20293d] dark:text-white shadow-lg p-6 w-3/4 md:w-1/2"
+              className="bg-white rounded-lg dark:bg-[#20293d] dark:text-white shadow-lg p-6 w-4/4 md:w-1/2"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-lg font-bold mb-4">Full Comment</h2>
               <p className="text-gray-700 dark:text-white mb-6">{modalData.commentText}</p>
-              <button
+              <Button
+              variant="secondary"
                 onClick={closeModal}
-                className="btn btn-sm hover:text-white hover:bg-[#005694]"
+                className="text-white bg-[#005694]"
               >
                 Close
-              </button>
+              </Button>
             </div>
           </div>,
           document.body 

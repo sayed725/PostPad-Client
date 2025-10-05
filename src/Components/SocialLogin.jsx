@@ -21,6 +21,9 @@ const SocialLogin = () => {
             const userInfo = {
                email: result.user?.email,
                name: result.user?.displayName,
+               photo: result.user?.photoURL,
+               date: new Date(),
+               provider: 'google',
                role: 'bronze'
             }
 

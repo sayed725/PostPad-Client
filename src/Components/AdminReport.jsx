@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import AdminCommentState from './AdminCommentState';
 import { Helmet } from 'react-helmet-async';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../@/components/ui/table";
+import { Button } from '../../@/components/ui/button';
 
 const AdminReport = () => {
   const axiosSecure = useAxiosSecure();
@@ -32,119 +34,115 @@ const AdminReport = () => {
 
   // Skeleton Loader Component
   const SkeletonRow = () => (
-    <tr className="border-b border-gray-200 dark:border-gray-700 animate-pulse">
-      <td className="px-6 py-4">
+    <TableRow className="border-b border-gray-200 dark:border-gray-700 animate-pulse">
+      <TableCell className="px-6 py-4">
         <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-12"></div>
-      </td>
-      <td className="px-6 py-4">
+      </TableCell>
+      <TableCell className="px-6 py-4">
         <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-48"></div>
-      </td>
-      <td className="px-6 py-4">
+      </TableCell>
+      <TableCell className="px-6 py-4">
         <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-64"></div>
-      </td>
-      <td className="px-6 py-4">
+      </TableCell>
+      <TableCell className="px-6 py-4">
         <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
-      </td>
-      <td className="px-6 py-4">
+      </TableCell>
+      <TableCell className="px-6 py-4">
         <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
-      </td>
-      <td className="px-6 py-4">
+      </TableCell>
+      <TableCell className="px-6 py-4">
         <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   );
 
   return (
-    <div className="container mx-auto p-6 min-h-screen  dark:bg-[#171717] transition-colors duration-300">
+    <div className="mx-auto min-h-screen transition-colors duration-300">
       <Helmet>
         <title>PostPad | Admin | Report Management</title>
       </Helmet>
 
-      <div className=" dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden">
+      <div className="mx-auto overflow-x-auto bg-white dark:bg-[#20293d] dark:text-white ">
         {isLoading ? (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-800 dark:text-gray-200">
-              <thead className="text-xs uppercase bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-                <tr>
-                  <th scope="col" className="px-6 py-4 font-semibold">#</th>
-                  <th scope="col" className="px-6 py-4 font-semibold">Email</th>
-                  <th scope="col" className="px-6 py-4 font-semibold">Comment</th>
-                  <th scope="col" className="px-6 py-4 font-semibold">Reason</th>
-                  <th scope="col" className="px-6 py-4 font-semibold">Remove Comment</th>
-                  <th scope="col" className="px-6 py-4 font-semibold">Remove User</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.from({ length: itemsPerPage }).map((_, index) => (
-                  <SkeletonRow key={index} />
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                <TableHead className=" font-semibold text-xs uppercase">#</TableHead>
+                <TableHead className=" font-semibold text-xs uppercase">Email</TableHead>
+                <TableHead className=" font-semibold text-xs uppercase">Comment</TableHead>
+                <TableHead className=" font-semibold text-xs uppercase">Reason</TableHead>
+                <TableHead className=" font-semibold text-xs uppercase">Remove Comment</TableHead>
+                <TableHead className=" font-semibold text-xs uppercase">Remove User</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Array.from({ length: itemsPerPage }).map((_, index) => (
+                <SkeletonRow key={index} />
+              ))}
+            </TableBody>
+          </Table>
         ) : reports.length === 0 ? (
           <div className="text-center py-12">
-            <h1 className="text-xl font-medium text-gray-500 dark:text-gray-400">
+            <h1 className="text-xl font-medium text-gray-500 dark:text-white">
               No Reports Found
             </h1>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-800 dark:text-gray-200">
-              <thead className="text-xs uppercase bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 ">
-                <tr className="">
-                  <th scope="col" className="px-6 py-4 font-semibold">#</th>
-                  <th scope="col" className="px-6 py-4 font-semibold">Email</th>
-                  <th scope="col" className="px-6 py-4 font-semibold">Comment</th>
-                  <th scope="col" className="px-6 py-4 font-semibold">Reason</th>
-                  <th scope="col" className="px-6 py-4 font-semibold">Remove Comment</th>
-                  <th scope="col" className="px-6 py-4 font-semibold">Remove User</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedReports.map((report, index) => (
-                  <AdminCommentState
-                    key={report._id || index}
-                    report={report}
-                    index={(currentPage - 1) * itemsPerPage + index + 1}
-                    refetch={refetch}
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-base-200 hover:bg-base-300 dark:bg-gray-700">
+                <TableHead className=" font-bold text-black dark:text-white text-center ">#</TableHead>
+                <TableHead className=" font-bold text-black dark:text-white text-center ">Email</TableHead>
+                <TableHead className=" font-bold text-black dark:text-white text-center ">Comment</TableHead>
+                <TableHead className=" font-bold text-black dark:text-white text-center ">Reason</TableHead>
+                <TableHead className=" font-bold text-black dark:text-white text-center ">Remove Comment</TableHead>
+                <TableHead className=" font-bold text-black dark:text-white text-center ">Remove User</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {paginatedReports.map((report, index) => (
+                <AdminCommentState
+                  key={report._id || index}
+                  report={report}
+                  index={(currentPage - 1) * itemsPerPage + index + 1}
+                  refetch={refetch}
+                />
+              ))}
+            </TableBody>
+          </Table>
         )}
       </div>
 
       {/* Pagination controls */}
       {reports.length > 0 && (
         <div className="flex justify-center items-center mt-8 space-x-2">
-          <button
+          <Button
             onClick={() => handlePageChange(currentPage - 1)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className=" bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
             disabled={currentPage === 1}
           >
             Previous
-          </button>
+          </Button>
           {Array.from({ length: totalPages }, (_, i) => (
-            <button
+            <Button
               key={i}
               onClick={() => handlePageChange(i + 1)}
-              className={`px-4 py-2 rounded-lg transition-colors duration-200 ${
+              className={` rounded-lg transition-colors duration-200 ${
                 currentPage === i + 1
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
               }`}
             >
               {i + 1}
-            </button>
+            </Button>
           ))}
-          <button
+          <Button
             onClick={() => handlePageChange(currentPage + 1)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className=" bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
             disabled={currentPage === totalPages}
           >
             Next
-          </button>
+          </Button>
         </div>
       )}
     </div>
