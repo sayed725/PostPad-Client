@@ -30,6 +30,7 @@ const CommentState = ({ comment, index }) => {
       reportReason: feedback,
       reportFor: comment.commentEmail,
       report: comment,
+      date: new Date(),
     };
 
     // console.log('report', reportInfo)

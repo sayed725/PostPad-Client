@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
 import { RiMedalFill } from "react-icons/ri";
-import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import {
@@ -18,9 +17,9 @@ import { Button } from "../../../@/components/ui/button";
 import moment from "moment";
 import {
   Avatar,
-  AvatarFallback,
   AvatarImage,
 } from "../../../@/components/ui/avatar";
+import toast from "react-hot-toast";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -42,58 +41,98 @@ const ManageUsers = () => {
   });
 
   // console.log(users);
-
-  const handleMakeAdmin = (user) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: `Do you want to make ${user.name} an Admin?`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, make admin!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
-          if (res.data.modifiedCount > 0) {
-            refetch();
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: `${user.name} is an Admin Now!`,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        });
-      }
-    });
-  };
-
-  const handleDeleteUser = (user) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.delete(`/users/${user._id}`).then((res) => {
-          if (res.data.deletedCount > 0) {
-            refetch();
-            Swal.fire({
-              title: "Deleted!",
-              text: "User has been deleted.",
-              icon: "success",
-            });
-          }
-        });
-      }
-    });
-  };
+//  make admin 
+ const handleMakeAdmin = async (user) => {
+  toast(
+    (t) => (
+      <div className="flex gap-3 items-center">
+        <div>
+          <p>
+            Are you <b>sure</b> you want to make {user.name} an <b>Admin</b>?
+          </p>
+        </div>
+        <div className="gap-2 flex">
+          <button
+            className="bg-blue-400 text-white px-3 py-1 rounded-md"
+            onClick={async () => {
+              toast.dismiss(t.id);
+              try {
+                toast.loading("Making user admin...", { position: "top-right" });
+                const { data } = await axiosSecure.patch(`/users/admin/${user._id}`);
+                if (data.modifiedCount > 0) {
+                  refetch();
+                  toast.dismiss();
+                  toast.success(`${user.name} is an Admin now!`, { position: "top-right" });
+                } else {
+                  toast.dismiss();
+                  toast.error("No changes were made.", { position: "top-right" });
+                }
+              } catch (error) {
+                toast.dismiss();
+                toast.error(error.message || "Failed to make user admin!", { position: "top-right" });
+              }
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className="bg-green-400 text-white px-3 py-1 rounded-md"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ),
+    { position: "top-right" }
+  );
+};
+// user delete 
+ const handleDeleteUser = async (user) => {
+  toast(
+    (t) => (
+      <div className="flex gap-3 items-center">
+        <div>
+          <p>
+            Are you <b>sure?</b>
+          </p>
+        </div>
+        <div className="gap-2 flex">
+          <button
+            className="bg-red-400 text-white px-3 py-1 rounded-md"
+            onClick={async () => {
+              toast.dismiss(t.id);
+              try {
+                toast.loading("Deleting user...", { position: "top-right" });
+                const { data } = await axiosSecure.delete(`/users/${user._id}`);
+                if (data.deletedCount > 0) {
+                  refetch();
+                  toast.dismiss();
+                  toast.success("User deleted successfully!", { position: "top-right" });
+                } else {
+                  toast.dismiss();
+                  toast.error("No user was deleted.", { position: "top-right" });
+                }
+              } catch (error) {
+                toast.dismiss();
+                toast.error(error.message || "Failed to delete the user!", { position: "top-right" });
+              }
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className="bg-green-400 text-white px-3 py-1 rounded-md"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ),
+    { position: "top-right" }
+  );
+};
 
   // Pagination logic
   const totalPages = Math.ceil(users.length / itemsPerPage);
@@ -187,7 +226,7 @@ const ManageUsers = () => {
           {/* reset  */}
           <Button
             onClick={handleReset}
-            className=" bg-[#005694] text-white dark:text-gray-700 dark:text-white"
+            className=" bg-[#005694] text-white  dark:text-white"
             aria-label="Reset search and sort"
           >
             Reset

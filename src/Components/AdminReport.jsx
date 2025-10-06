@@ -68,7 +68,8 @@ const AdminReport = () => {
             <TableHeader>
               <TableRow className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
                 <TableHead className=" font-semibold text-xs uppercase">#</TableHead>
-                <TableHead className=" font-semibold text-xs uppercase">Email</TableHead>
+                <TableHead className=" font-semibold text-xs uppercase">Report For</TableHead>
+                <TableHead className=" font-bold text-black dark:text-white text-center ">Report By</TableHead>
                 <TableHead className=" font-semibold text-xs uppercase">Comment</TableHead>
                 <TableHead className=" font-semibold text-xs uppercase">Reason</TableHead>
                 <TableHead className=" font-semibold text-xs uppercase">Remove Comment</TableHead>
@@ -92,7 +93,9 @@ const AdminReport = () => {
             <TableHeader>
               <TableRow className="bg-base-200 hover:bg-base-300 dark:bg-gray-700">
                 <TableHead className=" font-bold text-black dark:text-white text-center ">#</TableHead>
-                <TableHead className=" font-bold text-black dark:text-white text-center ">Email</TableHead>
+                <TableHead className=" font-bold text-black dark:text-white text-center ">Report For</TableHead>
+                <TableHead className=" font-bold text-black dark:text-white text-center ">Report By</TableHead>
+
                 <TableHead className=" font-bold text-black dark:text-white text-center ">Comment</TableHead>
                 <TableHead className=" font-bold text-black dark:text-white text-center ">Reason</TableHead>
                 <TableHead className=" font-bold text-black dark:text-white text-center ">Remove Comment</TableHead>
