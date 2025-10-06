@@ -25,6 +25,7 @@ import {
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
   const [searchQuery, setSearchQuery] = useState("");
+  const [sort, setSort] = useState("dsc"); // Default to descending
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -33,9 +34,9 @@ const ManageUsers = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["users", searchQuery],
+    queryKey: ["users", searchQuery, sort],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users?searchQuery=${searchQuery}`);
+      const res = await axiosSecure.get(`/users?searchQuery=${searchQuery}&sort=${sort}`);
       return res.data;
     },
   });
@@ -107,6 +108,12 @@ const ManageUsers = () => {
     }
   };
 
+  const handleReset = () => {
+    setSearchQuery("");
+    setSort("dsc");
+    setCurrentPage(1);
+  };
+
   // Skeleton Loader Component
   const SkeletonRow = () => (
     <TableRow className="animate-pulse">
@@ -139,11 +146,17 @@ const ManageUsers = () => {
       <Helmet>
         <title>PostPad | Admin | User Management</title>
       </Helmet>
+      {/* title  */}
       <div className="flex flex-col sm:flex-row gap-6 items-center justify-between mb-8">
         <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
           All Users
         </h2>
-        <div className="relative w-full sm:w-80">
+
+       {/* search, sort , reset  */}
+       <div className="flex flex-col lg:flex-row gap-4 items-center">
+
+        {/* search  */}
+         <div className="relative  ">
           <Input
             type="text"
             name="search"
@@ -154,6 +167,35 @@ const ManageUsers = () => {
           />
           <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-blue-500 text-lg" />
         </div>
+
+        {/* sort  */}
+       <div className="flex flex-row items-center gap-4">
+         <div>
+            <select
+              name="sort"
+              id="sort"
+              onChange={(e) => setSort(e.target.value)}
+              value={sort}
+              className="border py-2 px-4 rounded-md dark:bg-gray-800 "
+              aria-label="Sort by expiration date"
+            >
+              <option value="asc">Oldest</option>
+              <option value="dsc">Newest (Default)</option>
+            </select>
+          </div>
+
+          {/* reset  */}
+          <Button
+            onClick={handleReset}
+            className=" bg-[#005694] text-white dark:text-gray-700 dark:text-white"
+            aria-label="Reset search and sort"
+          >
+            Reset
+          </Button>
+       </div>
+       </div>
+
+       {/* total count title  */}
         <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
           Total Users: {users.length}
         </h2>

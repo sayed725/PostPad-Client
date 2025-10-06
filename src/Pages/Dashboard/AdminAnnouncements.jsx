@@ -4,6 +4,7 @@ import useAuth from '../../Hooks/useAuth';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
 import { Helmet } from 'react-helmet-async';
+import { Button } from '../../../@/components/ui/button';
 
 const AdminAnnouncements = () => {
 
@@ -94,7 +95,7 @@ const AdminAnnouncements = () => {
                 type='text'
                 placeholder='Title'
                 required
-                className='block w-full px-4 py-2 mt-2 dark:bg-[#20293d] dark:text-white text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring'
+                className='block w-full px-4 py-2 mt-2 dark:bg-[#101720] dark:text-white text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring'
               />
             </div>
 
@@ -105,7 +106,7 @@ const AdminAnnouncements = () => {
                 Description
             </label>
             <textarea
-              className='block w-full px-4 py-10 mt-2 dark:bg-[#20293d] dark:text-white text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring'
+              className='block w-full px-4 py-10 mt-2 dark:bg-[#101720] dark:text-white text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring'
               name='description'
               placeholder='Description'
               id='description'
@@ -115,9 +116,9 @@ const AdminAnnouncements = () => {
           </div>
 
          <div>
-         <button className="btn mt-10  bg-[#005694] text-white hover:bg-[#005694]">
+         <Button className=" mt-10  bg-[#005694] text-white hover:bg-[#005694]">
               Make Announcement
-            </button>
+            </Button>
          </div>
 
 
