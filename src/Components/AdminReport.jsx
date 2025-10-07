@@ -120,6 +120,7 @@ const AdminReport = () => {
       {reports.length > 0 && (
         <div className="flex justify-center items-center mt-8 space-x-2">
           <Button
+           size="sm"
             onClick={() => handlePageChange(currentPage - 1)}
             className=" bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
             disabled={currentPage === 1}
@@ -128,6 +129,7 @@ const AdminReport = () => {
           </Button>
           {Array.from({ length: totalPages }, (_, i) => (
             <Button
+             size="sm"
               key={i}
               onClick={() => handlePageChange(i + 1)}
               className={` rounded-lg transition-colors duration-200 ${
@@ -140,6 +142,7 @@ const AdminReport = () => {
             </Button>
           ))}
           <Button
+           size="sm"
             onClick={() => handlePageChange(currentPage + 1)}
             className=" bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
             disabled={currentPage === totalPages}

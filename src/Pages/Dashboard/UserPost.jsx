@@ -3,11 +3,23 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../Components/LoadingSpinner";
-import { FaTrash } from "react-icons/fa6";
+import { Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import { GrNext, GrPrevious } from "react-icons/gr";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Helmet } from "react-helmet-async";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../../@/components/ui/table";
+import { Button } from "../../../@/components/ui/button";
+import { GrNext, GrPrevious } from "react-icons/gr";
+import moment from "moment";
+import toast from "react-hot-toast";
 
 const UserPost = () => {
   const { user } = useAuth();
@@ -27,36 +39,54 @@ const UserPost = () => {
     },
   });
 
-  if (isLoading) {
-    return <LoadingSpinner></LoadingSpinner>;
-  }
+  const handleDelete = async (id) => {
+  toast(
+    (t) => (
+      <div className="flex gap-3 items-center">
+        <div>
+          <p>
+            Are you <b>sure? </b> you want to <b>Delete </b> this post?
+          </p>
+        </div>
+        <div className="gap-2 flex">
+          <button
+            className="bg-red-400 text-white px-3 py-1 rounded-md"
+            onClick={async () => {
+              toast.dismiss(t.id);
+              try {
+                toast.loading("Deleting Post...", { position: "top-right" });
+                const { data } = await axiosSecure.delete(`/post/${id}`);
+                if (data.deletedCount > 0) {
+                  refetch();
+                  toast.dismiss();
+                  toast.success("Post deleted successfully!", { position: "top-right" });
+                } else {
+                  toast.dismiss();
+                  toast.error("No post was deleted.", { position: "top-right" });
+                }
+              } catch (error) {
+                toast.dismiss();
+                toast.error(error.message || "Failed to delete the post!", { position: "top-right" });
+              }
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className="bg-green-400 text-white px-3 py-1 rounded-md"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ),
+    { position: "top-right" }
+  );
+};
 
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.delete(`/post/${id}`).then((res) => {
-          if (res.data.deletedCount > 0) {
-            refetch();
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your post has been deleted.",
-              icon: "success",
-            });
-          }
-        });
-      }
-    });
-  };
 
-  // Pagination fn
+  // Pagination logic
   const totalPages = Math.ceil(posts.length / itemsPerPage);
   const paginatedPosts = posts.slice(
     (currentPage - 1) * itemsPerPage,
@@ -69,113 +99,184 @@ const UserPost = () => {
     }
   };
 
-    
-        if (!posts.length)
-          return(
-        <div className="text-center mt-10">
-          <h2 className="text-2xl font-semibold mb-4">No Posts Found</h2>
-          <p className="text-gray-600 dark:text-gray-300">
-            You haven't created any posts yet. Start sharing your thoughts and
-            ideas with the community!
-          </p>
-          <button className="mt-5 bg-[#005694] hover:bg-[#005694] text-white px-6 py-2 rounded-md">
-            <Link
-              to="/dashboard/addPost"
-              className="mt-5 bg-[#005694] hover:bg-[#005694] text-white px-6 py-2 rounded-md"
-            >
-              Create Your First Post
-            </Link>
-          </button>
-        </div>
-         )
-      
+  if (!posts.length) {
+    return (
+      <div className="text-center mt-10 min-h-screen">
+        <Helmet>
+          <title>PostPad | UserPost</title>
+        </Helmet>
+        <h2 className="text-2xl font-semibold mb-4">No Posts Found</h2>
+        <p className="text-gray-600 dark:text-white">
+          You haven't created any posts yet. Start sharing your thoughts and
+          ideas with the community!
+        </p>
+        <Button
+          asChild
+          className="mt-5 bg-[#005694] hover:bg-[#004a7c] text-white"
+        >
+          <Link to="/dashboard/addPost">Create Your First Post</Link>
+        </Button>
+      </div>
+    );
+  }
+
+  // Skeleton Loader Component
+  const SkeletonRow = () => (
+    <TableRow className="animate-pulse">
+      <TableCell>
+        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-8"></div>
+      </TableCell>
+      <TableCell>
+        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
+      </TableCell>
+      <TableCell>
+        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-48"></div>
+      </TableCell>
+      <TableCell>
+        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+      </TableCell>
+      <TableCell>
+        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-12 mx-auto"></div>
+      </TableCell>
+      <TableCell>
+        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-12"></div>
+      </TableCell>
+      <TableCell>
+        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-12"></div>
+      </TableCell>
+    </TableRow>
+  );
 
   return (
-    <div className="">
-       <Helmet> <title>PostPad | UserPost </title></Helmet>
-      <div className="rounded-md min-h-screen">
-        <div className="mb-5 text-center space-y-3">
-          <h2 className="text-3xl text-center font-bold">
-            Hi! {user && user?.displayName}
-          </h2>
-          <p className="text-xl font-semibold">
-            Welcome to your post dashboard. Here you can manage and view all of
-            your posts.
-          </p>
-          <p className="text-xl font-semibold">
-            You have total {posts.length} {posts.length === 1 ? "post" : "posts"}
-          </p>
-        </div>
+    <div className=" mx-auto min-h-screen ">
+      <Helmet>
+        <title>PostPad | UserPost</title>
+      </Helmet>
+      <div className="mb-8 text-center space-y-3">
+        <h2 className="text-3xl font-bold">Hi! {user && user?.displayName}</h2>
+        <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">
+          Welcome to your post dashboard. Here you can manage and view all of
+          your posts.
+        </p>
+        <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">
+          You have total {posts.length} {posts.length === 1 ? "post" : "posts"}
+        </p>
+      </div>
 
-        <div className="overflow-x-auto w-full">
-          <table className="min-w-full bg-white border dark:bg-[#20293d] dark:text-white border-gray-300 shadow-lg">
-            {/* head */}
-            <thead className="text-xl font-semibold">
-              <tr>
-                <th className="px-4 py-2 border">#</th>
-                <th className="px-4 py-2 border">Post Title</th>
-                <th className="px-4 py-2 border">No Of UpVotes</th>
-                <th className="px-4 py-2 border">No Of Down Votes</th>
-                <th className="px-4 py-2 border">Comment</th>
-                <th className="px-4 py-2 border">Delete</th>
-              </tr>
-            </thead>
-            <tbody >
-              {paginatedPosts.map((post, index) => (
-                <tr key={index}>
-                  <th className="px-4 py-2 border">{(currentPage - 1) * itemsPerPage + index + 1}</th>
-                  <td className="px-4 py-2 border text-center">{post.title}</td>
-                  <td className="px-4 py-2 border text-center">{post.upVote}</td>
-                  <td className="px-4 py-2 border text-center">{post.dawnVote}</td>
-                  <td className="px-4 py-2 border text-center">
-                    <Link to={`/dashboard/comments/${post._id}`}>
-                      <button className="btn btn-sm   ml-5 ">
-                        All Comments
-                      </button>
-                    </Link>
-                  </td>
+      <div className="mx-auto overflow-x-auto bg-white dark:bg-[#20293d] dark:text-white shadow-md">
+        <Table className="">
+          <TableHeader>
+            <TableRow className="bg-base-200 hover:bg-base-300 dark:bg-gray-700">
+              <TableHead className="px-4 py-3 font-bold text-black dark:text-white text-left">
+                #
+              </TableHead>
+              <TableHead className="px-4 py-3 font-bold text-black dark:text-white text-left">
+                Post Title
+              </TableHead>
+              <TableHead className="px-4 py-3 font-bold text-black dark:text-white text-left">
+                Posted At
+              </TableHead>
 
-                  <td className="px-4 py-2  border text-center">
-                    <button
-                      onClick={() => handleDelete(post._id)}
-                      className="btn btn-sm text-xl text-red-500"
-                    >
-                      <FaTrash></FaTrash>
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              <TableHead className="px-4 py-3 font-bold text-black dark:text-white text-center">
+                No of UpVotes
+              </TableHead>
+              <TableHead className="px-4 py-3 font-bold text-black dark:text-white text-center">
+                No of Down Votes
+              </TableHead>
+              <TableHead className="px-4 py-3 font-bold text-black dark:text-white text-center">
+                Comment
+              </TableHead>
+              <TableHead className="px-4 py-3 font-bold text-black dark:text-white text-center">
+                Delete
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {isLoading
+              ? Array.from({ length: itemsPerPage }).map((_, index) => (
+                  <SkeletonRow key={index} />
+                ))
+              : paginatedPosts.map((post, index) => (
+                  <TableRow
+                    key={index}
+                    className="hover:bg-base-200 dark:hover:bg-gray-700 border-gray-300"
+                  >
+                    <TableCell className="px-4 py-3 border">
+                      {(currentPage - 1) * itemsPerPage + index + 1}
+                    </TableCell>
+                    <TableCell className="px-4 py-3 border">
+                      {post.title.substring(0, 30)}
+                    </TableCell>
+                    <TableCell className="px-4 py-3 border">
+                      {(post.time && moment(post.time).fromNow()) || "Just Now"}
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-center border">
+                      {post.upVote}
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-center border">
+                      {post.dawnVote}
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-center border">
+                      <Button
+                        asChild
+                        variant="outline"
+                        size="sm"
+                        className="hover:text-white hover:bg-[#005694]"
+                      >
+                        <Link to={`/dashboard/comments/${post._id}`}>
+                          All Comments
+                        </Link>
+                      </Button>
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-center">
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        className="text-red-500"
+                        onClick={() => handleDelete(post._id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+          </TableBody>
+        </Table>
+      </div>
 
-        {/* Pagination button */}
-        <div className="flex justify-center  items-center mt-5">
-          <div className="btn-group flex gap-5 sm:gap-10">
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              className="btn text-white btn-sm bg-[#005694] dark:hover:bg-[#005694]"
-              disabled={currentPage === 1}
+      {/* Pagination */}
+      <div className="flex justify-center flex-wrap items-center mt-8">
+        <div className="flex gap-2">
+          <Button
+            size="sm"
+            onClick={() => handlePageChange(currentPage - 1)}
+            className=" bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400"
+            disabled={currentPage === 1}
+          >
+            Previous
+          </Button>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <Button
+              size="sm"
+              key={i}
+              onClick={() => handlePageChange(i + 1)}
+              className={`rounded-lg ${
+                currentPage === i + 1
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              } transition-colors duration-200`}
             >
-              <GrPrevious/>Previous
-            </button>
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i}
-                onClick={() => handlePageChange(i + 1)}
-                className={`btn ${currentPage === i + 1 ? "btn text-white btn-sm dark:hover:bg-[#005694] bg-[#005694]" : "btn btn-sm"}`}
-              >
-                {i + 1}
-              </button>
-            ))}
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              className="btn text-white btn-sm bg-[#005694] dark:hover:bg-[#005694]"
-              disabled={currentPage === totalPages}
-            >
-              Next<GrNext/>
-            </button>
-          </div>
+              {i + 1}
+            </Button>
+          ))}
+          <Button
+            size="sm"
+            onClick={() => handlePageChange(currentPage + 1)}
+            className="bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400"
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </Button>
         </div>
       </div>
     </div>

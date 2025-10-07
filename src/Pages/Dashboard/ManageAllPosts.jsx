@@ -15,11 +15,9 @@ import {
 import { Input } from "../../../@/components/ui/input";
 import { Button } from "../../../@/components/ui/button";
 import moment from "moment";
-import {
-  Avatar,
-  AvatarImage,
-} from "../../../@/components/ui/avatar";
+import { Avatar, AvatarImage } from "../../../@/components/ui/avatar";
 import toast from "react-hot-toast";
+import { Trash2 } from "lucide-react";
 
 const ManageAllPosts = () => {
   const axiosSecure = useAxiosSecure();
@@ -35,60 +33,68 @@ const ManageAllPosts = () => {
   } = useQuery({
     queryKey: ["allPosts", searchQuery, sort],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/allPosts?searchQuery=${searchQuery}&sort=${sort}`);
+      const res = await axiosSecure.get(
+        `/allPosts?searchQuery=${searchQuery}&sort=${sort}`
+      );
       return res.data;
     },
   });
 
-//    console.log(posts);
-//  make admin 
+  //    console.log(posts);
+  //  make admin
 
-// user delete 
- const handleDeletePost = async (id) => {
-  toast(
-    (t) => (
-      <div className="flex gap-3 items-center">
-        <div>
-          <p>
-            Are you <b>sure you want to delete this post?</b>
-          </p>
-        </div>
-        <div className="gap-2 flex">
-          <button
-            className="bg-red-400 text-white px-3 py-1 rounded-md"
-            onClick={async () => {
-              toast.dismiss(t.id);
-              try {
-                toast.loading("Deleting Post...", { position: "top-right" });
-                const { data } = await axiosSecure.delete(`/post/${id}`);
-                if (data.deletedCount > 0) {
-                  refetch();
+  // user delete
+  const handleDeletePost = async (id) => {
+    toast(
+      (t) => (
+        <div className="flex gap-3 items-center">
+          <div>
+            <p>
+              Are you <b>sure you want to delete this post?</b>
+            </p>
+          </div>
+          <div className="gap-2 flex">
+            <button
+              className="bg-red-400 text-white px-3 py-1 rounded-md"
+              onClick={async () => {
+                toast.dismiss(t.id);
+                try {
+                  toast.loading("Deleting Post...", { position: "top-right" });
+                  const { data } = await axiosSecure.delete(`/post/${id}`);
+                  if (data.deletedCount > 0) {
+                    refetch();
+                    toast.dismiss();
+                    toast.success("Post deleted successfully!", {
+                      position: "top-right",
+                    });
+                  } else {
+                    toast.dismiss();
+                    toast.error("No post was deleted.", {
+                      position: "top-right",
+                    });
+                  }
+                } catch (error) {
                   toast.dismiss();
-                  toast.success("Post deleted successfully!", { position: "top-right" });
-                } else {
-                  toast.dismiss();
-                  toast.error("No post was deleted.", { position: "top-right" });
+                  toast.error(error.message || "Failed to delete the post!", {
+                    position: "top-right",
+                  });
                 }
-              } catch (error) {
-                toast.dismiss();
-                toast.error(error.message || "Failed to delete the post!", { position: "top-right" });
-              }
-            }}
-          >
-            Yes
-          </button>
-          <button
-            className="bg-green-400 text-white px-3 py-1 rounded-md"
-            onClick={() => toast.dismiss(t.id)}
-          >
-            Cancel
-          </button>
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-green-400 text-white px-3 py-1 rounded-md"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-      </div>
-    ),
-    { position: "top-right" }
-  );
-};
+      ),
+      { position: "top-right" }
+    );
+  };
 
   // Pagination logic
   const totalPages = Math.ceil(posts.length / itemsPerPage);
@@ -147,50 +153,49 @@ const ManageAllPosts = () => {
           All Posts
         </h2>
 
-       {/* search, sort , reset  */}
-       <div className="flex flex-col lg:flex-row gap-4 items-center">
-
-        {/* search  */}
-         <div className="relative  ">
-          <Input
-            type="text"
-            name="search"
-            onChange={(e) => setSearchQuery(e.target.value)}
-            value={searchQuery}
-            placeholder="Search by UserName..."
-            className="w-full dark:bg-gray-800 dark:text-white text-gray-800 rounded-lg py-2 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
-          />
-          <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-blue-500 text-lg" />
-        </div>
-
-        {/* sort  */}
-       <div className="flex flex-row items-center gap-4">
-         <div>
-            <select
-              name="sort"
-              id="sort"
-              onChange={(e) => setSort(e.target.value)}
-              value={sort}
-              className="border py-2 px-4 rounded-md dark:bg-gray-800 "
-              aria-label="Sort by expiration date"
-            >
-              <option value="asc">Oldest</option>
-              <option value="dsc">Newest (Default)</option>
-            </select>
+        {/* search, sort , reset  */}
+        <div className="flex flex-col lg:flex-row gap-4 items-center">
+          {/* search  */}
+          <div className="relative  ">
+            <Input
+              type="text"
+              name="search"
+              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchQuery}
+              placeholder="Search by UserName..."
+              className="w-full dark:bg-gray-800 dark:text-white text-gray-800 rounded-lg py-2 px-5 pl-12 outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+            />
+            <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-blue-500 text-lg" />
           </div>
 
-          {/* reset  */}
-          <Button
-            onClick={handleReset}
-            className=" bg-[#005694] text-white  dark:text-white"
-            aria-label="Reset search and sort"
-          >
-            Reset
-          </Button>
-       </div>
-       </div>
+          {/* sort  */}
+          <div className="flex flex-row items-center gap-4">
+            <div>
+              <select
+                name="sort"
+                id="sort"
+                onChange={(e) => setSort(e.target.value)}
+                value={sort}
+                className="border py-2 px-4 rounded-md dark:bg-gray-800 "
+                aria-label="Sort by expiration date"
+              >
+                <option value="asc">Oldest</option>
+                <option value="dsc">Newest (Default)</option>
+              </select>
+            </div>
 
-       {/* total count title  */}
+            {/* reset  */}
+            <Button
+              onClick={handleReset}
+              className=" bg-[#005694] text-white  dark:text-white"
+              aria-label="Reset search and sort"
+            >
+              Reset
+            </Button>
+          </div>
+        </div>
+
+        {/* total count title  */}
         <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
           Total Posts: {posts.length}
         </h2>
@@ -200,14 +205,30 @@ const ManageAllPosts = () => {
         <Table className="">
           <TableHeader className=" ">
             <TableRow className="bg-base-200 hover:bg-base-300 dark:bg-gray-700">
-              <TableHead className="font-bold text-black dark:text-white text-left">Photo</TableHead>
-              <TableHead className="font-bold text-black dark:text-white text-left">Name</TableHead>
-              <TableHead className="font-bold text-black dark:text-white text-left">Email</TableHead>
-              <TableHead className="font-bold text-black dark:text-white text-left">Title</TableHead>
-              <TableHead className=" font-bold text-black dark:text-white text-left">Posted At</TableHead>
-              <TableHead className=" font-bold text-black dark:text-white text-left">UpVote</TableHead>
-              <TableHead className=" font-bold text-black dark:text-white text-left">DawnVote</TableHead>
-              <TableHead className="font-bold text-black dark:text-white text-left">Action</TableHead>
+              <TableHead className="font-bold text-black dark:text-white text-left">
+                Photo
+              </TableHead>
+              <TableHead className="font-bold text-black dark:text-white text-left">
+                Name
+              </TableHead>
+              <TableHead className="font-bold text-black dark:text-white text-left">
+                Email
+              </TableHead>
+              <TableHead className="font-bold text-black dark:text-white text-left">
+                Title
+              </TableHead>
+              <TableHead className=" font-bold text-black dark:text-white text-left">
+                Posted At
+              </TableHead>
+              <TableHead className=" font-bold text-black dark:text-white text-left">
+                UpVote
+              </TableHead>
+              <TableHead className=" font-bold text-black dark:text-white text-left">
+                DawnVote
+              </TableHead>
+              <TableHead className="font-bold text-black dark:text-white text-left">
+                Action
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="">
@@ -222,25 +243,31 @@ const ManageAllPosts = () => {
                   >
                     <TableCell className="">
                       <Avatar>
-                        <AvatarImage src={post?.authorImage || "/random_user.jpg"} alt={post?.authorName} />
+                        <AvatarImage
+                          src={post?.authorImage || "/random_user.jpg"}
+                          alt={post?.authorName}
+                        />
                       </Avatar>
                     </TableCell>
 
                     <TableCell className="">{post?.authorName}</TableCell>
                     <TableCell className="">{post?.authorEmail}</TableCell>
-                    <TableCell className="">{post?.title.substring(0, 20)}</TableCell>
+                    <TableCell className="">
+                      {post?.title.substring(0, 20)}
+                    </TableCell>
                     <TableCell className="text-blue-600">
-                      {post.time && moment(post.time).fromNow() || "Just Now"}
+                      {(post.time && moment(post.time).fromNow()) || "Just Now"}
                     </TableCell>
                     <TableCell> {post.upVote}</TableCell>
-                    <TableCell > {post.dawnVote}</TableCell>
+                    <TableCell> {post.dawnVote}</TableCell>
                     <TableCell className="">
                       <Button
-                        variant="ghost"
+                        variant="destructive"
+                        size="sm"
+                        className="text-red-500"
                         onClick={() => handleDeletePost(post._id)}
-                        className=" rounded-full hover:bg-red-100"
                       >
-                        <FaTrashAlt size={18} className="text-red-600" />
+                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -253,6 +280,7 @@ const ManageAllPosts = () => {
       <div className="flex justify-center flex-wrap items-center mt-8">
         <div className="flex gap-2">
           <Button
+           size="sm"
             onClick={() => handlePageChange(currentPage - 1)}
             className=" bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400"
             disabled={currentPage === 1}
@@ -261,6 +289,7 @@ const ManageAllPosts = () => {
           </Button>
           {Array.from({ length: totalPages }, (_, i) => (
             <Button
+             size="sm"
               key={i}
               onClick={() => handlePageChange(i + 1)}
               className={`rounded-lg ${
@@ -273,6 +302,7 @@ const ManageAllPosts = () => {
             </Button>
           ))}
           <Button
+           size="sm"
             onClick={() => handlePageChange(currentPage + 1)}
             className="bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400"
             disabled={currentPage === totalPages}

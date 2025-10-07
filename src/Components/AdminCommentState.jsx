@@ -4,6 +4,7 @@ import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
 import ReactDOM from "react-dom";
 import { Button } from "../../@/components/ui/button";
+import { Trash2 } from "lucide-react";
 
 const AdminCommentState = ({ report, index, refetch }) => {
   const axiosSecure = useAxiosSecure();
@@ -22,180 +23,205 @@ const AdminCommentState = ({ report, index, refetch }) => {
     setModalData({ isOpen: false, commentText: "" });
   };
   // remove comment and delete report
-const removeComment = (report) => {
-  toast(
-    (t) => (
-      <div className="flex gap-3 items-center">
-        <div>
-          <p>
-            Are you <b>sure</b> you want to delete this comment?
-          </p>
-        </div>
-        <div className="gap-2 flex">
-          <button
-            className="bg-blue-400 text-white px-3 py-1 rounded-md"
-            onClick={async () => {
-              toast.dismiss(t.id);
-              try {
-
-                toast.loading('Deleting comment and report...', { position: 'top-right' });
-                const { data } = await axiosSecure.post('/remove-comment', report);
-
-                if (data.commentDeleted || data.reportDeleted) {
-                  toast.dismiss();
-                  refetch();
-                  toast.success(data.message || 'Comment and report deleted successfully!', {
-                    position: 'top-right',
-                    style: {
-                      background: '#22c55e', // Green background
-                      color: '#ffffff',
-                      borderRadius: '8px',
-                      padding: '12px',
-                      fontSize: '16px',
-                    },
-                    icon: '✅',
+  const removeComment = (report) => {
+    toast(
+      (t) => (
+        <div className="flex gap-3 items-center">
+          <div>
+            <p>
+              Are you <b>sure</b> you want to delete this comment?
+            </p>
+          </div>
+          <div className="gap-2 flex">
+            <button
+              className="bg-blue-400 text-white px-3 py-1 rounded-md"
+              onClick={async () => {
+                toast.dismiss(t.id);
+                try {
+                  toast.loading("Deleting comment and report...", {
+                    position: "top-right",
                   });
-                } else {
+                  const { data } = await axiosSecure.post(
+                    "/remove-comment",
+                    report
+                  );
+
+                  if (data.commentDeleted || data.reportDeleted) {
+                    toast.dismiss();
+                    refetch();
+                    toast.success(
+                      data.message ||
+                        "Comment and report deleted successfully!",
+                      {
+                        position: "top-right",
+                        style: {
+                          background: "#22c55e", // Green background
+                          color: "#ffffff",
+                          borderRadius: "8px",
+                          padding: "12px",
+                          fontSize: "16px",
+                        },
+                        icon: "✅",
+                      }
+                    );
+                  } else {
+                    toast.dismiss();
+                    toast.error("No comment or report was deleted.", {
+                      position: "top-right",
+                      style: {
+                        background: "#ef4444", // Red background
+                        color: "#ffffff",
+                        borderRadius: "8px",
+                        padding: "12px",
+                        fontSize: "16px",
+                      },
+                      icon: "❌",
+                    });
+                  }
+                } catch (error) {
                   toast.dismiss();
-                  toast.error('No comment or report was deleted.', {
-                    position: 'top-right',
+                  const errorMessage =
+                    error.response?.data?.error ||
+                    error.message ||
+                    "Failed to delete comment and report";
+                  toast.error(errorMessage, {
+                    position: "top-right",
                     style: {
-                      background: '#ef4444', // Red background
-                      color: '#ffffff',
-                      borderRadius: '8px',
-                      padding: '12px',
-                      fontSize: '16px',
+                      background: "#ef4444",
+                      color: "#ffffff",
+                      borderRadius: "8px",
+                      padding: "12px",
+                      fontSize: "16px",
                     },
-                    icon: '❌',
+                    icon: "❌",
                   });
+                  console.error("Error in removeComment:", error);
                 }
-              } catch (error) {
-                toast.dismiss();
-                const errorMessage = error.response?.data?.error || error.message || 'Failed to delete comment and report';
-                toast.error(errorMessage, {
-                  position: 'top-right',
-                  style: {
-                    background: '#ef4444',
-                    color: '#ffffff',
-                    borderRadius: '8px',
-                    padding: '12px',
-                    fontSize: '16px',
-                  },
-                  icon: '❌',
-                });
-                console.error('Error in removeComment:', error);
-              }
-            }}
-          >
-            Yes
-          </button>
-          <button
-            className="bg-green-400 text-white px-3 py-1 rounded-md"
-            onClick={() => toast.dismiss(t.id)}
-          >
-            Cancel
-          </button>
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-green-400 text-white px-3 py-1 rounded-md"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-      </div>
-    ),
-    { position: 'top-right' }
-  );
-};
+      ),
+      { position: "top-right" }
+    );
+  };
 
-
-// remove user and delete report
+  // remove user and delete report
 
   const removeUser = (report) => {
-  toast(
-    (t) => (
-      <div className="flex gap-3 items-center">
-        <div>
-          <p>
-            Are you <b>sure</b> you want to remove this user?
-          </p>
-        </div>
-        <div className="gap-2 flex">
-          <button
-            className="bg-blue-400 text-white px-3 py-1 rounded-md"
-            onClick={async () => {
-              toast.dismiss(t.id);
-              try {
-
-                toast.loading('Deleting comment and report...', { position: 'top-right' });
-                const { data } = await axiosSecure.post('/remove-user', report);
-
-                if (data.commentDeleted || data.reportDeleted || data.userDeleted) {
-                  toast.dismiss();
-                  refetch();
-                  toast.success(data.message || 'User & Comment and report deleted successfully!', {
-                    position: 'top-right',
-                    style: {
-                      background: '#22c55e', // Green background
-                      color: '#ffffff',
-                      borderRadius: '8px',
-                      padding: '12px',
-                      fontSize: '16px',
-                    },
-                    icon: '✅',
+    toast(
+      (t) => (
+        <div className="flex gap-3 items-center">
+          <div>
+            <p>
+              Are you <b>sure</b> you want to remove this user?
+            </p>
+          </div>
+          <div className="gap-2 flex">
+            <button
+              className="bg-blue-400 text-white px-3 py-1 rounded-md"
+              onClick={async () => {
+                toast.dismiss(t.id);
+                try {
+                  toast.loading("Deleting comment and report...", {
+                    position: "top-right",
                   });
-                } else {
+                  const { data } = await axiosSecure.post(
+                    "/remove-user",
+                    report
+                  );
+
+                  if (
+                    data.commentDeleted ||
+                    data.reportDeleted ||
+                    data.userDeleted
+                  ) {
+                    toast.dismiss();
+                    refetch();
+                    toast.success(
+                      data.message ||
+                        "User & Comment and report deleted successfully!",
+                      {
+                        position: "top-right",
+                        style: {
+                          background: "#22c55e", // Green background
+                          color: "#ffffff",
+                          borderRadius: "8px",
+                          padding: "12px",
+                          fontSize: "16px",
+                        },
+                        icon: "✅",
+                      }
+                    );
+                  } else {
+                    toast.dismiss();
+                    toast.error("No User was deleted.", {
+                      position: "top-right",
+                      style: {
+                        background: "#ef4444", // Red background
+                        color: "#ffffff",
+                        borderRadius: "8px",
+                        padding: "12px",
+                        fontSize: "16px",
+                      },
+                      icon: "❌",
+                    });
+                  }
+                } catch (error) {
                   toast.dismiss();
-                  toast.error('No User was deleted.', {
-                    position: 'top-right',
+                  const errorMessage =
+                    error.response?.data?.error ||
+                    error.message ||
+                    "Failed to delete User";
+                  toast.error(errorMessage, {
+                    position: "top-right",
                     style: {
-                      background: '#ef4444', // Red background
-                      color: '#ffffff',
-                      borderRadius: '8px',
-                      padding: '12px',
-                      fontSize: '16px',
+                      background: "#ef4444",
+                      color: "#ffffff",
+                      borderRadius: "8px",
+                      padding: "12px",
+                      fontSize: "16px",
                     },
-                    icon: '❌',
+                    icon: "❌",
                   });
+                  console.error("Error in removeUser:", error);
                 }
-              } catch (error) {
-                toast.dismiss();
-                const errorMessage = error.response?.data?.error || error.message || 'Failed to delete User';
-                toast.error(errorMessage, {
-                  position: 'top-right',
-                  style: {
-                    background: '#ef4444',
-                    color: '#ffffff',
-                    borderRadius: '8px',
-                    padding: '12px',
-                    fontSize: '16px',
-                  },
-                  icon: '❌',
-                });
-                console.error('Error in removeUser:', error);
-              }
-            }}
-          >
-            Yes
-          </button>
-          <button
-            className="bg-green-400 text-white px-3 py-1 rounded-md"
-            onClick={() => toast.dismiss(t.id)}
-          >
-            Cancel
-          </button>
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-green-400 text-white px-3 py-1 rounded-md"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-      </div>
-    ),
-    { position: 'top-right' }
-  );
-};
+      ),
+      { position: "top-right" }
+    );
+  };
 
   return (
     <>
       <tr className="hover:bg-base-200 dark:hover:bg-gray-700">
-        <td className="px-4 py-2 border dark:border-gray-700">{index + 1}</td>
-        <td className="px-4 py-2 border dark:border-gray-700">
+        <td className="px-4 py-3 border dark:border-gray-700"> {index}</td>
+        <td className="px-4 py-3 border dark:border-gray-700">
           {report.reportFor}
         </td>
-        <td className="px-4 py-2 border dark:border-gray-700">
+        <td className="px-4 py-3 border dark:border-gray-700">
           {report.reportBy}
         </td>
-        <td className="px-4 py-2 border dark:border-gray-700 ">
+        <td className="px-4 py-3 border dark:border-gray-700 ">
           {report.report.comment.length > 20 ? (
             <>
               {report.report.comment.substring(0, 20)}...
@@ -210,28 +236,33 @@ const removeComment = (report) => {
             report.report.comment
           )}
         </td>
-        <td className="px-4 py-2 border text-center dark:border-gray-700">
-          <Button variant="ghost" className="bg-red-300 dark:text-black">
+        <td className="px-4 py-3 border text-center dark:border-gray-700">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="bg-red-300 dark:text-black"
+          >
             {report.reportReason.substring(0, 13)}
           </Button>
         </td>
-        <td className="px-4 py-2 border text-center dark:border-gray-700">
+        <td className="px-4 py-3 border text-center dark:border-gray-700">
           <Button
-            disabled={disabled}
-            variant="ghost"
+            variant="destructive"
+            size="sm"
+            className="text-red-500"
             onClick={() => removeComment(report)}
-            className=" hover:text-white hover:bg-[#005694]"
           >
-            Remove
+            <Trash2 className="h-4 w-4" />
           </Button>
         </td>
-        <td className="px-4 py-2 border text-center dark:border-gray-700">
+        <td className="px-4 py-3 border text-center dark:border-gray-700">
           <Button
-            variant="ghost"
+            variant="destructive"
+            size="sm"
             onClick={() => removeUser(report)}
-            className=" hover:text-white w-full hover:bg-[#005694]"
+            className="text-red-500"
           >
-            Remove User
+            <Trash2 className="h-4 w-4" />
           </Button>
         </td>
       </tr>

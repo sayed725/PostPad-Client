@@ -20,6 +20,7 @@ import {
   AvatarImage,
 } from "../../../@/components/ui/avatar";
 import toast from "react-hot-toast";
+import { Trash2 } from "lucide-react";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -94,7 +95,7 @@ const ManageUsers = () => {
       <div className="flex gap-3 items-center">
         <div>
           <p>
-            Are you <b>sure?</b>
+            Are you <b>sure? </b> you want to <b>Delete {user.name} </b>?
           </p>
         </div>
         <div className="gap-2 flex">
@@ -277,13 +278,14 @@ const ManageUsers = () => {
                     </TableCell>
                     <TableCell className="">
                       {user.role === "admin" ? (
-                        <Button className=" bg-blue-300 text-gray-700 dark:text-black rounded-lg font-medium hover:bg-blue-200 transition-colors duration-200">
+                        <Button size="sm" className=" bg-blue-300 text-gray-700 dark:text-black rounded-lg font-medium hover:bg-blue-200 transition-colors duration-200">
                           Admin Role
                         </Button>
                       ) : (
                         <Button
                           onClick={() => handleMakeAdmin(user)}
                           className=" bg-green-100 dark:bg-green-400 text-gray-700 rounded-lg font-medium hover:bg-green-200 transition-colors duration-200"
+                          size="sm"
                         >
                           Make Admin
                         </Button>
@@ -291,24 +293,25 @@ const ManageUsers = () => {
                     </TableCell>
                     <TableCell>
                       {user.role === "bronze" && (
-                        <Button className=" bg-gray-300  text-gray-600 dark:text-black rounded-lg font-medium  transition-colors duration-200">
+                        <Button size="sm" className=" bg-gray-300  text-gray-600 dark:text-black rounded-lg font-medium  transition-colors duration-200">
                           User
                         </Button>
                       )}
                       {user.role === "gold" && (
-                        <Button className=" bg-yellow-300 dark:bg-yellow-200  text-gray-700 dark:text-black rounded-lg font-medium  transition-colors duration-200">
+                        <Button size="sm" className=" bg-yellow-300 dark:bg-yellow-200  text-gray-700 dark:text-black rounded-lg font-medium  transition-colors duration-200">
                           Member
                         </Button>
                       )}
 
                       {user.role === "admin" && (
-                        <Button className=" bg-blue-300 text-gray-700 dark:text-black rounded-lg font-medium  transition-colors duration-200">
+                        <Button size="sm" className=" bg-blue-300 text-gray-700 dark:text-black rounded-lg font-medium  transition-colors duration-200">
                           Admin
                         </Button>
                       )}
                     </TableCell>
                     <TableCell className="flex justify-center items-center">
-                      <Button variant="ghost">
+                      <Button size="sm" variant="ghost">
+
                         <RiMedalFill
                         className={`text-3xl ${
                           user.role === "bronze"
@@ -324,11 +327,14 @@ const ManageUsers = () => {
                     </TableCell>
                     <TableCell className="">
                       <Button
-                        variant="ghost"
+                      variant="destructive"
+                    size="sm"
+                    className="text-red-500"
+                        
                         onClick={() => handleDeleteUser(user)}
-                        className=" rounded-full hover:bg-red-100"
+                        
                       >
-                        <FaTrashAlt size={18} className="text-red-600" />
+                       <Trash2 className="h-4 w-4" />
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -338,9 +344,10 @@ const ManageUsers = () => {
       </div>
 
       {/* Pagination controls */}
-      <div className="flex justify-center items-center mt-8">
+      <div className="flex justify-center flex-wrap items-center mt-8">
         <div className="flex gap-2">
           <Button
+           size="sm"
             onClick={() => handlePageChange(currentPage - 1)}
             className=" bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400"
             disabled={currentPage === 1}
@@ -350,6 +357,7 @@ const ManageUsers = () => {
           {Array.from({ length: totalPages }, (_, i) => (
             <Button
               key={i}
+               size="sm"
               onClick={() => handlePageChange(i + 1)}
               className={`rounded-lg ${
                 currentPage === i + 1
@@ -362,6 +370,7 @@ const ManageUsers = () => {
           ))}
           <Button
             onClick={() => handlePageChange(currentPage + 1)}
+             size="sm"
             className="bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400"
             disabled={currentPage === totalPages}
           >
