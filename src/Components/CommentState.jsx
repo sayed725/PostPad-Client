@@ -3,6 +3,7 @@ import useAxiosSecure from "../Hooks/useAxiosSecure";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
 import ReactDOM from "react-dom";
+import moment from "moment";
 
 const CommentState = ({ comment, index }) => {
   const axiosSecure = useAxiosSecure();
@@ -50,7 +51,7 @@ const CommentState = ({ comment, index }) => {
 
   return (
     <>
-      <tr className="dark:bg-[#20293d] dark:text-white border-gray-300">
+      <tr className="hover:bg-base-200 dark:hover:bg-gray-700  border-gray-300">
         <td className="px-4 py-2 border">{index + 1}</td>
         <td className="px-4 py-2 border">{comment.commentEmail}</td>
         <td className="px-4 py-2 border">
@@ -68,7 +69,8 @@ const CommentState = ({ comment, index }) => {
             comment.comment
           )}
         </td>
-        <td className="px-4 py-2">
+        <td className="px-4 py-2 border text-center"> {(comment.commentTime && moment(comment.commentTime).fromNow()) || "Just Now"}</td>
+        <td className="px-4 py-2 border">
           <select
             className="border rounded p-2 w-full dark:bg-[#20293d] dark:text-white border-gray-300"
             value={feedback}
@@ -84,7 +86,7 @@ const CommentState = ({ comment, index }) => {
           <button
             onClick={() => handleReport(comment)}
             disabled={feedback == ""}
-            className="btn btn-sm bg-[#005694] text-white hover:bg-[#005694]"
+            className="btn btn-sm bg-[#005694] text-white hover:bg-[#005694] dark:disabled:bg-gray-400 dark:disabled:text-white"
           >
             Report
           </button>
