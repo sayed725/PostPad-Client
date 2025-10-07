@@ -98,7 +98,7 @@ const AddaPost = () => {
           usedTag: data.tag,
           image: res.data.data.display_url,
           upVote: 0,
-          downVote: 0,
+          dawnVote: 0,
           time: new Date(),
         };
 

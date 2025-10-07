@@ -23,6 +23,7 @@ import NewDashboard from "../Layout/NewDashboard";
 
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import DetailsComment from "../Components/DetailsComment";
+import ManageAllPosts from "../Pages/Dashboard/ManageAllPosts";
 
 
 
@@ -105,6 +106,10 @@ import DetailsComment from "../Components/DetailsComment";
             {
              path:'activities',
              element: <AdminRoute> <Activities></Activities></AdminRoute>
+            },
+            {
+              path: "managePosts",
+              element: <AdminRoute><ManageAllPosts></ManageAllPosts></AdminRoute>
             }
         ]
     }

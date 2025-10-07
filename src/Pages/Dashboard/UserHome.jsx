@@ -26,7 +26,7 @@ const UserHome = () => {
   // }
 
   return (
-    <div className="lg:w-3/5 mx-auto">
+    <div className="mx-auto">
       <Helmet>
         {" "}
         <title>PostPad | UserProfile </title>
@@ -107,11 +107,11 @@ const UserHome = () => {
       {/* post section  */}
       {posts.length > 0 && (
         <div>
-          <h3 className="text-4xl text-center font-semibold mt-5">
-            Your top 3 post
+          <h3 className="text-4xl text-center font-bold mt-5">
+            Your total post {posts.length}
           </h3>
 
-          <div className="  mx-auto flex flex-col gap-5 py-5 lg:py-10">
+          <div className="  mx-auto grid grid-cols-1 gap-5 lg:grid-cols-2 py-5 lg:py-10">
             {isLoading ? (
               <div className="">
                 {/* Render skeleton BedCards while loading */}

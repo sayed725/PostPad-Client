@@ -51,7 +51,7 @@ const Registration = () => {
             email: result.user?.email,
             name: result.user?.displayName,
             photo: result.user?.photoURL,
-            time: new Date(),
+            date: new Date(),
             role: 'bronze'
          }
 

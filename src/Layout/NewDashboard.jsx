@@ -16,6 +16,7 @@ import { cn } from "../../@/lib/utils";
 import { NavUser } from "../Pages/Dashboard/nav-user";
 // import { ModeToggle } from "../Components/theme/mode-toogle";
 import useAuth from "../Hooks/useAuth";
+import { MdPostAdd } from "react-icons/md";
 
 const NewDashboard = () => {
   const { user, loading } = useAuth();
@@ -37,11 +38,11 @@ const NewDashboard = () => {
         {" "}
         <title>PostPad | DashBoard </title>
       </Helmet>
-      <div className="bg-[#f5f5f5] dark:bg-[#171717] dark:text-white drawer  flex mx-auto">
+      <div className="bg-[#f5f5f5] dark:bg-[#011222] dark:text-white drawer  flex mx-auto">
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content flex flex-col py-2   w-full">
-            <div className="flex items-center gap-5 justify-between lg:hidden ">
+            <div className="flex items-center gap-5 justify-between lg:hidden dark:bg-[#011222] ">
               <Link to="/" className="flex gap-2 items-center">
                 <img
                   className="w-auto h-10"
@@ -57,7 +58,7 @@ const NewDashboard = () => {
                 </label>
                 <label
                   htmlFor="my-drawer-2"
-                  className="drawer-button lg:hidden btn lg:btn-sm border-2 border-gray-500 mb-2 text-black dark:text-white dark:bg-black cursor-pointer"
+                  className="drawer-button lg:hidden btn lg:btn-sm border-2 border-gray-500 mb-2 text-black dark:text-white dark:bg-[#011222] cursor-pointer"
                 >
                   <TiThMenu className="text-3xl"></TiThMenu>
                 </label>
@@ -114,6 +115,19 @@ const NewDashboard = () => {
                         >
                           <FaHome />
                           <span>Admin Home</span>
+                        </Button>
+                      )}
+                    </NavLink>
+                  </li>
+                 <li className="mt-2">
+                    <NavLink to="/dashboard/managePosts" className={navItemClass}>
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "default" : "ghost"}
+                          className={cn(navItemClass({ isActive }), "w-full")}
+                        >
+                          <MdPostAdd />
+                          <span>Manage Posts</span>
                         </Button>
                       )}
                     </NavLink>

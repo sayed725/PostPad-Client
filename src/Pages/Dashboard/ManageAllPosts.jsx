@@ -21,7 +21,7 @@ import {
 } from "../../../@/components/ui/avatar";
 import toast from "react-hot-toast";
 
-const ManageUsers = () => {
+const ManageAllPosts = () => {
   const axiosSecure = useAxiosSecure();
   const [searchQuery, setSearchQuery] = useState("");
   const [sort, setSort] = useState("dsc"); // Default to descending
@@ -29,72 +29,28 @@ const ManageUsers = () => {
   const itemsPerPage = 10;
 
   const {
-    data: users = [],
+    data: posts = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["users", searchQuery, sort],
+    queryKey: ["allPosts", searchQuery, sort],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users?searchQuery=${searchQuery}&sort=${sort}`);
+      const res = await axiosSecure.get(`/allPosts?searchQuery=${searchQuery}&sort=${sort}`);
       return res.data;
     },
   });
 
-  // console.log(users);
+//    console.log(posts);
 //  make admin 
- const handleMakeAdmin = async (user) => {
-  toast(
-    (t) => (
-      <div className="flex gap-3 items-center">
-        <div>
-          <p>
-            Are you <b>sure</b> you want to make {user.name} an <b>Admin</b>?
-          </p>
-        </div>
-        <div className="gap-2 flex">
-          <button
-            className="bg-blue-400 text-white px-3 py-1 rounded-md"
-            onClick={async () => {
-              toast.dismiss(t.id);
-              try {
-                toast.loading("Making user admin...", { position: "top-right" });
-                const { data } = await axiosSecure.patch(`/users/admin/${user._id}`);
-                if (data.modifiedCount > 0) {
-                  refetch();
-                  toast.dismiss();
-                  toast.success(`${user.name} is an Admin now!`, { position: "top-right" });
-                } else {
-                  toast.dismiss();
-                  toast.error("No changes were made.", { position: "top-right" });
-                }
-              } catch (error) {
-                toast.dismiss();
-                toast.error(error.message || "Failed to make user admin!", { position: "top-right" });
-              }
-            }}
-          >
-            Yes
-          </button>
-          <button
-            className="bg-green-400 text-white px-3 py-1 rounded-md"
-            onClick={() => toast.dismiss(t.id)}
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    ),
-    { position: "top-right" }
-  );
-};
+
 // user delete 
- const handleDeleteUser = async (user) => {
+ const handleDeletePost = async (id) => {
   toast(
     (t) => (
       <div className="flex gap-3 items-center">
         <div>
           <p>
-            Are you <b>sure?</b>
+            Are you <b>sure you want to delete this post?</b>
           </p>
         </div>
         <div className="gap-2 flex">
@@ -103,19 +59,19 @@ const ManageUsers = () => {
             onClick={async () => {
               toast.dismiss(t.id);
               try {
-                toast.loading("Deleting user...", { position: "top-right" });
-                const { data } = await axiosSecure.delete(`/users/${user._id}`);
+                toast.loading("Deleting Post...", { position: "top-right" });
+                const { data } = await axiosSecure.delete(`/post/${id}`);
                 if (data.deletedCount > 0) {
                   refetch();
                   toast.dismiss();
-                  toast.success("User deleted successfully!", { position: "top-right" });
+                  toast.success("Post deleted successfully!", { position: "top-right" });
                 } else {
                   toast.dismiss();
-                  toast.error("No user was deleted.", { position: "top-right" });
+                  toast.error("No post was deleted.", { position: "top-right" });
                 }
               } catch (error) {
                 toast.dismiss();
-                toast.error(error.message || "Failed to delete the user!", { position: "top-right" });
+                toast.error(error.message || "Failed to delete the post!", { position: "top-right" });
               }
             }}
           >
@@ -135,8 +91,8 @@ const ManageUsers = () => {
 };
 
   // Pagination logic
-  const totalPages = Math.ceil(users.length / itemsPerPage);
-  const paginatedUsers = users.slice(
+  const totalPages = Math.ceil(posts.length / itemsPerPage);
+  const paginatedUsers = posts.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -181,14 +137,14 @@ const ManageUsers = () => {
   );
 
   return (
-    <div className="mx-auto min-h-screen">
+    <div className=" mx-auto min-h-screen">
       <Helmet>
-        <title>PostPad | Admin | User Management</title>
+        <title>PostPad | Admin | Posts Management</title>
       </Helmet>
       {/* title  */}
       <div className="flex flex-col sm:flex-row gap-6 items-center justify-between mb-8">
         <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
-          All Users
+          All Posts
         </h2>
 
        {/* search, sort , reset  */}
@@ -236,7 +192,7 @@ const ManageUsers = () => {
 
        {/* total count title  */}
         <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
-          Total Users: {users.length}
+          Total Posts: {posts.length}
         </h2>
       </div>
 
@@ -247,10 +203,10 @@ const ManageUsers = () => {
               <TableHead className="font-bold text-black dark:text-white text-left">Photo</TableHead>
               <TableHead className="font-bold text-black dark:text-white text-left">Name</TableHead>
               <TableHead className="font-bold text-black dark:text-white text-left">Email</TableHead>
-              <TableHead className=" font-bold text-black dark:text-white text-left">Register At</TableHead>
-              <TableHead className=" font-bold text-black dark:text-white text-left">Assign Role</TableHead>
-              <TableHead className=" font-bold text-black dark:text-white text-left">Current Role</TableHead>
-              <TableHead className=" text-center font-bold dark:text-white text-black">Subscription</TableHead>
+              <TableHead className="font-bold text-black dark:text-white text-left">Title</TableHead>
+              <TableHead className=" font-bold text-black dark:text-white text-left">Posted At</TableHead>
+              <TableHead className=" font-bold text-black dark:text-white text-left">UpVote</TableHead>
+              <TableHead className=" font-bold text-black dark:text-white text-left">DawnVote</TableHead>
               <TableHead className="font-bold text-black dark:text-white text-left">Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -259,73 +215,29 @@ const ManageUsers = () => {
               ? Array.from({ length: itemsPerPage }).map((_, index) => (
                   <SkeletonRow key={index} />
                 ))
-              : paginatedUsers.map((user, index) => (
+              : paginatedUsers.map((post, index) => (
                   <TableRow
-                    key={user._id}
+                    key={post._id}
                     className="hover:bg-base-200 dark:hover:bg-gray-700"
                   >
                     <TableCell className="">
                       <Avatar>
-                        <AvatarImage src={user?.photo || "/random_user.jpg"} alt={user?.name} />
+                        <AvatarImage src={post?.authorImage || "/random_user.jpg"} alt={post?.authorName} />
                       </Avatar>
                     </TableCell>
 
-                    <TableCell className="">{user.name}</TableCell>
-                    <TableCell className="">{user.email}</TableCell>
+                    <TableCell className="">{post?.authorName}</TableCell>
+                    <TableCell className="">{post?.authorEmail}</TableCell>
+                    <TableCell className="">{post?.title.substring(0, 20)}</TableCell>
                     <TableCell className="text-blue-600">
-                      {user.date && moment(user.date).fromNow() || "Just Now"}
+                      {post.time && moment(post.time).fromNow() || "Just Now"}
                     </TableCell>
-                    <TableCell className="">
-                      {user.role === "admin" ? (
-                        <Button className=" bg-blue-300 text-gray-700 dark:text-black rounded-lg font-medium hover:bg-blue-200 transition-colors duration-200">
-                          Admin Role
-                        </Button>
-                      ) : (
-                        <Button
-                          onClick={() => handleMakeAdmin(user)}
-                          className=" bg-green-100 dark:bg-green-400 text-gray-700 rounded-lg font-medium hover:bg-green-200 transition-colors duration-200"
-                        >
-                          Make Admin
-                        </Button>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {user.role === "bronze" && (
-                        <Button className=" bg-gray-300  text-gray-600 dark:text-black rounded-lg font-medium  transition-colors duration-200">
-                          User
-                        </Button>
-                      )}
-                      {user.role === "gold" && (
-                        <Button className=" bg-yellow-300 dark:bg-yellow-200  text-gray-700 dark:text-black rounded-lg font-medium  transition-colors duration-200">
-                          Member
-                        </Button>
-                      )}
-
-                      {user.role === "admin" && (
-                        <Button className=" bg-blue-300 text-gray-700 dark:text-black rounded-lg font-medium  transition-colors duration-200">
-                          Admin
-                        </Button>
-                      )}
-                    </TableCell>
-                    <TableCell className="flex justify-center items-center">
-                      <Button variant="ghost">
-                        <RiMedalFill
-                        className={`text-3xl ${
-                          user.role === "bronze"
-                            ? "text-gray-600"
-                            : user.role === "gold"
-                            ? "text-yellow-300"
-                            : user.role === "admin"
-                            ? "text-blue-500"
-                            : "text-gray-500"
-                        }`}
-                      />
-                      </Button>
-                    </TableCell>
+                    <TableCell> {post.upVote}</TableCell>
+                    <TableCell > {post.dawnVote}</TableCell>
                     <TableCell className="">
                       <Button
                         variant="ghost"
-                        onClick={() => handleDeleteUser(user)}
+                        onClick={() => handleDeletePost(post._id)}
                         className=" rounded-full hover:bg-red-100"
                       >
                         <FaTrashAlt size={18} className="text-red-600" />
@@ -338,7 +250,7 @@ const ManageUsers = () => {
       </div>
 
       {/* Pagination controls */}
-      <div className="flex justify-center items-center mt-8">
+      <div className="flex justify-center flex-wrap items-center mt-8">
         <div className="flex gap-2">
           <Button
             onClick={() => handlePageChange(currentPage - 1)}
@@ -373,4 +285,4 @@ const ManageUsers = () => {
   );
 };
 
-export default ManageUsers;
+export default ManageAllPosts;
