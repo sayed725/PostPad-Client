@@ -93,12 +93,12 @@ export function NavUser() {
             <DropdownMenuSeparator className={"border"} />
             <DropdownMenuGroup className="flex flex-col gap-1">
               <NavLink
-                to="/dashboard/profile"
+                to={`${role === "admin" ? "/admin/adminHome" : "/dashboard/userHome"}`}
                 className={({ isActive }) =>
                   `inline-flex gap-2 px-2 items-center text-xs font-medium transition-all duration-300 ease-in-out ${
                     isActive
                       ? "bg-blue-50 rounded-md py-[6px] w-full text-blue-500"
-                      : "hover:bg-[#f1f5f9] transition-all duration-300 ease-in-out py-[6px] rounded-md"
+                      : "hover:bg-[#f1f5f9] dark:hover:bg-gray-800 transition-all duration-300 ease-in-out py-[6px] rounded-md"
                   }`
                 }
               >
@@ -111,7 +111,7 @@ export function NavUser() {
             <div>
               <button
                 className={
-                  "hover:bg-[#f1f5f9] transition-all duration-500 ease-in-out py-[6px] rounded-md cursor-pointer hover:text-red-500 flex items-center gap-2 w-full px-2 text-xs font-medium "
+                  "hover:bg-[#f1f5f9] dark:hover:bg-gray-800 transition-all duration-500 ease-in-out py-[6px] rounded-md cursor-pointer hover:text-red-500 flex items-center gap-2 w-full px-2 text-xs font-medium "
                 }
                 onClick={() => {
                   (logOut());

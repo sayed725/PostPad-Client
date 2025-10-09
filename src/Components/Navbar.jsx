@@ -11,23 +11,25 @@ import { useQuery } from "@tanstack/react-query";
 import { CgLogOut } from "react-icons/cg";
 import Darkmode from "./Darkmode";
 import { ModeToggle } from "./theme/mode-toogle";
+import useNotification from "../Hooks/useNotification";
+import useRole from "../Hooks/useRole";
+import { Button } from "../../@/components/ui/button";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut , isLoading} = useContext(AuthContext);
   const [isAdmin] = useAdmin();
   const axiosPublic = useAxiosPublic();
+  const [role, isRoleLoading] = useRole();
 
-  const {
-    refetch,
-    data: Notifications = [],
-    isLoading,
-  } = useQuery({
-    queryKey: ["notifications"],
-    queryFn: async () => {
-      const res = await axiosPublic.get("/announcement");
-      return res.data;
-    },
-  });
+  const [ Notifications, isNotificationLoading, refetchNotification ] = useNotification()
+
+   const navItemClass = ({ isActive }) =>
+      cn(
+        "flex items-center justify-center lg:justify-start gap-2 w-full rounded-md ",
+        isActive
+          ? "bg-[#005694] text-base text-white hover:bg-[#005694]"
+          : "text-base hover:bg-[#005694] hover:text-white dark:bg-[#20293d] dark:hover:bg-[#005694] dark:text-white"
+      );
 
   
 
@@ -80,9 +82,13 @@ const Navbar = () => {
   return (
     <div className="bg-white dark:bg-[#20293d] sticky top-0 z-10 mb-8 py-1 shadow-lg">
       <div className="navbar  sm:w-11/12  lg:w-9/12 bg-white dark:bg-[#20293d]   mx-auto">
-        <div className="navbar-start hidden sm:block ">
-          <Link to="/" className="flex gap-2 items-center">
-            <img className="w-auto h-7" src="/postpad-logo.png" alt="logo" />
+        <div className="navbar-start  ">
+          <Link to="/" className=" gap-2 items-center hidden lg:flex">
+            <img className="w-auto h-10" src="/postpad-logo.png" alt="logo" />
+            {/* <p className="font-bold">PostPad</p> */}
+          </Link>
+          <Link to="/" className="flex gap-2 items-center lg:hidden">
+            <img className="w-auto h-10" src="/postpad-icon.png" alt="logo" />
             {/* <p className="font-bold">PostPad</p> */}
           </Link>
         </div>
@@ -110,12 +116,15 @@ const Navbar = () => {
             )}
           </ul>
 
+
+          {/* profile menus start here */}
+
           {user && (
             <div className="dropdown dropdown-end z-50">
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle avatar"
+                className="btn btn-ghost btn-circle avatar ring-2"
               >
                 <div title={user?.displayName} className="w-10 rounded-full">
                   <img
@@ -129,7 +138,43 @@ const Navbar = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content z-[1] rounded-box  font-bold"
               >
-                <div className="w-64 bg-white dark:bg-[#20293d] dark:text-white shadow-lg rounded-lg p-5">
+
+                {
+                  role === "admin" ?   <div className="w-64 bg-white dark:bg-[#20293d] dark:text-white shadow-lg rounded-lg p-5">
+                  <div className=" mb-4">
+                    <h2 className="text-xl font-bold">
+                      {user && user?.displayName}
+                    </h2>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                      {user && user?.email}
+                    </p>
+                  </div>
+                  <div className="flex flex-col space-y-4">
+                  
+                    <Link
+                      to= "dashboard/adminHome" 
+                      
+                      className="flex items-center space-x-2 text-gray-700 dark:text-white dark:hover:text-blue-500 hover:text-blue-500"
+                    > 
+                      <MdSpaceDashboard />
+                      <span>DashBoard</span>
+                    </Link>
+                   
+                    <Link
+                      onClick={logOut}
+                      className="text-white"
+                    >
+                      <Button>
+
+                      <CgLogOut className="" />
+                      <span>Logout</span>
+                      </Button>
+                    </Link>
+                  </div>
+                </div>    
+                 :
+
+                  <div className="w-64 bg-white dark:bg-[#20293d] dark:text-white shadow-lg rounded-lg p-5">
                   <div className=" mb-4">
                     <h2 className="text-xl font-bold">
                       {user && user?.displayName}
@@ -169,13 +214,22 @@ const Navbar = () => {
                    
                     <Link
                       onClick={logOut}
-                      className="flex items-center space-x-2 rounded-md dark:bg-[#20293d] dark:text-white border-2 dark:hover:bg-[#005694]  bg-[#005694] text-white px-3 py-3 hover:bg-[#005694] hover:text-white text-center"
+                      className="text-white"
                     >
-                      <CgLogOut className="hover:text-black" />
+                      <Button>
+
+                      <CgLogOut className="" />
                       <span>Logout</span>
+                      </Button>
                     </Link>
                   </div>
                 </div>
+
+                }
+
+
+
+                
               </ul>
             </div>
           )}

@@ -2,7 +2,7 @@ const Footer = () => {
   return (
     <div className="bg-primary shadow-lg dark:bg-[#20293d] dark:text-white">
       <div className="flex mx-auto flex-col py-5  sm:w-11/12  lg:w-9/12  items-center sm:flex-row sm:justify-between">
-        <p className="text-sm text-gray-500 dark:text-white ">
+        <p className="text-sm text-white ">
           © Copyright 2025. All Rights Reserved.
         </p>
 
@@ -10,7 +10,7 @@ const Footer = () => {
           <a
             href="https://www.facebook.com/abu.ssayed.khan.2024"
             target="_blank"
-            className="mx-2 text-gray-600 dark:text-white dark:hover:text-blue-500  transition-colors duration-300 hover:text-blue-500 "
+            className="mx-2 text-white dark:hover:text-blue-500  transition-colors duration-300 hover:text-blue-500 "
             aria-label="Reddit"
           >
             <svg
@@ -26,7 +26,7 @@ const Footer = () => {
           <a
             href="https://www.facebook.com/abu.ssayed.khan.2024"
             target="_blank"
-            className="mx-2 text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-500 hover:text-blue-500 "
+            className="mx-2  transition-colors duration-300 text-white dark:hover:text-blue-500 hover:text-blue-500 "
             aria-label="Facebook"
           >
             <svg
@@ -42,7 +42,7 @@ const Footer = () => {
           <a
             href="https://github.com/sayed725"
             target="_blank"
-            className="mx-2 text-gray-600 transition-colors duration-300 dark:hover:text-blue-500 dark:text-white hover:text-blue-500 "
+            className="mx-2  transition-colors duration-300 dark:hover:text-blue-500 text-white hover:text-blue-500 "
             aria-label="Github"
           >
             <svg

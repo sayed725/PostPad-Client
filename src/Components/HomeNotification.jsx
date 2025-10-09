@@ -22,7 +22,7 @@ const HomeNotification = () => {
   return (
     <div className="bg-white dark:bg-[#20293d] dark:text-white shadow-lg mt-10">
       <div className="p-5">
-        <h2 className="text-xl font-semibold border-b-2 border-[#005694] pb-1 w-[120px]">
+        <h2 className="text-xl font-semibold border-b-2 border-[#005694] pb-1">
           Announcement
         </h2>
 

@@ -176,7 +176,7 @@ const ShowPost = () => {
       { (search.length) ? (
         ""
       ) : (
-        <div className="flex justify-center items-center gap-5">
+        <div className="flex justify-center flex-wrap items-center gap-5">
           <button
             onClick={handlePrevPage}
             disabled={currentPage === 0}

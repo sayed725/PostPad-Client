@@ -5,7 +5,6 @@ import LoadingSpinner from "./LoadingSpinner";
 const Tags = () => {
   const axiosSecure = useAxiosSecure();
 
-  // const tags = [  '#love', '#instagood', '#fashion', '#photooftheday', '#photography', '#art', '#beautiful', '#nature', '#travel', '#fitness']
 
   const { data: tags = [], isLoading } = useQuery({
     queryKey: ["tags"],
@@ -16,11 +15,12 @@ const Tags = () => {
   });
 
   return (
-    <div className=" shadow-lg ">
+    <div className=" shadow-lg bg-white dark:bg-[#20293d] ">
       <div className="p-5">
-        <h2 className="text-xl font-semibold border-b-2 border-[#005694] pb-1 w-[120px] ">
+        <h2 className="text-xl font-semibold border-b-2 border-[#005694] pb-1 ">
           Popular Tags
         </h2>
+
 
         <div className="mt-5 flex flex-col gap-3 overflow-y-auto h-[400px]">
 

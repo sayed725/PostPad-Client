@@ -43,9 +43,9 @@ const Home = () => {
     return (
         <div className=''> 
            <Helmet> <title>PostPad | Home </title></Helmet>
-           <div className='lg:grid p-1 sm:p-0 sm:grid-cols-5 gap-7'>
-            <div className='hidden  lg:block'>
-            <Tags></Tags>
+           <div className='lg:grid p-1 sm:p-0 sm:grid-cols-5 gap-7 max-w-7xl mx-auto'>
+            <div className='hidden lg:block '>
+            <Tags ></Tags>
             <HomeNotification></HomeNotification>
             
             <div className='py-5'>
