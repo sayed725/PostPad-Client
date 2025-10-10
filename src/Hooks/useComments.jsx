@@ -1,9 +1,13 @@
 
 import useAxiosPublic from './useAxiosPublic';
+import useAxiosSecure from './useAxiosSecure';
 import useAuth from './useAuth';
+import { useQuery } from '@tanstack/react-query';
 
 const useComments = ({id}) => {
     const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
+
     const { user } = useAuth()
     const { refetch:cRefetch, data: comments , isLoading:isLoad  } = useQuery({
         queryKey: ['comments'],

@@ -115,6 +115,7 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
             key={i}
             post={post}
             handleEdit={handleEdit}
+            refetch={refetch}
           />
         ))}
       </div>

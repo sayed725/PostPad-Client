@@ -16,8 +16,9 @@ import { Link } from "react-router";
 import moment from "moment";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { Button } from "../../../../@/components/ui/button";
 
-const DashboardPostCard = ({ post, handleEdit }) => {
+const DashboardPostCard = ({ post, handleEdit , refetch }) => {
 
     const axiosSecure = useAxiosSecure()
 
@@ -81,7 +82,7 @@ const DashboardPostCard = ({ post, handleEdit }) => {
         <div className="absolute top-2 right-2 ">
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
-              <div className="bg-base-200 p-2 mx-0 rounded border border-border w-fit">
+              <div className="bg-base-200 p-1 mx-0 rounded border border-border w-fit">
                 <MoreVertical className="cursor-pointer text-gray-700" />
               </div>
             </DropdownMenuTrigger>
@@ -113,6 +114,17 @@ const DashboardPostCard = ({ post, handleEdit }) => {
             {blog?.status}
           </Badge> */}
           <span className="text-sm text-muted-foreground">{post.time && moment(post.time).fromNow()}</span>
+
+           <div className="flex items-center space-x-2 justify-end ">
+            <Button variant="outline"  size="sm" className="dark:text-white">
+              {/* <BiSolidUpvote className="text-xl cursor-pointer h" /> */}
+              <p> UpVote · {post.upVote}</p>
+            </Button>
+            <Button variant="outline"  size="sm" className="dark:text-white">
+              {/* <BiSolidDownvote className="text-xl cursor-pointer " /> */}
+              <p> DawnVote · {post.dawnVote}</p>
+            </Button>
+          </div>
         </div>
         <h3 className="text-lg font-semibold line-clamp-1 mb-2">
           {post?.title}
@@ -122,8 +134,8 @@ const DashboardPostCard = ({ post, handleEdit }) => {
         </p>
       </CardContent>
       <CardFooter className="p-4  flex items-center">
-        <div className="flex items-center">
-          <div className="relative w-8 h-8 rounded-full overflow-hidden mr-2">
+        <div className="flex items-center gap-3 ">
+          <div className="relative w-8 h-8 rounded-full overflow-hidden">
             <img
               src={post?.authorImage || "/placeholder.svg?height=32&width=32"}
               alt={post?.authorName}

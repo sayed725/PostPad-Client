@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "../../../../@/components/ui/button";
 import { Helmet } from "react-helmet-async";
 import ShowBlogTable from "./ShowBlogTable";
+import AddPostForm from "./AddPostForm";
 
 const AddPost = () => {
   const axiosSecure = useAxiosSecure();
@@ -44,7 +45,7 @@ const AddPost = () => {
             <Button
               disabled={isFormOpen}
               onClick={() => setIsFormOpen(!isFormOpen)}
-              className={"cursor-pointer"}
+              className={"cursor-pointer text-white"}
             >
               Add New Blog
             </Button>
@@ -53,7 +54,7 @@ const AddPost = () => {
         {/* Assign User Form */}
         {isFormOpen && (
           <div className={`${isFormOpen ? "visible" : "hidden"} mt-4`}>
-            {/* <AddBlogForm refetch={refetch} setIsFormOpen={setIsFormOpen} /> */}
+            <AddPostForm refetch={refetch} setIsFormOpen={setIsFormOpen} />
           </div>
         )}
         {/* Blog Table */}
