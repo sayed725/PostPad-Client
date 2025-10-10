@@ -14,10 +14,61 @@ import {
 } from "../../../../@/components/ui/dropdown-menu";
 import { Link } from "react-router";
 import moment from "moment";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
-const DashboardPostCard = ({ post, handleDelete, handleEdit }) => {
+const DashboardPostCard = ({ post, handleEdit }) => {
+
+    const axiosSecure = useAxiosSecure()
 
     // console.log(post);
+   
+    // delete post 
+    const handleDelete = async (id) => {
+  toast(
+    (t) => (
+      <div className="flex gap-3 items-center">
+        <div>
+          <p>
+            Are you <b>sure? </b> you want to <b>Delete </b> this post?
+          </p>
+        </div>
+        <div className="gap-2 flex">
+          <button
+            className="bg-red-400 text-white px-3 py-1 rounded-md"
+            onClick={async () => {
+              toast.dismiss(t.id);
+              try {
+                toast.loading("Deleting Post...", { position: "top-right" });
+                const { data } = await axiosSecure.delete(`/post/${id}`);
+                if (data.deletedCount > 0) {
+                  refetch();
+                  toast.dismiss();
+                  toast.success("Post deleted successfully!", { position: "top-right" });
+                } else {
+                  toast.dismiss();
+                  toast.error("No post was deleted.", { position: "top-right" });
+                }
+              } catch (error) {
+                toast.dismiss();
+                toast.error(error.message || "Failed to delete the post!", { position: "top-right" });
+              }
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className="bg-green-400 text-white px-3 py-1 rounded-md"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ),
+    { position: "top-right" }
+  );
+};
 
   return (
     <Card className="shadow-sm w-full rounded-lg">
@@ -27,30 +78,30 @@ const DashboardPostCard = ({ post, handleDelete, handleEdit }) => {
           alt={post?.title}
           className="object-cover h-[220px] w-full"
         />
-        <div className="absolute top-2 right-2">
+        <div className="absolute top-2 right-2 ">
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <div className="bg-base-200 p-2 mx-0 rounded border border-border w-fit">
                 <MoreVertical className="cursor-pointer text-gray-700" />
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="bg-base-200">
               <Link to={`/posts/${post?._id}`}>
                 <DropdownMenuItem className="cursor-pointer">
-                  <Eye className="w-4 h-4 mr-2" /> Details
+                  <Eye className="w-4 h-4 " /> Details
                 </DropdownMenuItem>
               </Link>
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => handleEdit(post)}
               >
-                <Pencil className="w-4 h-4 mr-2" /> Update
+                <Pencil className="w-4 h-4 " /> Update
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => handleDelete(post?._id)}
               >
-                <Trash className="w-4 h-4 mr-2 text-red-500" /> Delete
+                <Trash className="w-4 h-4 text-red-500" /> Delete
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

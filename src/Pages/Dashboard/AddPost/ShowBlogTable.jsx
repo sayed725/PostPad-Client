@@ -32,61 +32,7 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset, setValue } = useForm();
 
-  // Handle Delete
-  const handleDelete = async (id) => {
-    toast(
-      (t) => (
-        <div className="flex gap-3 items-center">
-          <div>
-            <p>
-              <b>Are you sure?</b>
-            </p>
-          </div>
-          <div className="gap-2 flex">
-            <button
-              className="bg-red-500 text-white px-3 py-1 rounded-md"
-              onClick={async () => {
-                toast.dismiss(t.id);
-                try {
-                  toast.loading("Deleting bed...", { position: "top-right" });
-                  const { data } = await axiosSecure.delete(
-                    `/blogs/delete/${id}`
-                  );
-
-                  if (data.data.deletedCount) {
-                    refetch();
-                    toast.dismiss();
-                    toast.success("Blog deleted successfully!", {
-                      position: "top-right",
-                    });
-                  } else {
-                    toast.dismiss();
-                    toast.error("No Blog was deleted.", {
-                      position: "top-right",
-                    });
-                  }
-                } catch (error) {
-                  toast.dismiss();
-                  toast.error(error.message || "Failed to delete the blog!", {
-                    position: "top-right",
-                  });
-                }
-              }}
-            >
-              Yes
-            </button>
-            <button
-              className="bg-green-500 text-white px-3 py-1 rounded-md"
-              onClick={() => toast.dismiss(t.id)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      ),
-      { position: "top-right" }
-    );
-  };
+  
 
   // Handle Edit
   const handleEdit = (blog) => {
@@ -168,7 +114,6 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
           <DashboardPostCard
             key={i}
             post={post}
-            handleDelete={handleDelete}
             handleEdit={handleEdit}
           />
         ))}
