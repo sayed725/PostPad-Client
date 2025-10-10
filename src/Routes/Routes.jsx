@@ -17,7 +17,7 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import Activities from "../Pages/Dashboard/Activities";
-import AddaPost from "../Pages/Dashboard/AddaPost";
+import AddPost from "../Pages/Dashboard/AddPost/AddPost";
 import PostDetails from "../Pages/PostDetails";
 import NewDashboard from "../Layout/NewDashboard";
 
@@ -75,7 +75,7 @@ import ManageAllPosts from "../Pages/Dashboard/ManageAllPosts";
             },
             {
              path: 'addPost',
-             element: <AddaPost></AddaPost>
+             element: <AddPost></AddPost>
             },
             {
              path: 'userPost',

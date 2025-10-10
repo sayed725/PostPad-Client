@@ -143,7 +143,7 @@ const AddaPost = () => {
   }
 
   return (
-    <div>
+    <div className="min-h-screen">
       <Helmet>
         <title>PostPad | Add Post</title>
       </Helmet>

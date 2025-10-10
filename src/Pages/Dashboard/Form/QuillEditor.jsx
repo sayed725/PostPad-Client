@@ -16,7 +16,7 @@ const QuillEditor = ({ value, onChange, placeholder = "Write something..." }) =>
           toolbar: [
             [{ header: [1, 2, 3, 4, false] }],
             ["bold", "italic", "underline"],
-            ["image", "code-block"],
+            // ["image", "code-block"],
             [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
             ["clean"],
           ],
