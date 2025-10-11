@@ -88,7 +88,7 @@ function AddPostForm({ refetch, setIsFormOpen }) {
     await toast.promise(axiosSecure.post("/add-post", postItem), {
       loading: "Adding Post...",
       success: <b>Blog Added Successfully!</b>,
-      error: <b>Unable to Add!</b>,
+      error: <b>Unable to Add post!</b>,
     });
 
     // Reset and navigate
