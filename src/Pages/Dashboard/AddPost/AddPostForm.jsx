@@ -16,15 +16,9 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
 import useTags from "../../../Hooks/useTags";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../../../@/components/ui/select";
 import QuillEditor from "../Form/QuillEditor";
 import { useNavigate } from "react-router-dom";
+// import uploadImageToCloudinary from "../../../lib/uploadImageToCloudinary";
 
 function AddPostForm({ refetch, setIsFormOpen }) {
   const axiosSecure = useAxiosSecure();
@@ -33,7 +27,7 @@ function AddPostForm({ refetch, setIsFormOpen }) {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [tags, tRefetch, isTagLoading] = useTags();
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // console.log(tags)
 
@@ -56,6 +50,7 @@ function AddPostForm({ refetch, setIsFormOpen }) {
     }
 
     setLoading(true);
+
     if (!image) {
       setLoading(false);
       toast.error("Please select a blog image");
@@ -67,38 +62,36 @@ function AddPostForm({ refetch, setIsFormOpen }) {
       loading: "Image Uploading...",
       error: "Unable to upload!",
     });
-
-    // console.log(imageUrl);
-
-
-
     if (!imageUrl) {
       setLoading(false);
       toast.error("Image Upload Failed! Try Again");
       return;
     }
 
-     const postItem = {
-          authorName: user?.displayName,
-          authorImage: user?.photoURL,
-          authorEmail: user?.email,
-          title: data.title,
-          description: data.description, // This is now the HTML from Quill
-          usedTag: data.tag,
-          image: imageUrl,
-          upVote: 0,
-          dawnVote: 0,
-          time: new Date(),
-        };
+    const postItem = {
+      authorName: user?.displayName,
+      authorImage: user?.photoURL,
+      authorEmail: user?.email,
+      title: data.title,
+      description: data.description,
+      usedTag: data.tag,
+      image: imageUrl,
+      upVote: 0,
+      dawnVote: 0,
+      time: new Date(),
+    };
 
-    // console.log(postItem);
+    console.log(postItem);
+
+    // Post the blog
 
     await toast.promise(axiosSecure.post("/add-post", postItem), {
-      loading: "Adding Blog...",
-      success: <b>Post Added Successfully!</b>,
+      loading: "Adding Post...",
+      success: <b>Blog Added Successfully!</b>,
       error: <b>Unable to Add!</b>,
     });
 
+    // Reset and navigate
     setPreview("");
     setImage(null);
     setIsFormOpen(false);
@@ -167,8 +160,6 @@ function AddPostForm({ refetch, setIsFormOpen }) {
                   })}
                 />
               </div>
-
-
 
               {/* Image Upload Section */}
               <div className="grid gap-2">
