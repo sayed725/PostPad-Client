@@ -14,8 +14,10 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import QuillEditor from "../Form/QuillEditor";
 import useTags from "../../../Hooks/useTags";
+import AddPostForm from "./AddPostForm";
 
 const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
+     const [initialData, setInitialData] = useState(null);
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
   const { register, handleSubmit, reset, watch, setValue } = useForm();
@@ -27,14 +29,29 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
+
+//   console.log(selectedPost)
+
   // Handle Edit
   const handleEdit = (post) => {
-    setSelectedPost(post);
+
+    console.log(post)
+
+    
+    const UpdatePost = setInitialData({
+        title: post.title,
+      tag: post.usedTag,
+      image: post.image,
+      description: post.description,
+      time: new Date(),
+    })
+
+    // setSelectedPost(post);
     setIsEditOpen(true);
-    setPreview(post.image);
-    setValue("title", post.title);
-    setValue("tag", post.usedTag);
-    setValue("description", post.description);
+    // setPreview(post.image);
+    // setValue("title", post.title);
+    // setValue("tag", post.usedTag);
+    // setValue("description", post.description);
   };
 
   const handleUploadImage = (e) => {
@@ -108,7 +125,7 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
       </div>
 
       {/* Custom Modal */}
-      {isEditOpen && selectedPost && (
+      {isEditOpen && setInitialData && (
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="modal-header">
@@ -125,130 +142,7 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
                 &times;
               </button>
             </div>
-            <Form>
-              <form
-                onSubmit={handleSubmit(onEditSubmit)}
-                className="flex flex-col gap-4"
-              >
-                <div className="grid gap-2">
-                  <Label htmlFor="title">Post Title</Label>
-                  <Input
-                    id="title"
-                    type="text"
-                    name="title"
-                    placeholder="Your Post Title"
-                    defaultValue=""
-                    required
-                    {...register("title")}
-                  />
-                </div>
-                {/* Tag Selection */}
-                <div className="grid gap-2">
-                  <Label htmlFor="tag">Use Tag</Label>
-                  <select
-                    defaultValue="default"
-                    {...register("tag", { required: "Tag is required" })}
-                    className="select select-bordered focus:border-blue-400 dark:bg-[#20293d] text-black"
-                  >
-                    <option disabled value="default">
-                      Select a tag
-                    </option>
-                    {tags.map((tag, index) => (
-                      <option key={index}>{tag.tagname}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Description */}
-                <div className="grid gap-2 mb-20">
-                  <Label htmlFor="description">Description</Label>
-                  <QuillEditor
-                    id="description"
-                    value={watch("description") || ""}
-                    onChange={(html) =>
-                      setValue("description", html, { shouldValidate: true })
-                    }
-                    placeholder="Write Your Post Content Here"
-                    className="min-h-[150px]"
-                  />
-                  <Textarea
-                    id="description-textarea"
-                    className="hidden"
-                    value={watch("description") || ""}
-                    {...register("description", {
-                      required: "Description is required",
-                    })}
-                  />
-                </div>
-
-                {/* Image Upload Section */}
-                <div className="grid gap-2">
-                  <Label htmlFor="photo">Upload Post Image</Label>
-                  {preview === "" ? (
-                    <div
-                      className="w-full md:w-[100%] flex items-center justify-center flex-col gap-4 border-blue-200 border rounded-md py-4 cursor-pointer"
-                      onClick={() =>
-                        document.getElementById("file-input").click()
-                      }
-                    >
-                      <FaFileUpload className="text-[2rem] text-[#777777]" />
-                      <p className="text-gray-700">Browse To Upload Blog Image</p>
-                      <input
-                        id="file-input"
-                        type="file"
-                        className="hidden"
-                        accept="image/*"
-                        onChange={handleUploadImage}
-                      />
-                    </div>
-                  ) : (
-                    <div className="relative w-full border border-blue-200 rounded-xl p-4">
-                      <img
-                        src={preview}
-                        alt="Selected file preview"
-                        className="mx-auto object-cover rounded-full w-24 h-24"
-                      />
-                      <MdDelete
-                        className="text-[2rem] text-white bg-[#000000ad] p-1 absolute top-0 right-0 cursor-pointer rounded-tr-[13px]"
-                        onClick={() => {
-                          setPreview("");
-                          setImage(null);
-                        }}
-                      />
-                      {image && (
-                        <div className="mt-4 text-center">
-                          <p className="text-sm font-medium text-gray-700">
-                            {image.name.length > 20
-                              ? image.name.slice(0, 10) +
-                                "..." +
-                                image.name.slice(-15)
-                              : image.name}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {(image.size / 1024).toFixed(2)} KB | {image.type}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-                <div className="flex justify-end gap-2 text-white">
-                  <Button
-                    className="bg-red-600"
-                    onClick={() => {
-                      setPreview("");
-                      setImage(null);
-                      setIsEditOpen(false);
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                  <Button className="cursor-pointer" disabled={loading}>
-                    {loading ? "Updating..." : "Update Blog"}
-                  </Button>
-                </div>
-              </form>
-            </Form>
+           <AddPostForm initialData={initialData} onEditSubmit={onEditSubmit}/>
           </div>
         </div>
       )}

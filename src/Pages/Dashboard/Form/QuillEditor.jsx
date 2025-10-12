@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useRef } from "react";
 import "quill/dist/quill.snow.css";
 

@@ -18,10 +18,13 @@ import moment from "moment";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { Button } from "../../../../@/components/ui/button";
+import { useState } from "react";
 
 const DashboardPostCard = ({ post, handleEdit , refetch }) => {
-
+    
     const axiosSecure = useAxiosSecure()
+
+
 
     // console.log(post);
    
@@ -131,7 +134,7 @@ const DashboardPostCard = ({ post, handleEdit , refetch }) => {
           {post?.title}
         </h3>
         <p className="text-sm text-muted-foreground line-clamp-2">
-          {post?.description.slice(0, 200)}
+          {post?.description?.slice(0, 200)}
         </p>
       </CardContent>
       <CardFooter className="p-4  flex items-center">
