@@ -79,7 +79,7 @@ const DetailsComment = () => {
                     colSpan={12}
                     className="text-center font-semibold py-10"
                   >
-                    No Bed Booking Requests Found
+                    There is no comments on this post.
                   </td>
                 </tr>
             ) : (

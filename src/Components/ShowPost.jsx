@@ -180,7 +180,7 @@ const ShowPost = () => {
           <button
             onClick={handlePrevPage}
             disabled={currentPage === 0}
-            className="btn btn-sm"
+            className="btn btn-sm dark:bg-[#20293d] dark:text-white"
           >
             <GrPrevious />
           </button>
@@ -189,7 +189,7 @@ const ShowPost = () => {
               key={page}
               onClick={() => setCurrentPage(page)}
               className={`btn btn-sm ${
-                currentPage === page ? "bg-blue-500 text-white" : ""
+                currentPage === page ? "bg-blue-500 text-white" : "bg-white dark:bg-[#20293d] dark:text-white"
               }`}
             >
               {page + 1}
@@ -198,7 +198,7 @@ const ShowPost = () => {
           <button
             onClick={handleNextPage}
             disabled={currentPage === pages.length - 1}
-            className="btn btn-sm"
+            className="btn btn-sm dark:bg-[#20293d] dark:text-white"
           >
             <GrNext />
           </button>

@@ -111,11 +111,21 @@ const DetailsPostCard = ({ post, refetch, cRefetch, comments }) => {
       </div>
 
       {/* Post Content */}
+
       <p className="mt-3 text-xl font-semibold">{title}</p>
-      <p className="mt-3 text-gray-700 dark:text-white">
-        {description}
-        <span className="ml-2 font-semibold">{usedTag}</span>
-      </p>
+
+      {/* post description  */}
+     {post?.description && (
+          <div>
+              <div
+            className="text-sm  text-justify my-3"
+            dangerouslySetInnerHTML={{
+              __html: post?.description,
+            }} read more 
+          /> <span className="ml-2 font-semibold">{post?.usedTag}</span>
+          </div>
+        )}
+
 
       {/* Post Image */}
       <div className="mt-4">

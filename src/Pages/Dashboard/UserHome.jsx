@@ -15,7 +15,7 @@ const UserHome = () => {
   const [isMember] = useMember();
   const axiosSecure = useAxiosSecure();
 
-  const { data: posts = [], isLoading: isPostLoading } = useQuery({
+  const { refetch, data: posts = [], isLoading: isPostLoading } = useQuery({
     queryKey: ["userPosts", user],
     queryFn: async () => {
       const res = await axiosSecure.get(`/post/${user?.email}`);
@@ -26,6 +26,8 @@ const UserHome = () => {
   // if (isLoading) {
   //   <LoadingSpinner></LoadingSpinner>;
   // }
+
+   
 
   return (
     <div className="mx-auto">
@@ -129,7 +131,7 @@ const UserHome = () => {
               </>
             ) : (
               posts.map((post) => (
-                <DashboardPostCard key={post._id} post={post} isPostLoading={isPostLoading}></DashboardPostCard>
+                <DashboardPostCard key={post._id} post={post}  isPostLoading={isPostLoading} refetch={refetch}></DashboardPostCard>
               ))
             )}
           </div>

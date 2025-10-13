@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "../../../../@/components/ui/dropdown-menu";
 
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import moment from "moment";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
@@ -21,65 +21,73 @@ import { Button } from "../../../../@/components/ui/button";
 import { useState } from "react";
 import DashboardPostCardSkeleton from "./DashboardPostCardSkeleton";
 
-const DashboardPostCard = ({ post, handleEdit ,isPostLoading, refetch }) => {
-    
-    const axiosSecure = useAxiosSecure()
+const DashboardPostCard = ({ post, handleEdit, isPostLoading, refetch }) => {
+  const axiosSecure = useAxiosSecure();
 
-    // console.log(isPostLoading)
+  const location = useLocation();
+  
+  // console.log(location.pathname)
 
-    // if (isPostLoading) {
-    //     return <DashboardPostCardSkeleton/>
-    // }
+  // console.log(isPostLoading)
 
+  // if (isPostLoading) {
+  //     return <DashboardPostCardSkeleton/>
+  // }
 
-    // console.log(post);
-   
-    // delete post 
-    const handleDelete = async (id) => {
-  toast(
-    (t) => (
-      <div className="flex gap-3 items-center">
-        <div>
-          <p>
-            Are you <b>sure? </b> you want to <b>Delete </b> this post?
-          </p>
-        </div>
-        <div className="gap-2 flex">
-          <button
-            className="bg-red-400 text-white px-3 py-1 rounded-md"
-            onClick={async () => {
-              toast.dismiss(t.id);
-              try {
-                toast.loading("Deleting Post...", { position: "top-right" });
-                const { data } = await axiosSecure.delete(`/post/${id}`);
-                if (data.deletedCount > 0) {
-                  refetch();
+  // console.log(post);
+
+  // delete post
+  const handleDelete = async (id) => {
+    toast(
+      (t) => (
+        <div className="flex gap-3 items-center">
+          <div>
+            <p>
+              Are you <b>sure? </b> you want to <b>Delete </b> this post?
+            </p>
+          </div>
+          <div className="gap-2 flex">
+            <button
+              className="bg-red-400 text-white px-3 py-1 rounded-md"
+              onClick={async () => {
+                toast.dismiss(t.id);
+                try {
+                  toast.loading("Deleting Post...", { position: "top-right" });
+                  const { data } = await axiosSecure.delete(`/post/${id}`);
+                  if (data.deletedCount > 0) {
+                    refetch();
+                    toast.dismiss();
+                    toast.success("Post deleted successfully!", {
+                      position: "top-right",
+                    });
+                  } else {
+                    toast.dismiss();
+                    toast.error("No post was deleted.", {
+                      position: "top-right",
+                    });
+                  }
+                } catch (error) {
                   toast.dismiss();
-                  toast.success("Post deleted successfully!", { position: "top-right" });
-                } else {
-                  toast.dismiss();
-                  toast.error("No post was deleted.", { position: "top-right" });
+                  toast.error(error.message || "Failed to delete the post!", {
+                    position: "top-right",
+                  });
                 }
-              } catch (error) {
-                toast.dismiss();
-                toast.error(error.message || "Failed to delete the post!", { position: "top-right" });
-              }
-            }}
-          >
-            Yes
-          </button>
-          <button
-            className="bg-green-400 text-white px-3 py-1 rounded-md"
-            onClick={() => toast.dismiss(t.id)}
-          >
-            Cancel
-          </button>
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-green-400 text-white px-3 py-1 rounded-md"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-      </div>
-    ),
-    { position: "top-right" }
-  );
-};
+      ),
+      { position: "top-right" }
+    );
+  };
 
   return (
     <Card className="shadow-sm w-full rounded-lg dark:text-white dark:bg-[#20293d]">
@@ -96,18 +104,23 @@ const DashboardPostCard = ({ post, handleEdit ,isPostLoading, refetch }) => {
                 <MoreVertical className="cursor-pointer text-gray-700 dark:text-white" />
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-base-200 dark:bg-gray-700">
+            <DropdownMenuContent
+              align="end"
+              className="bg-base-200 dark:bg-gray-700"
+            >
               <Link to={`/posts/${post?._id}`}>
                 <DropdownMenuItem className="cursor-pointer">
                   <Eye className="w-4 h-4 " /> Details
                 </DropdownMenuItem>
               </Link>
-              <DropdownMenuItem
+            {
+              location.pathname !== "/dashboard/userHome" &&   <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => handleEdit(post)}
               >
                 <Pencil className="w-4 h-4 " /> Update
               </DropdownMenuItem>
+            }
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => handleDelete(post?._id)}
@@ -123,25 +136,37 @@ const DashboardPostCard = ({ post, handleEdit ,isPostLoading, refetch }) => {
           {/* <Badge variant={blog?.status === "published" ? "default" : "outline"}>
             {blog?.status}
           </Badge> */}
-          <span className="text-sm text-muted-foreground">{post.time && moment(post.time).fromNow()}</span>
+          <span className="text-sm text-muted-foreground">
+            {post.time && moment(post.time).fromNow()}
+          </span>
 
-           <div className="flex items-center space-x-2 justify-end ">
-            <Button variant="outline"  size="sm" className="dark:text-white">
+          <div className="flex items-center space-x-2 justify-end ">
+            <Button variant="outline" size="sm" className="dark:text-white">
               {/* <BiSolidUpvote className="text-xl cursor-pointer h" /> */}
               <p> UpVote · {post.upVote}</p>
             </Button>
-            <Button variant="outline"  size="sm" className="dark:text-white">
+            <Button variant="outline" size="sm" className="dark:text-white">
               {/* <BiSolidDownvote className="text-xl cursor-pointer " /> */}
               <p> DawnVote · {post.dawnVote}</p>
             </Button>
           </div>
         </div>
-        <h3 className="text-lg font-semibold line-clamp-1 mb-2">
+        <h3 className="text-lg font-semibold line-clamp-1 mb-2 ">
           {post?.title}
         </h3>
-        <p className="text-sm text-muted-foreground line-clamp-2">
+        {post.description && (
+         <div>
+           <div
+            className="text-sm text-muted-foreground line-clamp-2 text-justify"
+            dangerouslySetInnerHTML={{
+              __html: post?.description,
+            }}
+          /> <span>{post.usedTag}</span>
+         </div>
+        )}
+        {/* <p className="text-sm text-muted-foreground line-clamp-2">
           {post?.description?.slice(0, 200)}
-        </p>
+        </p> */}
       </CardContent>
       <CardFooter className="p-4  flex items-center">
         <div className="flex items-center gap-3 ">

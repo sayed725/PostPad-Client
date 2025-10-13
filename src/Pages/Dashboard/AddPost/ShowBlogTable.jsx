@@ -37,7 +37,7 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
   // Handle Edit
   const handleEdit = (post) => {
 
-    console.log(post)
+    // console.log(post)
 
     
      setInitialData({

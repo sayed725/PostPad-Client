@@ -39,7 +39,7 @@ const PostCard = ({ post }) => {
     },
   });
 
-  //    console.log(description.length)
+    //  console.log(description.length)
 
   // console.log(post)
   return (
@@ -65,32 +65,18 @@ const PostCard = ({ post }) => {
 
         {/* description  */}
 
-       
-          <div className="mt-3 text-gray-700 dark:text-white">
-            <>
-              <div className="grow space-y-4 prose lg:prose-xl max-w-none [&>p:first-of-type]:first-letter:text-7xl [&>p:first-of-type]:first-letter:font-bold [&>p:first-of-type]:first-letter:mr-4 [&>p:first-of-type]:first-letter:float-left [&>p:first-of-type]:first-letter:leading-none ">
-                {expanded ? description : `${description.slice(0, 200)}...`}
-                <span className="ml-2 font-semibold">{usedTag}</span>
-                {!expanded && (
-                  <button
-                    onClick={() => setExpanded(true)}
-                    className="text-blue-500 ml-2"
-                  >
-                    Read More
-                  </button>
-                )}
-              </div>
-            </>
+          {post?.description && (
+          <div>
+              <div
+            className="text-sm  line-clamp-5 text-justify my-3"
+            dangerouslySetInnerHTML={{
+              __html: post?.description,
+            }} read more 
+          /> {post?.description.length > 500 && <span className="text-blue-600 cursor-pointer hover:underline">read more</span>} <span className="ml-2 font-semibold">{post?.usedTag}</span>
           </div>
-       
+        )}
 
-        {/* <div className='grow space-y-4 prose lg:prose-xl max-w-none [&>p:first-of-type]:first-letter:text-7xl [&>p:first-of-type]:first-letter:font-bold [&>p:first-of-type]:first-letter:mr-4 [&>p:first-of-type]:first-letter:float-left [&>p:first-of-type]:first-letter:leading-none '>
-              {
-                description && <div dangerouslySetInnerHTML={{__html: description}} />
-              }
-
-              
-            </div> */}
+      
         {/* Post Image */}
         <div className="mt-4">
           <img
