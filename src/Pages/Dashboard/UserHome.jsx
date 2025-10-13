@@ -7,13 +7,15 @@ import PostCard from "../../Components/Postcard";
 import LoadingSpinner from "../../Components/LoadingSpinner";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import DashboardPostCard from "./AddPost/DashboardPostCard";
+import DashboardPostCardSkeleton from "./AddPost/DashboardPostCardSkeleton";
 
 const UserHome = () => {
   const { user } = useAuth();
   const [isMember] = useMember();
   const axiosSecure = useAxiosSecure();
 
-  const { data: posts = [], isLoading } = useQuery({
+  const { data: posts = [], isLoading: isPostLoading } = useQuery({
     queryKey: ["userPosts", user],
     queryFn: async () => {
       const res = await axiosSecure.get(`/post/${user?.email}`);
@@ -105,69 +107,34 @@ const UserHome = () => {
       )}
 
       {/* post section  */}
-      {posts.length > 0 && (
+     
         <div>
           <h3 className="text-4xl text-center font-bold mt-5">
             Your total post {posts.length}
           </h3>
 
-          <div className="  mx-auto grid grid-cols-1 gap-5 lg:grid-cols-2 py-5 lg:py-10">
-            {isLoading ? (
-              <div className="">
+          <div className="  mx-auto grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 py-5 lg:py-10">
+            {isPostLoading ? (
+             <>
                 {/* Render skeleton BedCards while loading */}
                 {Array(3)
                   .fill(0)
                   .map((_, index) => (
-                    <div
-                      key={index}
-                      className="w-full bg-white dark:bg-[#20293d] rounded-lg hover:scale-[1.05] transition-all animate-pulse"
-                    >
-                      <div className="rounded-lg shadow-lg overflow-hidden bg-white dark:bg-[#20293d]">
-                        {/* Author Section */}
-                        <div className="p-5 flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-gray-300 dark:bg-gray-700 rounded-full" />
-                          <div className="flex-1">
-                            <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/3" />
-                            <div className="h-3 bg-gray-300 dark:bg-gray-700 rounded w-1/4 mt-2" />
-                          </div>
-                        </div>
-
-                        {/* Post Content */}
-                        <div className="px-5">
-                          <div className="h-5 bg-gray-300 dark:bg-gray-700 rounded w-3/4" />
-                          <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-full mt-3" />
-                          <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-5/6 mt-2" />
-                          <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2 mt-2" />
-                        </div>
-
-                        {/* Post Image */}
-                        <div className="mt-4 px-5">
-                          <div className="w-full h-[350px] bg-gray-300 dark:bg-gray-700 rounded-lg" />
-                        </div>
-
-                        {/* Likes, Comments, and Share */}
-                        <div className="flex items-center justify-between mt-4 px-5 pb-5">
-                          <div className="flex items-center space-x-2">
-                            <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-16" />
-                            <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-16" />
-                          </div>
-                          <div className="flex items-center space-x-4">
-                            <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-10" />
-                            <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-10" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    
+                   <DashboardPostCardSkeleton key={index} isPostLoading={isPostLoading}></DashboardPostCardSkeleton>
+                      
+                      
+                    
                   ))}
-              </div>
+              </>
             ) : (
               posts.map((post) => (
-                <PostCard key={post._id} post={post}></PostCard>
+                <DashboardPostCard key={post._id} post={post} isPostLoading={isPostLoading}></DashboardPostCard>
               ))
             )}
           </div>
         </div>
-      )}
+      
     </div>
   );
 };

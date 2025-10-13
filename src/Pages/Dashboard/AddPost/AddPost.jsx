@@ -21,7 +21,7 @@ const AddPost = () => {
   const {
     refetch,
     data: posts = [],
-    isPostLoading,
+    isLoading: isPostLoading,
   } = useQuery({
     queryKey: ["userAllPosts", user],
     queryFn: async () => {

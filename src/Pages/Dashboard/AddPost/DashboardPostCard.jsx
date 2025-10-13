@@ -19,11 +19,17 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { Button } from "../../../../@/components/ui/button";
 import { useState } from "react";
+import DashboardPostCardSkeleton from "./DashboardPostCardSkeleton";
 
-const DashboardPostCard = ({ post, handleEdit , refetch }) => {
+const DashboardPostCard = ({ post, handleEdit ,isPostLoading, refetch }) => {
     
     const axiosSecure = useAxiosSecure()
 
+    // console.log(isPostLoading)
+
+    // if (isPostLoading) {
+    //     return <DashboardPostCardSkeleton/>
+    // }
 
 
     // console.log(post);

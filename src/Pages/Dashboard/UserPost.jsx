@@ -40,51 +40,56 @@ const UserPost = () => {
   });
 
   const handleDelete = async (id) => {
-  toast(
-    (t) => (
-      <div className="flex gap-3 items-center">
-        <div>
-          <p>
-            Are you <b>sure? </b> you want to <b>Delete </b> this post?
-          </p>
-        </div>
-        <div className="gap-2 flex">
-          <button
-            className="bg-red-400 text-white px-3 py-1 rounded-md"
-            onClick={async () => {
-              toast.dismiss(t.id);
-              try {
-                toast.loading("Deleting Post...", { position: "top-right" });
-                const { data } = await axiosSecure.delete(`/post/${id}`);
-                if (data.deletedCount > 0) {
-                  refetch();
+    toast(
+      (t) => (
+        <div className="flex gap-3 items-center">
+          <div>
+            <p>
+              Are you <b>sure? </b> you want to <b>Delete </b> this post?
+            </p>
+          </div>
+          <div className="gap-2 flex">
+            <button
+              className="bg-red-400 text-white px-3 py-1 rounded-md"
+              onClick={async () => {
+                toast.dismiss(t.id);
+                try {
+                  toast.loading("Deleting Post...", { position: "top-right" });
+                  const { data } = await axiosSecure.delete(`/post/${id}`);
+                  if (data.deletedCount > 0) {
+                    refetch();
+                    toast.dismiss();
+                    toast.success("Post deleted successfully!", {
+                      position: "top-right",
+                    });
+                  } else {
+                    toast.dismiss();
+                    toast.error("No post was deleted.", {
+                      position: "top-right",
+                    });
+                  }
+                } catch (error) {
                   toast.dismiss();
-                  toast.success("Post deleted successfully!", { position: "top-right" });
-                } else {
-                  toast.dismiss();
-                  toast.error("No post was deleted.", { position: "top-right" });
+                  toast.error(error.message || "Failed to delete the post!", {
+                    position: "top-right",
+                  });
                 }
-              } catch (error) {
-                toast.dismiss();
-                toast.error(error.message || "Failed to delete the post!", { position: "top-right" });
-              }
-            }}
-          >
-            Yes
-          </button>
-          <button
-            className="bg-green-400 text-white px-3 py-1 rounded-md"
-            onClick={() => toast.dismiss(t.id)}
-          >
-            Cancel
-          </button>
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-green-400 text-white px-3 py-1 rounded-md"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-      </div>
-    ),
-    { position: "top-right" }
-  );
-};
-
+      ),
+      { position: "top-right" }
+    );
+  };
 
   // Pagination logic
   const totalPages = Math.ceil(posts.length / itemsPerPage);
@@ -99,26 +104,26 @@ const UserPost = () => {
     }
   };
 
-  if (!posts.length) {
-    return (
-      <div className="text-center mt-10 min-h-screen">
-        <Helmet>
-          <title>PostPad | UserPost</title>
-        </Helmet>
-        <h2 className="text-2xl font-semibold mb-4">No Posts Found</h2>
-        <p className="text-gray-600 dark:text-white">
-          You haven't created any posts yet. Start sharing your thoughts and
-          ideas with the community!
-        </p>
-        <Button
-          asChild
-          className="mt-5 bg-[#005694] hover:bg-[#004a7c] text-white"
-        >
-          <Link to="/dashboard/addPost">Create Your First Post</Link>
-        </Button>
-      </div>
-    );
-  }
+  // if (!posts.length) {
+  //   return (
+  //     <div className="text-center mt-10 min-h-screen">
+  //       <Helmet>
+  //         <title>PostPad | UserPost</title>
+  //       </Helmet>
+  //       <h2 className="text-2xl font-semibold mb-4">No Posts Found</h2>
+  //       <p className="text-gray-600 dark:text-white">
+  //         You haven't created any posts yet. Start sharing your thoughts and
+  //         ideas with the community!
+  //       </p>
+  //       <Button
+  //         asChild
+  //         className="mt-5 bg-[#005694] hover:bg-[#004a7c] text-white"
+  //       >
+  //         <Link to="/dashboard/addPost">Create Your First Post</Link>
+  //       </Button>
+  //     </div>
+  //   );
+  // }
 
   // Skeleton Loader Component
   const SkeletonRow = () => (
@@ -192,54 +197,83 @@ const UserPost = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {isLoading
-              ? Array.from({ length: itemsPerPage }).map((_, index) => (
-                  <SkeletonRow key={index} />
-                ))
-              : paginatedPosts.map((post, index) => (
-                  <TableRow
-                    key={index}
-                    className="hover:bg-base-200 dark:hover:bg-gray-700 border-gray-300"
-                  >
-                    <TableCell className="px-4 py-3 border">
-                      {(currentPage - 1) * itemsPerPage + index + 1}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 border">
-                      {post.title.substring(0, 30)}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 border">
-                      {(post.time && moment(post.time).fromNow()) || "Just Now"}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-center border">
-                      {post.upVote}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-center border">
-                      {post.dawnVote}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-center border">
-                      <Button
-                        asChild
-                        variant="outline"
-                        size="sm"
-                        className="hover:text-white hover:bg-[#005694]"
-                      >
-                        <Link to={`/dashboard/comments/${post._id}`}>
-                          All Comments
-                        </Link>
-                      </Button>
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-center">
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        className="text-red-500"
-                        onClick={() => handleDelete(post._id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+            {/* for enmty posts  */}
+            {posts.length === 0 ? (
+              <TableRow className="text-center px-4 py-2 border ">
+                <TableCell
+                  colSpan={12}
+                  className="text-center font-semibold py-10"
+                >
+                  <div className="text-center mt-10 ">
+                    <h2 className="text-2xl font-semibold mb-4">
+                      No Posts Found
+                    </h2>
+                    <p className="text-gray-600 dark:text-white">
+                      You haven't created any posts yet. Start sharing your
+                      thoughts and ideas with the community!
+                    </p>
+                    <Button
+                      asChild
+                      className="mt-5 bg-[#005694] hover:bg-[#004a7c] text-white"
+                    >
+                      <Link to="/dashboard/addPost">
+                        Create Your First Post
+                      </Link>
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : // if loading
+            isLoading ? (
+              Array.from({ length: itemsPerPage }).map((_, index) => (
+                <SkeletonRow key={index} />
+              ))
+            ) : (
+              paginatedPosts.map((post, index) => (
+                <TableRow
+                  key={index}
+                  className="hover:bg-base-200 dark:hover:bg-gray-700 border-gray-300"
+                >
+                  <TableCell className="px-4 py-3 border">
+                    {(currentPage - 1) * itemsPerPage + index + 1}
+                  </TableCell>
+                  <TableCell className="px-4 py-3 border">
+                    {post.title.substring(0, 30)}
+                  </TableCell>
+                  <TableCell className="px-4 py-3 border">
+                    {(post.time && moment(post.time).fromNow()) || "Just Now"}
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-center border">
+                    {post.upVote}
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-center border">
+                    {post.dawnVote}
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-center border">
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="sm"
+                      className="hover:text-white hover:bg-[#005694]"
+                    >
+                      <Link to={`/dashboard/comments/${post._id}`}>
+                        All Comments
+                      </Link>
+                    </Button>
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-center">
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      className="text-red-500"
+                      onClick={() => handleDelete(post._id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </div>

@@ -16,6 +16,7 @@ import QuillEditor from "../Form/QuillEditor";
 import useTags from "../../../Hooks/useTags";
 import AddPostForm from "./AddPostForm";
 import uploadImageToCloudinary from "../../../lib/uploadImageToCloudinary";
+import DashboardPostCardSkeleton from "./DashboardPostCardSkeleton";
 
 const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
      const [initialData, setInitialData] = useState(null);
@@ -109,14 +110,30 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
     <div className="w-full">
       {/* Blog Cards */}
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {posts?.map((post, i) => (
+         {isPostLoading ? (
+             <>
+                {/* Render skeleton BedCards while loading */}
+                {Array(4)
+                  .fill(0)
+                  .map((_, index) => (
+                    
+                   <DashboardPostCardSkeleton key={index} isPostLoading={isPostLoading}></DashboardPostCardSkeleton>
+                      
+                      
+                    
+                  ))}
+              </>
+            ) : 
+
+        posts?.map((post, i) => (
           <DashboardPostCard
             key={i}
             post={post}
             handleEdit={handleEdit}
             refetch={refetch}
+            isPostLoading={isPostLoading}
           />
-        ))}
+        ))} 
       </div>
 
       {/* Custom Modal */}
