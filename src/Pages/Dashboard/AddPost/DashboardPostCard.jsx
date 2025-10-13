@@ -76,7 +76,7 @@ const DashboardPostCard = ({ post, handleEdit , refetch }) => {
 };
 
   return (
-    <Card className="shadow-sm w-full rounded-lg">
+    <Card className="shadow-sm w-full rounded-lg dark:text-white dark:bg-[#20293d]">
       <CardHeader className="p-0 relative">
         <img
           src={post?.image || "/placeholder.svg"}
@@ -86,11 +86,11 @@ const DashboardPostCard = ({ post, handleEdit , refetch }) => {
         <div className="absolute top-2 right-2 ">
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
-              <div className="bg-base-200 p-1 mx-0 rounded border border-border w-fit">
-                <MoreVertical className="cursor-pointer text-gray-700" />
+              <div className="bg-base-200 dark:bg-gray-700 p-1 mx-0 rounded border border-border w-fit">
+                <MoreVertical className="cursor-pointer text-gray-700 dark:text-white" />
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-base-200">
+            <DropdownMenuContent align="end" className="bg-base-200 dark:bg-gray-700">
               <Link to={`/posts/${post?._id}`}>
                 <DropdownMenuItem className="cursor-pointer">
                   <Eye className="w-4 h-4 " /> Details

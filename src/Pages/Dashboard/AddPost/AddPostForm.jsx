@@ -16,8 +16,8 @@ import useTags from "../../../Hooks/useTags";
 import QuillEditor from "../Form/QuillEditor";
 
 function AddPostForm({
-  setIsFormOpen,
-  handleAddPost,
+  setModal,
+  onSubmit,
   initialData,
   loading,
   setLoading,
@@ -32,12 +32,12 @@ function AddPostForm({
   } = useForm({
     defaultValues: initialData || {
       title: "",
-      tag: "",
+      UsedTag: "",
       description: "",
       image: "",
     },
   });
-  console.log(initialData);
+//   console.log(initialData);
   const [tags, tRefetch, isTagLoading] = useTags();
 
   // console.log(tags)
@@ -49,8 +49,23 @@ function AddPostForm({
   useEffect(() => {
     if (initialData?.image) {
       setPreview(initialData.image);
+      setImage(initialData.image);
+    } else {
+      setPreview("");
+      setImage(null);
     }
   }, [initialData]);
+
+//   useEffect(() => {
+//     if (initialData?.usedTag) {
+//       setValue("usedTag", initialData.UsedTag);
+//     } else {
+//       setValue("usedTag", "default");
+//     }
+//   }, [initialData]);
+
+
+
 
   // console.log(image)
 
@@ -70,20 +85,20 @@ function AddPostForm({
   const onFormSubmit = (data) => {
     // console.log(data)
 
-
+//  console.log(image)
 
     if (!image) {
       setLoading(false);
       toast.error("Please select a blog image");
       return;
     }
-    handleAddPost(data, image);
+    onSubmit(data, image);
   };
 //   console.log(image)
 
   return (
     <div>
-      <Card className="border shadow-none border-[#e5e7eb] w-full py-6 rounded-lg">
+      <Card className="border shadow-none border-[#e5e7eb] w-full py-6 rounded-lg dark:bg-[#20293d] mb-5">
         <CardContent className="">
           <form
             onSubmit={handleSubmit(onFormSubmit)}
@@ -95,6 +110,7 @@ function AddPostForm({
                 id="title"
                 type="text"
                 placeholder="Your Post Title"
+                className="dark:bg-[#001221] py-3"
                 required
                 {...register("title", { required: "Title is required" })}
               />
@@ -106,12 +122,12 @@ function AddPostForm({
             </div>
             {/* Tag Selection */}
             <div className="grid gap-2">
-              <Label htmlFor="tag">Use Tag</Label>
+              <Label htmlFor="UsedTag">Use Tag</Label>
               <select
-                id="tag"
-                defaultValue={initialData?.tag || ""}
-                {...register("tag", { required: "Tag is required" })}
-                className="select select-bordered  focus:border-blue-400 dark:bg-[#20293d] text-black"
+                id="usedTag"
+                defaultValue={initialData?.usedTag || "default"}
+                {...register("usedTag", { required: "Tag is required" })}
+                className="select select-bordered  focus:border-blue-400 dark:bg-[#001221] text-black dark:text-white"
               >
                 <option disabled value="default">
                   Select a tag
@@ -120,9 +136,9 @@ function AddPostForm({
                   <option key={index}>{tag.tagname}</option>
                 ))}
               </select>
-              {errors.tsg && (
+              {errors.usedTag && (
                 <p className="text-red-600 text-sm mt-1">
-                  {errors.tag.message}
+                  {errors.useTag.message}
                 </p>
               )}
             </div>
@@ -153,8 +169,8 @@ function AddPostForm({
                   className="w-full md:w-[100%] flex items-center justify-center flex-col gap-4 border-blue-200 border rounded-md py-4 cursor-pointer"
                   onClick={() => document.getElementById("image").click()}
                 >
-                  <FaFileUpload className="text-[2rem] text-[#777777]" />
-                  <p className="text-gray-700">Browse To Upload Blog Image</p>
+                  <FaFileUpload className="text-[2rem] text-[#777777] dark:text-white" />
+                  <p className="text-gray-700 dark:text-white">Browse To Upload Blog Image</p>
                   <input
                     id="image"
                     type="file"
@@ -171,7 +187,7 @@ function AddPostForm({
                     className="mx-auto object-cover rounded-full w-24 h-24"
                   />
                   <MdDelete
-                    className="text-[2rem] text-white bg-[#000000ad] p-1 absolute top-0 right-0 cursor-pointer rounded-tr-[13px]"
+                    className="text-[2rem] text-white bg-red-600 p-1 absolute top-0 right-0 cursor-pointer rounded-tr-[13px]"
                     onClick={() => {
                       setPreview("");
                       setImage(null);
@@ -180,11 +196,11 @@ function AddPostForm({
                   {image && (
                     <div className="mt-4 text-center">
                       <p className="text-sm font-medium text-gray-700">
-                        {image.name.length > 20
+                        {/* {image.name.length > 20
                           ? image.name.slice(0, 10) +
                             "..." +
                             image.name.slice(-15)
-                          : image.name}
+                          : image.name} */}
                       </p>
                       <p className="text-xs text-gray-500">
                         {(image.size / 1024).toFixed(2)} KB | {image.type}
@@ -201,9 +217,9 @@ function AddPostForm({
                 <span
                   className="cursor-pointer"
                   onClick={() => {
+                    setModal(false);
                     setPreview("");
                     setImage(null);
-                    setIsFormOpen(false);
                     setLoading(false);
                     reset();
                   }}
@@ -211,7 +227,7 @@ function AddPostForm({
                   Cancel
                 </span>
               </Button>
-              <Button className="cursor-pointer" disabled={loading}>
+              <Button className="cursor-pointer dark:bg-primary" disabled={loading} >
                 {loading ? "Adding..." : "Add Blog"}
               </Button>
             </div>

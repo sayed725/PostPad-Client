@@ -15,6 +15,7 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import QuillEditor from "../Form/QuillEditor";
 import useTags from "../../../Hooks/useTags";
 import AddPostForm from "./AddPostForm";
+import uploadImageToCloudinary from "../../../lib/uploadImageToCloudinary";
 
 const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
      const [initialData, setInitialData] = useState(null);
@@ -38,60 +39,55 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
     console.log(post)
 
     
-    const UpdatePost = setInitialData({
+     setInitialData({
+        id: post._id,
         title: post.title,
-      tag: post.usedTag,
+      usedTag: post.usedTag,
       image: post.image,
       description: post.description,
       time: new Date(),
     })
-
-    // setSelectedPost(post);
     setIsEditOpen(true);
-    // setPreview(post.image);
-    // setValue("title", post.title);
-    // setValue("tag", post.usedTag);
-    // setValue("description", post.description);
   };
 
-  const handleUploadImage = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(file);
-      const filePreview = URL.createObjectURL(file);
-      setPreview(filePreview);
-    }
-  };
 
-  const onEditSubmit = async (data) => {
+  const handleEditPost = async (data, image) => {
     setLoading(true);
-    let imageUrl = selectedPost.image;
+    let imageUrl = "";
 
-    if (image) {
-      imageUrl = await toast.promise(imgUpload(image), {
+    if(image === initialData?.image) {
+         imageUrl = initialData?.image;
+    } else {
+        imageUrl = await toast.promise(uploadImageToCloudinary(image), {
         success: <b>Image Uploaded</b>,
         loading: "Image Uploading...",
         error: "Unable to upload!",
-      });
+      }); 
+    } 
 
       if (!imageUrl) {
         setLoading(false);
         toast.error("Image Upload Failed! Try Again");
         return;
       }
-    }
+
+      console.log(imageUrl)
+      console.log(data)
+    
 
     const updatedPostData = {
       title: data.title,
-      tag: data.tag,
+      usedTag: data.usedTag,
       image: imageUrl,
       description: data.description,
       time: new Date(),
     };
 
+    // console.log(initialData._id)
+
     try {
       await toast.promise(
-        axiosSecure.put(`/post/${selectedPost._id}`, updatedPostData),
+        axiosSecure.put(`/post/update/${initialData.id}`, updatedPostData),
         {
           loading: "Updating Blog...",
           success: <b>Post Updated Successfully!</b>,
@@ -99,7 +95,6 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
         }
       );
       setIsEditOpen(false);
-      setPreview("");
       setImage(null);
       reset();
       refetch();
@@ -126,13 +121,13 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
 
       {/* Custom Modal */}
       {isEditOpen && setInitialData && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h2 className="modal-title">Edit Blog</h2>
-              <p className="modal-description">Update the details of the blog post.</p>
+        <div className="modal-overlay  ">
+          <div className="modal-content dark:bg-[#20293d]">
+            <div className="modal-header ">
+              <h2 className="modal-title dark:text-white">Edit Blog is under Construction it will be available soon</h2>
+              <p className="modal-description dark:text-white mt-2">Update the details of the blog post.</p>
               <button
-                className="modal-close"
+                className="modal-close dark:text-white hover:dark:text-white"
                 onClick={() => {
                   setIsEditOpen(false);
                   setPreview("");
@@ -142,7 +137,7 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
                 &times;
               </button>
             </div>
-           <AddPostForm initialData={initialData} onEditSubmit={onEditSubmit}/>
+           <AddPostForm initialData={initialData} onSubmit={handleEditPost} setModal={setIsEditOpen} setLoading={setLoading}/>
           </div>
         </div>
       )}

@@ -9,7 +9,7 @@ import AddPostForm from "./AddPostForm";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { imgUpload } from "../../../lib/imgUpload";
-// import uploadImageToCloudinary from "../../../lib/uploadImageToCloudinary";
+import uploadImageToCloudinary from "../../../lib/uploadImageToCloudinary";
 
 const AddPost = () => {
   const axiosSecure = useAxiosSecure();
@@ -41,7 +41,7 @@ const AddPost = () => {
 
     setLoading(true);
 
-    const imageUrl = await toast.promise(imgUpload(image), {
+    const imageUrl = await toast.promise(uploadImageToCloudinary(image), {
       loading: "Image Uploading...",
       success: <b>Image Uploaded</b>,
       error: "Unable to upload!",
@@ -60,7 +60,7 @@ const AddPost = () => {
       authorEmail: user?.email,
       title: data.title,
       description: data.description,
-      usedTag: data.tag,
+      usedTag: data.usedTag,
       image: imageUrl,
       upVote: 0,
       dawnVote: 0,
@@ -107,7 +107,7 @@ const AddPost = () => {
             <Button
               disabled={isFormOpen}
               onClick={() => setIsFormOpen(!isFormOpen)}
-              className={"cursor-pointer text-white"}
+              className={"cursor-pointer text-white dark:bg-primary"}
             >
               Add New Blog
             </Button>
@@ -117,8 +117,8 @@ const AddPost = () => {
         {isFormOpen && (
           <div className={`${isFormOpen ? "visible" : "hidden"} mt-4`}>
             <AddPostForm
-              setIsFormOpen={setIsFormOpen}
-              handleAddPost={handleAddPost}
+              setModal={setIsFormOpen}
+              onSubmit={handleAddPost}
               loading={loading}
               setLoading={setLoading}
             />
