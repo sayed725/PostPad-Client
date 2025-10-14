@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
@@ -10,13 +10,17 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { imgUpload } from "../../../lib/imgUpload";
 import uploadImageToCloudinary from "../../../lib/uploadImageToCloudinary";
+import useRole from "../../../Hooks/useRole";
+import MemberMessage from "./MemberMessage";
 
 const AddPost = () => {
+  const [postCount, setPostCount] = useState(0);
   const axiosSecure = useAxiosSecure();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [role, isRoleLoading, error] = useRole(user?.email)
 
   const {
     refetch,
@@ -29,6 +33,17 @@ const AddPost = () => {
       return res.data;
     },
   });
+
+   useEffect(() => {
+    if (user?.email) {
+      axiosSecure
+        .get(`/postCount/${user.email}`)
+        .then((res) => res.data)
+        .then((data) => setPostCount(data.postCount))
+        .catch((err) => toast.error("Failed to fetch post count"));
+    }
+  }, [user?.email, axiosSecure]);
+
 
   const handleAddPost = async (data, image) => {
     // console.log(data);
@@ -85,6 +100,14 @@ const AddPost = () => {
     navigate("/dashboard/userHome");
   };
 
+  
+     if (postCount >= 5 && role === "bronze") return <MemberMessage/> 
+        
+
+
+
+
+
   return (
     <div className="min-h-screen">
       <Helmet>
@@ -113,6 +136,8 @@ const AddPost = () => {
             </Button>
           </div>
         </div>
+
+
         {/* Assign User Form */}
         {isFormOpen && (
           <div className={`${isFormOpen ? "visible" : "hidden"} mt-4`}>

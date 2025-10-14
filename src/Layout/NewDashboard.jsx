@@ -22,7 +22,7 @@ const NewDashboard = () => {
   const { user, loading } = useAuth();
   const [role, isRoleLoading] = useRole();
 
-  console.log("User role:", role, isRoleLoading);
+  // console.log("User role:", role, isRoleLoading);
 
   const navItemClass = ({ isActive }) =>
     cn(

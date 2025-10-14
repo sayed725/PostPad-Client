@@ -72,8 +72,8 @@ const ShowBlogTable = ({ posts, isPostLoading, refetch }) => {
         return;
       }
 
-      console.log(imageUrl)
-      console.log(data)
+      // console.log(imageUrl)
+      // console.log(data)
     
 
     const updatedPostData = {

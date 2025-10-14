@@ -15,7 +15,7 @@ const useRole = () => {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_URL}/users/role/${user.email}`
       );
-      return data.role || null;
+      return data?.role || null;
     },
     enabled: !!user?.email && !loading, // Run query only when user.email exists and loading is false
   });

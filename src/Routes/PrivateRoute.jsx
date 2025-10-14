@@ -2,15 +2,19 @@ import { Navigate, useLocation } from "react-router";
 import useAuth from "../Hooks/useAuth";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import toast from "react-hot-toast";
-import useRole from "../Hooks/useRole";
+
 import DashboardLoader from "../Components/Loader/DashboardLoader";
+import useRole from "../Hooks/useRole";
+import { is } from "zod/v4/locales";
 
 
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
     const location = useLocation();
-     const [, isRoleLoading] = useRole();
+     const [,isRoleLoading] = useRole();
+
+    //  console.log(isRoleLoading)
 
     // Return Loader
   if (loading || isRoleLoading) return <DashboardLoader />;

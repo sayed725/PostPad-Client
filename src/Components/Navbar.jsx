@@ -21,6 +21,8 @@ const Navbar = () => {
   const axiosPublic = useAxiosPublic();
   const [role, isRoleLoading] = useRole();
 
+  // console.log(role, isRoleLoading)
+
   const [ Notifications, isNotificationLoading, refetchNotification ] = useNotification()
 
    const navItemClass = ({ isActive }) =>
